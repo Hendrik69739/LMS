@@ -1,0 +1,54 @@
+#body{
+    display: flex;
+}
+
+main > div > div {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 15px;
+    border-radius: 10px;
+    height: 150px;
+    padding: 10px;
+    width: 150px;
+    align-items: center;
+}
+
+main > div {
+    display: flex;
+}
+
+p{
+    text-align: center;
+}
+
+#progress{
+    background-color: white;
+    height: 200px;
+    width: 370px;
+    border-radius: 10px;
+    margin: 10px;
+
+}
+
+#dashmain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#calender, #upcoming{
+    background-color: white;
+    width: 340px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+#calender{
+    height: 300px;
+}
+
+#upcoming{
+    height: 150px;
+}

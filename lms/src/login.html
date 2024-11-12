@@ -1,0 +1,37 @@
+<html>
+      <head>
+        <meta name='viewport' content='width=device-width, initial-scale= 1.0'></meta>
+        <link rel='stylesheet' href='App.css'></link>
+      </head>
+      <body>
+        <main>
+          <h1>North College</h1>
+        </main>
+        <aside>
+        <h2 align='center'>Sign in</h2>
+        <form id='form1'>
+        <input type='email' id="email" placeholder='Email'></input>
+          <input type='password' id="password" placeholder='Password'></input>
+          <input type="submit">
+        </form>
+        <p align='center'>Don't have an account? <a href='/register'>Sign up</a></p>
+        </aside>
+      </body>
+      <script>
+        document.getElementById('form1').addEventListener('submit', async (e) =>{
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            await fetch('/auth/login', {
+                method : 'POST',
+                headers : {'Content-Type' : 'application/json'},
+                body : JSON.stringify({
+                    email : email,
+                    password : password
+                })
+            })
+        })
+    </script>
+    </html>
