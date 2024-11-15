@@ -24,14 +24,23 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            await fetch('/auth/login', {
-                method : 'POST',
-                headers : {'Content-Type' : 'application/json'},
-                body : JSON.stringify({
-                    email : email,
-                    password : password
-                })
-            })
+           await fetch('/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: email, password: password })
+})
+  .then(response => response.json())
+  .then(data => {
+    if (data.redirectURL) {
+      window.location.href = data.redirectURL;
+    } else {
+      console.error(data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
         })
     </script>
     </html>
