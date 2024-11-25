@@ -30,20 +30,24 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const {password, email} = req.body;
-    console.log(password, email)
 
-    try{
-        const [rows] = await db.promise().query('SELECT * FROM students WHERE email = ? AND password = ?', [email, password])
+    try {
+        const [rows] = await db.promise().query('SELECT * FROM students WHERE email = ? AND password = ?', [email, password]);
 
-    if(rows.length === 0){
-        console.log('invalid credentials');
-        return res.json({message : 'invalid credentials'})
-    }
-    else{
-        console.log('logged in');
-        return res.status(200).json({ redirectURL: 'http://localhost:5173' });
+        if (rows.length === 0) {
+            console.log('Invalid credentials');
+            return res.status(401).json({message : 'Invalid credentials'});
+        } else {
+            console.log('Login successful');
+
+            // Set session variables
+            req.session.email = email;
+
+            return res.status(200).json({message: 'Login successful', redirectURL: 'http://localhost:5173'});
         }
-    }catch{
-        console.log('internal server error')
+    } catch (error) {
+        console.log('Internal server error');
+        console.error(error);
+        return res.status(500).json({message: 'Internal server error'});
     }
-}
+};

@@ -1,5 +1,5 @@
 import Assignment from './assignments';
-import {Routes, Route, Link} from 'react-router-dom'
+import {Routes, Route, Link, Navigate} from 'react-router-dom'
 import Dashboard from './dashboard';
 import './profile.css'
 
@@ -24,6 +24,7 @@ function Profile(){
           <Routes>
             <Route path='/dashboard' element={<Dashboard></Dashboard>}></Route>
             <Route path='/assignment' element={<Assignment></Assignment>}></Route>
+            <Route path='*' element={<Navigate to='/dashboard' />} />
           </Routes>
         </section>
     </main>
