@@ -31,13 +31,12 @@
 })
   .then(response => response.json())
   .then(data => {
-    if (data.redirectURL) {
-      window.location.href = data.redirectURL;
+    if (data.redirect) {
+      window.location.href = data.redirect;
     } else {
       console.error(data.message);
     }
-  })
-  .catch(error => {
+  }).catch(error => {
     console.error('Error:', error);
   });
 

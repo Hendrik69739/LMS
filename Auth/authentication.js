@@ -38,14 +38,11 @@ exports.login = async (req, res) => {
             console.log('Invalid credentials');
             return res.status(401).json({message : 'Invalid credentials'});
         } else {
+            req.session.name = email;
             console.log('Login successful');
-
-            // Set session variables
-            req.session.email = email;
-
-            return res.status(200).json({message: 'Login successful', redirectURL: 'http://localhost:5173'});
+            return res.status(200).json({message: 'Login successful', redirect: '/auth/profile'});
         }
-    } catch (error) {
+    } catch (error){
         console.log('Internal server error');
         console.error(error);
         return res.status(500).json({message: 'Internal server error'});
