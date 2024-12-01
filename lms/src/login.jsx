@@ -64,7 +64,6 @@ function Login() {
           />
           <button type='submit'>Login</button>
         </form>
-        <button onClick={() => navigate('/profile')}>Go to Profile</button>
         <p>Dont have an account? <Link to='/register'>Sign up</Link></p>
       </aside>
     </>

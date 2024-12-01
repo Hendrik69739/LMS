@@ -24,14 +24,12 @@ function Profile(){
           <Routes>
             <Route path='/dashboard' element={<Dashboard></Dashboard>}></Route>
             <Route path='/assignment' element={<Assignment></Assignment>}></Route>
-            <Route path='*' element={<Navigate to='/dashboard' />} />
           </Routes>
         </section>
     </main>
     </div>
     
 </>
-    )
-}
+    )}
 
 export default Profile;
