@@ -5,6 +5,7 @@ const db = require('./database/db')
 const auth = require('./Controller/auth')
 const dotenv = require('dotenv')
 const mysql = require('mysql2')
+const cors = require('cors')
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 dotenv.config();
@@ -32,18 +33,14 @@ app.use(session({
     saveUninitialized: false, 
     cookie: { secure: false,
         maxAge : 1000 * 60 * 60 * 24 * 3,
+        domain: 'localhost'
      }
  }));
+ app.use(cors({
+     origin: 'http://localhost:5173', 
+     credentials: true 
+    }))
  app.use('/auth', auth)
-
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'registration.html'))
-})
-
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'))
-})
 
 app.listen(process.env.PORT, (err) => {
     if(err){

@@ -30,17 +30,15 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const {password, email} = req.body;
-
     try {
         const [rows] = await db.promise().query('SELECT * FROM students WHERE email = ? AND password = ?', [email, password]);
-
         if (rows.length === 0) {
             console.log('Invalid credentials');
             return res.status(401).json({message : 'Invalid credentials'});
         } else {
             req.session.name = email;
             console.log('Login successful');
-            return res.status(200).json({message: 'Login successful', redirect: '/auth/profile'});
+            return res.status(200).json({message: 'Login successful', redirect: '/profile'});
         }
     } catch (error){
         console.log('Internal server error');
