@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -23,15 +23,13 @@ function Login() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: username, password: userpassword }),
-        credentials: 'include', // Ensure cookies are sent with the request
+        credentials: 'include', 
       });
 
       const data = await response.json();
-
-      console.log('Response:', data);
+      
       if (data.redirect) {
-        console.log('Redirecting to:', data.redirect); // Add logging
-        navigate(data.redirect); // Use the redirect URL from the response
+        navigate(data.redirect); 
       } else {
         console.log('No redirect URL found in the response.');
       }
@@ -39,6 +37,28 @@ function Login() {
       console.error('Error during login:', error);
     }
   };
+
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+          const response = await fetch('http://localhost:3000/check-session', {
+              method: 'GET',
+              credentials: 'include'
+          });
+          if (response.status === 200) {
+            navigate('/profile');
+          } else {
+              navigate('/login');
+          }
+      } catch{
+          navigate('/login');
+      }
+  };
+
+  checkSession();
+  }, [navigate])
+
 
   return (
     <>
