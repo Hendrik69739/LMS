@@ -59,11 +59,21 @@ app.get('/login', (req, res) => {
 
 app.get('/check-session', (req, res) => {
     if (req.session.name) {
+        console.log('user has a session')
         res.status(200).send('User has session');
     } else {
         res.status(401).send('Not authenticated');
     }
 });
+
+app.get('/cookie-check', (req, res) => {
+    if(req.cookies){
+        console.log('the are cookies')
+        res.status(200).send('there are cookies')
+    }else{
+        res.status(404).send('no cookies found')
+    }
+})
 
 app.listen(process.env.PORT, (err) => {
     if (err) {

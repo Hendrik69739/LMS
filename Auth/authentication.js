@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
         } else {
             req.session.name = email;
             res.cookie('user', email, { maxAge: 1000 *60 *60 *24, httpOnly: true });
-            return res.status(200).json({message: 'Login successful', redirect: '/profile'});
+            return res.status(200).json({message: 'Login successful', redirect: '/profile/dashboard'});
         }
     } catch (error){
         console.log('Internal server error');

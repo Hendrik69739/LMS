@@ -1,19 +1,35 @@
-#assignment_body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 #task{
-    background-color: azure;
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: whitesmoke;
+    width: 70vw;
     margin: 10px;
-    padding: px;
+    padding-left: 40px;
+    padding-right: 15px;
 }
 
-#task > div{
-    padding: 10px;
+#assignments{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.submit_btn{
+    background-color: rgb(145, 145, 145);
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+#download_btn{
+
+}
+
+.mb-5{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.submission_date{
+    justify-self: end;
 }

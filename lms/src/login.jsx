@@ -39,27 +39,6 @@ function Login() {
   };
 
 
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-          const response = await fetch('http://localhost:3000/check-session', {
-              method: 'GET',
-              credentials: 'include'
-          });
-          if (response.status === 200) {
-            navigate('/profile');
-          } else {
-              navigate('/login');
-          }
-      } catch{
-          navigate('/login');
-      }
-  };
-
-  checkSession();
-  }, [navigate])
-
-
   return (
     <>
       <main>

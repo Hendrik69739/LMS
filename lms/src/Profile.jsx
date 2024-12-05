@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, Routes, Route, Link } from 'react-router-dom';
-import Assignment from './assignments';
-import Dashboard from './dashboard';
-import './profile.css';
+import {  useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Content from './content';
 
 function Profile() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,18 +9,20 @@ function Profile() {
     useEffect(() => {
         const checkSession = async () => {
             try {
-                const response = await fetch('http://localhost:3000/check-session', { // Ensure the correct port
+                const response = await fetch('http://localhost:3000/check-session', { 
                     method: 'GET',
                     credentials: 'include'
                 });
 
                 if (response.status === 200) {
                     setIsAuthenticated(true);
-                    console.log('There is a session');
+                   return console.log('There is a session on the profile page');
                 } else {
+                    console.log('There is no a session');
                     navigate('/login');
                 }
             } catch {
+                console.log('an error occured while checking for session')
                 navigate('/login');
             }
         };
@@ -30,34 +30,14 @@ function Profile() {
         checkSession();
     }, [navigate]);
 
-    if (!isAuthenticated) {
-        return null; // Do not render anything if not authenticated
-    }
 
     return (
         <>
-            <header id='prof__header'>
-                <h1>North College</h1>
-                <div>
-                    <h2 id='prof__h2'>Hendrick Moselana</h2>
-                    <img src='' alt='Profile' />
-                </div>
-            </header>
-            <div id='content'>
-                <main id='main__prof'>
-                    <aside id='prof__aside'>
-                        <Link to='dashboard'>Dashboard</Link>
-                        <Link to='assignment'>Assignment</Link>
-                    </aside>
-                    <section id='prof__section'>
-                        <Routes>
-                            <Route path='dashboard' element={<Dashboard />} />
-                            <Route path='assignment' element={<Assignment />} />
-                        </Routes>
-                    </section>
-                </main>
-            </div>
+        { isAuthenticated ? <Content></Content> : <>
+        <p>Your not logged in, return to login page</p>
+        </>}
         </>
+
     );
 }
 
