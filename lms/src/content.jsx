@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Assignment from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
@@ -9,10 +10,6 @@ function Content(){
 
 
     const navigate = useNavigate()
-
-    function deleteCookie(name) {
-        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    }
     
 
     const Logout = async () => {
@@ -26,15 +23,33 @@ function Content(){
                 console.log(data)
             }
         })
-        deleteCookie('session_cookie_name');
+       
     }
+
+    const [namesetter, setNamesetter] = useState('hello')
+
+    useEffect(() => {
+        const setName = async () => {
+          const data = await fetch('http://localhost:3000/namesetter', {
+                method : 'GET',
+                credentials : 'include'
+        })
+
+        const response = await data.json()
+        console.log(response.firstname)
+
+        setNamesetter(response.firstname + " " + response.lastname)
+
+        }
+        setName();
+    }, [])
 
     return(
         <>
         <header id='prof__header'>
             <h1>North College</h1>
             <div>
-                <h2 id='prof__h2'>Hendrick Moselana</h2>
+                <h2 id='prof__h2'>{namesetter}</h2>
                 <img src='' alt='Profile' />
             </div>
         </header>
@@ -43,7 +58,7 @@ function Content(){
                <aside id='prof__aside'>
                     <Link to='dashboard' id='link'>Dashboard</Link>
                     <Link to='assignment' id='link'>Assignment</Link>
-                    <Link onClick={Logout}>Logout</Link>
+                    <Link onClick={Logout} id='link'>Logout</Link>
                 </aside>
                 <section id='prof__section'>
                     <Routes>

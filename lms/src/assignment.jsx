@@ -1,5 +1,5 @@
 import './assignments.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Assignment() {
   const [file, setFile] = useState('');
@@ -12,7 +12,6 @@ function Assignment() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
-    console.log('FormData:', formData); // Log formData
 
     try {
       const response = await fetch('http://localhost:3000/upload', {
@@ -34,24 +33,38 @@ function Assignment() {
     }
   };
 
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const tasks = async () => {
+      const data = await fetch('http://localhost:3000/namesetter', {
+        method : 'GET',
+        credentials : 'include'
+      })
+
+      const response = data.json();
+      setName(response.firstname)
+    }
+
+    tasks();
+  }, [])
+
+  const [task, setTask] = useState('')
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      const data = await fetch('http://localhost:3000/assignments', {
+        method : "GET",
+        credentials : 'include'
+      })
+      const response = await data.json();
+      console.log(response)
+    }
+    fetchTask();
+  })
+
   return (
-    <div id='assignments'>
-      <div id='task'>
-        <h3 className='subject_name'>Subject name</h3>
-        <a id="download_btn" href="http://localhost:3000/download?id=5" download>
-          Download Assignment
-        </a>
-        <div>
-          <form className='mb-5' onSubmit={handleSubmit}>
-          <button type='submit' className='submit_btn'>
-              Submit Assignment
-            </button>
-            <input type='file' onChange={handleFileChange} />
-          </form>
-        </div>
-        <p className='submission_date'>date time</p>
-      </div>
-    </div>
+    <></>
   );
 }
 

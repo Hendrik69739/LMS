@@ -76,6 +76,20 @@ app.get('/cookie-check', (req, res) => {
     }
 })
 
+app.get('/namesetter', (req, res) => {
+    res.json({firstname : req.session.firstname, lastname : req.session.lastname})
+})
+
+app.get('/assignments', async (req, res) => {
+    try {
+        const [results] = await db2.promise().query('SELECT * FROM student_submissions WHERE student_name = ?', [req.name]);
+        const dat = await results.json();
+        res.json({ data: results });
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error' });
+    }
+});
 
 
 app.get('/download', (req, res) => {

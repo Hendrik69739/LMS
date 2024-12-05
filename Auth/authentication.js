@@ -37,6 +37,8 @@ exports.login = async (req, res) => {
             return res.status(401).json({message : 'Invalid credentials'});
         } else {
             req.session.name = email;
+            req.session.firstname = rows[0].firstname;
+            req.session.lastname = rows[0].lastname;
             res.cookie('user', email, { maxAge: 1000 *60 *60 *24, httpOnly: true });
             return res.status(200).json({message: 'Login successful', redirect: '/profile/dashboard'});
         }
