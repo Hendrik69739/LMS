@@ -101,11 +101,12 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('file'), (req, res) => { 
-    const file = req.file; if (!file) { 
+    const file = req.file;
+     if (!file) { 
         return res.status(400).send('No file uploaded');
      }  
-     const sql = 'INSERT INTO student_submissions (submited_pdf) VALUES (?)'; 
-     db.query(sql, [file.originalname, file.buffer], (err, result) => {
+     const sql = 'INSERT INTO student_submissions (submitted_pdf) VALUES (?)'; 
+     db.query(sql, [ file.buffer], (err, result) => {
          if (err) throw err; 
         res.send('File uploaded and stored in database');
      }); 
