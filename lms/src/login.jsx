@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import './login.css'
+
 function Login() {
   const [username, setUsername] = useState('');
   const [userpassword, setUserPassword] = useState('');
@@ -38,34 +40,35 @@ function Login() {
     }
   };
 
-
   return (
-    <>
-      <main>
-        <h1>North College</h1>
+    <div className="login-container">
+      <main className="main-content">
+        <h1 className="college-name">North College</h1>
       </main>
-      <aside>
-        <h2>Sign in</h2>
-        <form id='form1' onSubmit={handleSubmit}>
+      <aside className="login-aside">
+        <h2 className="login-title">Sign in</h2>
+        <form id="form1" className="login-form" onSubmit={handleSubmit}>
           <input
-            type='email'
-            id='email'
-            placeholder='Email'
+            type="email"
+            id="email"
+            className="login-input"
+            placeholder="Email"
             onChange={handleUsername}
             required
           />
           <input
-            type='password'
-            id='password'
-            placeholder='Password'
+            type="password"
+            id="password"
+            className="login-input"
+            placeholder="Password"
             onChange={handleUserPassword}
             required
           />
-          <button type='submit'>Login</button>
+          <button type="submit" className="login-button">Login</button>
         </form>
-        <p>Dont have an account? <Link to='/register'>Sign up</Link></p>
+        <p className="signup-text">Don't have an account? <Link to="/register" className="signup-link">Sign up</Link></p>
       </aside>
-    </>
+    </div>
   );
 }
 

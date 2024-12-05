@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const db = require('./database/db');
+const db2 = require('./database/db2');
 const auth = require('./Controller/auth');
 const dotenv = require('dotenv');
 const mysql = require('mysql2');
@@ -20,6 +19,7 @@ const dbOptions = {
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 };
+
 
 const connection = mysql.createConnection(dbOptions);
 const sessionStore = new MySQLStore({
@@ -73,6 +73,32 @@ app.get('/cookie-check', (req, res) => {
     }else{
         res.status(404).send('no cookies found')
     }
+})
+
+db2.getConnection((err, connection) => {
+    if(err){
+        console.log('ur fucked')
+    }else{
+        console.log('your good to go')
+    }
+})
+
+app.get('/download', (req, res) => {
+    const id = req.query.id; 
+    
+    db2.query('SELECT submitted_pdf FROM student_submissions WHERE id = ?', [id], (error, results) => {
+         if (error) { 
+            return res.status(500).send('Error fetching file from database');
+         } 
+            if (results.length === 0) {
+                 return res.status(404).send('File not found');
+                } 
+
+            const pdfBuffer = results[0].submitted_pdf; 
+            res.setHeader('Content-Type', 'application/pdf'); 
+            res.setHeader('Content-Disposition', 'attachment; filename=assignment.pdf'); 
+            res.send(pdfBuffer);
+         });
 })
 
 app.listen(process.env.PORT, (err) => {
