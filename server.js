@@ -1,15 +1,17 @@
 const express = require('express');
 const app = express();
-const db2 = require('./database/db2');
 const auth = require('./Controller/auth');
+const db2 = require('./database/db2')
 const dotenv = require('dotenv');
 const mysql = require('mysql2');
 const cors = require('cors');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
+const multer = require('multer')
 
 dotenv.config();
 const cookieParser = require('cookie-parser');
+const { redirect } = require('react-router-dom');
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
@@ -59,7 +61,6 @@ app.get('/login', (req, res) => {
 
 app.get('/check-session', (req, res) => {
     if (req.session.name) {
-        console.log('user has a session')
         res.status(200).send('User has session');
     } else {
         res.status(401).send('Not authenticated');
@@ -75,13 +76,7 @@ app.get('/cookie-check', (req, res) => {
     }
 })
 
-db2.getConnection((err, connection) => {
-    if(err){
-        console.log('ur fucked')
-    }else{
-        console.log('your good to go')
-    }
-})
+
 
 app.get('/download', (req, res) => {
     const id = req.query.id; 
@@ -101,10 +96,28 @@ app.get('/download', (req, res) => {
          });
 })
 
+
+const storage = multer.memoryStorage(); 
+const upload = multer({ storage: storage });
+
+app.post('/upload', upload.single('file'), (req, res) => { 
+    const file = req.file; if (!file) { 
+        return res.status(400).send('No file uploaded');
+     }  
+     const sql = 'INSERT INTO student_submissions (submited_pdf) VALUES (?)'; 
+     db.query(sql, [file.originalname, file.buffer], (err, result) => {
+         if (err) throw err; 
+        res.send('File uploaded and stored in database');
+     }); 
+    });
+
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.status(200).json({message : 'logged out', redirect : '/login'})
+})
+
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
-    } else {
-        console.log(`Server started successfully at port ${process.env.PORT}`);
     }
 });

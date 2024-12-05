@@ -6,5 +6,6 @@ const { register, login } = require('../Auth/authentication');
 router.post('/register', register);
 router.post('/login', login);
 
+router.post('/upload', )
 
 module.exports = router;

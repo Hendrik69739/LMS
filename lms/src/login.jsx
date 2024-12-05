@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './login.css'
@@ -66,7 +66,7 @@ function Login() {
           />
           <button type="submit" className="login-button">Login</button>
         </form>
-        <p className="signup-text">Don't have an account? <Link to="/register" className="signup-link">Sign up</Link></p>
+        <p className="signup-text">Dont have an account? <Link to="/register" className="signup-link">Sign up</Link></p>
       </aside>
     </div>
   );

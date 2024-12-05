@@ -6,7 +6,7 @@ dotenv.config();
 db2 = mysql.createPool({
     host : process.env.HOST,
     password : process.env.PASSWORD,
-    database : process.env.DATABASE2,
+    database : process.env.DATABASE,
     user : process.env.USER
 });
 
