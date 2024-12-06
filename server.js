@@ -80,10 +80,9 @@ app.get('/namesetter', (req, res) => {
 })
 
 app.post('/assignments', async (req, res) => {
-    const {name} = req.body;    
     try {
-        const [results] = await db2.promise().query('SELECT * FROM student_submissions WHERE student_name = ?', [name]);
-        console.log(results[0])
+        const [results] = await db2.promise().query('SELECT * FROM student_tasks');
+        console.log(results)
         res.json({data : results})
     } catch (err) {
         console.error('Database query error:', err);
@@ -114,11 +113,13 @@ const upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('file'), (req, res) => { 
     const file = req.file;
+    const names = req.name;
+    const subject = req.subject;
     if (!file) { 
         return res.status(400).send('No file uploaded');
     }  
-    const sql = 'INSERT INTO student_submissions (submitted_pdf) VALUES (?)'; 
-    db2.query(sql, [file.buffer], (err, result) => { // Ensure `db2` is used here
+    const sql = 'INSERT INTO student_submissions (submitted_pdf, student_name, subject) VALUES (?,?,?)'; 
+    db2.query(sql, [file.buffer, names, subject], (err, result) => { // Ensure `db2` is used here
         if (err) throw err; 
         res.send('File uploaded and stored in database');
     }); 
