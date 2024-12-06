@@ -22,7 +22,6 @@ const dbOptions = {
     database: process.env.DATABASE
 };
 
-
 const connection = mysql.createConnection(dbOptions);
 const sessionStore = new MySQLStore({
     expiration: 1000 * 60 * 60 * 24 * 3, 
@@ -68,11 +67,11 @@ app.get('/check-session', (req, res) => {
 });
 
 app.get('/cookie-check', (req, res) => {
-    if(req.cookies){
-        console.log('the are cookies')
-        res.status(200).send('there are cookies')
-    }else{
-        res.status(404).send('no cookies found')
+    if (Object.keys(req.cookies).length > 0) {
+        console.log('There are cookies')
+        res.status(200).send('There are cookies')
+    } else {
+        res.status(404).send('No cookies found')
     }
 })
 
@@ -80,17 +79,17 @@ app.get('/namesetter', (req, res) => {
     res.json({firstname : req.session.firstname, lastname : req.session.lastname})
 })
 
-app.get('/assignments', async (req, res) => {
+app.post('/assignments', async (req, res) => {
+    const {name} = req.body;    
     try {
-        const [results] = await db2.promise().query('SELECT * FROM student_submissions WHERE student_name = ?', [req.name]);
-        const dat = await results.json();
-        res.json({ data: results });
+        const [results] = await db2.promise().query('SELECT * FROM student_submissions WHERE student_name = ?', [name]);
+        console.log(results[0])
+        res.json({data : results})
     } catch (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query error' });
     }
 });
-
 
 app.get('/download', (req, res) => {
     const id = req.query.id; 
@@ -99,32 +98,31 @@ app.get('/download', (req, res) => {
          if (error) { 
             return res.status(500).send('Error fetching file from database');
          } 
-            if (results.length === 0) {
-                 return res.status(404).send('File not found');
-                } 
+         if (results.length === 0) {
+             return res.status(404).send('File not found');
+         } 
 
-            const pdfBuffer = results[0].submitted_pdf; 
-            res.setHeader('Content-Type', 'application/pdf'); 
-            res.setHeader('Content-Disposition', 'attachment; filename=assignment.pdf'); 
-            res.send(pdfBuffer);
-         });
+         const pdfBuffer = results[0].submitted_pdf; 
+         res.setHeader('Content-Type', 'application/pdf'); 
+         res.setHeader('Content-Disposition', 'attachment; filename=assignment.pdf'); 
+         res.send(pdfBuffer);
+     });
 })
-
 
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('file'), (req, res) => { 
     const file = req.file;
-     if (!file) { 
+    if (!file) { 
         return res.status(400).send('No file uploaded');
-     }  
-     const sql = 'INSERT INTO student_submissions (submitted_pdf) VALUES (?)'; 
-     db.query(sql, [ file.buffer], (err, result) => {
-         if (err) throw err; 
+    }  
+    const sql = 'INSERT INTO student_submissions (submitted_pdf) VALUES (?)'; 
+    db2.query(sql, [file.buffer], (err, result) => { // Ensure `db2` is used here
+        if (err) throw err; 
         res.send('File uploaded and stored in database');
-     }); 
-    });
+    }); 
+});
 
 app.get('/logout', (req, res) => {
     req.session.destroy();
@@ -134,5 +132,7 @@ app.get('/logout', (req, res) => {
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
+    } else {
+        console.log(`Server running on port ${process.env.PORT}`);
     }
 });

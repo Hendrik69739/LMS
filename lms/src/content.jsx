@@ -36,8 +36,6 @@ function Content(){
         })
 
         const response = await data.json()
-        console.log(response.firstname)
-
         setNamesetter(response.firstname + " " + response.lastname)
 
         }
