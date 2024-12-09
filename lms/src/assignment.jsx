@@ -14,6 +14,7 @@ function Assignment() {
     formData.append('file', file);
     formData.append('name', name2)
     formData.append('subject', task.subject)
+    formData.append('taskno', taskno)
 
     try {
       const response = await fetch('http://localhost:3000/upload', {
@@ -61,31 +62,70 @@ function Assignment() {
 
       const response = await data.json();
       setTask(response.data);
-      console.log(response.data)
     };
     fetchTask();
 
   }, []);
 
+  const [taskno, setTaskno] = useState('')
+
+  const handleTaskno = (e) => {
+    setTaskno(e.target.value)
+  }
+ 
+  /*
+  const [ctask, setCTask] = useState('')
+
+  useEffect(() => {
+    const getTaskno = async () => {
+
+      const results = await fetch('https://localhost:3000/taskno', {
+        method : "GET",
+        credentials : 'include',
+        body : JSON.stringify({student : name2})
+      });
+
+      const response = results.json();
+      
+
+    }
+    getTaskno();
+  }, [])
+
+  console.log(taskno)
+ */
   return (
     <>
-      {task.length > 0 ? (task.map((data) => (
-        <div id='assignments' key={data.id}>
-          <div id='task'>
-            <h2 className='subject_name'>{data.subject}</h2>
-            <a id="download_btn" href={`http://localhost:3000/download?id=1`} download> Download Assignment </a>
-            <div>
-              <form className='mb-5' onSubmit={handleSubmit}>
-                <button type='submit' className='submit_btn'> Submit Assignment </button>
-                <input type='file' onChange={handleFileChange} />
-              </form>
-            </div>
-            <p className='submission_date'>Due date:<br />{data.due_date}</p>
+      {task.length > 0 ? (
+  task.map((data) => {
+    if (taskno.includes(data.id)) {
+      return null;
+    }
+    return (
+      <div id='assignments' key={data.id}>
+        <div id='task'>
+          <h2 className='subject_name'>{data.subject + '-' + data.id}</h2>
+          <a id="download_btn" href={`http://localhost:3000/download?id=${data.id}`} download>
+            Download Assignment
+          </a>
+          <div>
+            <form className='mb-5' onSubmit={handleSubmit}>
+              <button type='submit' className='submit_btn'>
+                Submit Assignment
+              </button>
+              <input type='file' onChange={handleFileChange} />
+              <input type='text' onChange={handleTaskno} placeholder='task-number'></input>
+            </form>
           </div>
+          <p className='submission_date'>Due date:<br />{data.due_date}</p>
         </div>
-      ))) : (<p>No assignments found</p>
+      </div>
+    );
+  })
+) : (
+  <p>No assignments found</p>
+)}
 
-      )}
     </>
   );
 }

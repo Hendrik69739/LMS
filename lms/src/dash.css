@@ -51,6 +51,19 @@
 
 #upcoming{
     height: 150px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.dash_header{
+    margin: 0px 10px;
+    justify-self: center;
+    align-self: center;
+}
+
+.dash_aside{
+    margin: 0px 10px;
 }
 
 #calender > iframe{

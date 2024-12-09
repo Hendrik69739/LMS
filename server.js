@@ -82,7 +82,6 @@ app.get('/namesetter', (req, res) => {
 app.post('/assignments', async (req, res) => {
     try {
         const [results] = await db2.promise().query('SELECT * FROM student_tasks');
-        console.log(results)
         res.json({data : results})
     } catch (err) {
         console.error('Database query error:', err);
@@ -93,7 +92,7 @@ app.post('/assignments', async (req, res) => {
 app.get('/download', (req, res) => {
     const id = req.query.id; 
     
-    db2.query('SELECT submitted_pdf FROM student_submissions WHERE id = ?', [id], (error, results) => {
+    db2.query('SELECT task_pdf FROM student_tasks WHERE id = ?', [id], (error, results) => {
          if (error) { 
             return res.status(500).send('Error fetching file from database');
          } 
@@ -115,19 +114,39 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const file = req.file;
     const names = req.name;
     const subject = req.subject;
+    const taskno = req.taskno;
     if (!file) { 
         return res.status(400).send('No file uploaded');
     }  
-    const sql = 'INSERT INTO student_submissions (submitted_pdf, student_name, subject) VALUES (?,?,?)'; 
-    db2.query(sql, [file.buffer, names, subject], (err, result) => { // Ensure `db2` is used here
+    
+    const sql = 'INSERT INTO student_submissions (submitted_pdf, student_name, subject, id) VALUES (?,?,?,?)'; 
+    db2.query(sql, [file.buffer, names, subject, taskno], (err, result) => { 
         if (err) throw err; 
         res.send('File uploaded and stored in database');
     }); 
 });
+ 
+
+app.post('/count', async (req, res) => {
+    const [results] = await db2.promise().query('SELECT COUNT(id) AS total_ids FROM student_submissions');
+    const [data] = await db2.promise().query('SELECT COUNT(id) AS total_ids FROM student_tasks');
+     res.json({ total_ids: results[0].total_ids, total_id: data[0].total_ids})
+
+})
 
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.status(200).json({message : 'logged out', redirect : '/login'})
+})
+
+const time = new Date();
+const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+const date = time.toLocaleDateString('en-US', options)
+
+app.post('/events', async (req, res) => {
+    const [results] = await db2.promise().query('SELECT * FROM events WHERE time >= ?', [date])
+    res.json({date : results})
+    
 })
 
 app.listen(process.env.PORT, (err) => {
