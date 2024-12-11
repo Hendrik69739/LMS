@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import Assignment from './assignment';
-import Dashboard from './dashboard';
+import Assignment from './admin_assignment_panel';
 import './profile.css';
 import {Route, Routes, Link, Navigate} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import Dock from './dock';
 
 
-function Content(){
+function Admin(){
 
 
     const navigate = useNavigate()
@@ -27,7 +25,7 @@ function Content(){
        
     }
 
-    const [namesetter, setNamesetter] = useState('')
+    const [namesetter, setNamesetter] = useState('hello')
 
     useEffect(() => {
         const setName = async () => {
@@ -55,22 +53,12 @@ function Content(){
         <div id='content'>
             <main id='main__prof'>
                <aside id='prof__aside'>
-                    <Link to='dashboard' id='link'>Dashboard</Link>
-                   <div id='link'>
-                   <p>Assignment</p>
-                   <div>
-                   <Link to='assignment/dock'>>Dock</Link><br></br>
-                   <Link to='assignment/management'>>Submitted</Link>
-                   </div>
-                   </div>
-                   <Link to='assignment' id='link'>Assignment</Link>
+                    <Link to='assignment' id='link'>Assignment</Link>
                     <Link onClick={Logout} id='link'>Logout</Link>
                 </aside>
                 <section id='prof__section'>
                     <Routes>
-                        <Route path='dashboard' element={<Dashboard />} />
-                        <Route path='assignment/dock' element={<Assignment />} />
-                        <Route path='assignment/management' element={<Dock/>}/>
+                        <Route path='assignment' element={<Assignment />} />
                     </Routes>
                 </section> 
             </main>
@@ -78,4 +66,4 @@ function Content(){
     </> 
     )
 }
- export default Content;
+ export default Admin;

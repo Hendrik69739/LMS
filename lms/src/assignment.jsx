@@ -47,6 +47,7 @@ function Assignment() {
       const response = await data.json();
       setName2(response.firstname + ' ' + response.lastname)
     };
+
     tasks();
   }, []);
 
@@ -66,6 +67,8 @@ function Assignment() {
     fetchTask();
 
   }, []);
+
+  console.log(task)
 
   const [taskno, setTaskno] = useState('')
 

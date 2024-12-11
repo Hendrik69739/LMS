@@ -1,31 +1,128 @@
 import { useEffect, useState } from "react";
+import './admin_assignment_panel.css';
 
-function upload(){
+function UploadTask() {
 
-    const [date, setDate] = useState([])
+    const [file, setFile] = useState('');
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('name', name2);
+        formData.append('subject', subject);
+        formData.append('date', date);
+
+        try {
+            const response = await fetch('http://localhost:3000/uploadTask', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                alert('File uploaded successfully');
+            } else {
+                const errorText = await response.text();
+                console.error('File upload failed:', errorText);
+                alert('File upload failed: ' + errorText);
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            alert('Error uploading file: ' + error.message);
+        }
+    };
+
+    const [name2, setName2] = useState('');
 
     useEffect(() => {
-        const fetchAssingments = async () => {
-            await fetch('http://localhost:3000/')
-        }
-        fetchAssingments();
-        }, [])
+        const tasks = async () => {
+            const data = await fetch('http://localhost:3000/namesetter', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            const response = await data.json();
+            setName2(response.firstname + ' ' + response.lastname);
+        };
 
-    return(
+        tasks();
+    }, []);
+
+    const [task, setTask] = useState([]);
+
+    useEffect(() => {
+        const fetchTask = async () => {
+            const data = await fetch('http://localhost:3000/assignments', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type' : 'application/json' }, 
+            });
+
+            const response = await data.json();
+            setTask(response.data);
+        };
+        fetchTask();
+    }, []);
+
+    const [subject, setSubject] = useState('');
+
+    const handleSubject = (e) => {
+        setSubject(e.target.value);
+    };
+
+    const [date, setDate] = useState('');
+
+    const handleDate = (e) => {
+        setDate(e.target.value);
+    };
+
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:3000/deleteTask/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                setTask(task.filter(item => item.id !== id));
+                alert('Task deleted successfully');
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to delete task:', errorText);
+                alert('Failed to delete task: ' + errorText);
+            }
+        } catch (error) {
+            console.error('Error deleting task:', error);
+            alert('Error deleting task: ' + error.message);
+        }
+    };
+
+    return (
         <section id="admin_assignment_section">
-        <form onSubmit="" className="input_fields">
-            <label>Subject:<input type="text" placeholder="task subject" onChange="" className="mb-2"/></label>
-            <label>Task pdf:<input type="file" accept="pdf" onChange="" className="mb-2"/></label>
-            <label>Due Date:<input type="date" placeholder="task subject" onChange="" className="mb-2"/></label>
-            <button type="submit" className="upload_button">Upload Task</button>
-        </form>
-        <div className="ms6">
-            <h3>Subject</h3>
-            <p>Due date</p>
-            <a href="" className="delete_link">Delete Task</a>
-        </div>
-</section>
-    )
+            <form onSubmit={handleSubmit} className="input_fields">
+                <label>Subject:<input type="text" placeholder="task subject" onChange={handleSubject} className="mb-2" /></label>
+                <label>Task pdf:<input type="file" accept=".pdf" onChange={handleFileChange} className="mb-2" /></label>
+                <label>Due Date:<input type="date" placeholder="due date" onChange={handleDate} className="mb-2" /></label>
+                <button type="submit" className="upload_button">Upload Task</button>
+            </form>
+            {task.length > 0 ? (
+                task.map((data, index) => (
+                    <div key={index} className="ms6">
+                        <h3>{data.subject}</h3>
+                        <p>submission date<br/>{data.due_date}</p>
+                        <a href="#" onClick={(e) => handleDelete(e, data.id)} className="delete_link">Delete Task</a>
+                    </div>
+                ))
+            ) : (
+                <></>
+            )}
+        </section>
+    );
 }
 
-export default upload;
+export default UploadTask;

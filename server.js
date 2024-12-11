@@ -50,7 +50,6 @@ app.use(cors({
 app.use('/auth', auth);
 
 app.get('/login', (req, res) => {
-    console.log('Login page requested');
     if (req.session.user) {
         res.redirect('http://localhost:5173/profile'); 
     } else {
@@ -60,23 +59,16 @@ app.get('/login', (req, res) => {
 
 app.get('/check-session', (req, res) => {
     if (req.session.name) {
-        res.status(200).send('User has session');
+        res.status(200).json({user : req.session.name});
     } else {
         res.status(401).send('Not authenticated');
     }
 });
 
-app.get('/cookie-check', (req, res) => {
-    if (Object.keys(req.cookies).length > 0) {
-        console.log('There are cookies')
-        res.status(200).send('There are cookies')
-    } else {
-        res.status(404).send('No cookies found')
-    }
-})
 
 app.get('/namesetter', (req, res) => {
     res.json({firstname : req.session.firstname, lastname : req.session.lastname})
+
 })
 
 app.post('/assignments', async (req, res) => {
@@ -88,6 +80,27 @@ app.post('/assignments', async (req, res) => {
         res.status(500).json({ error: 'Database query error' });
     }
 });
+
+app.delete('/deleteTask/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log(req.params);
+
+    // Perform delete operation based on the `id`
+    try {
+        // Assuming you have a function to delete the task by ID
+        await deleteTaskById(id);
+        res.status(200).send({ message: 'Task deleted successfully' });
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to delete task', error: error.message });
+    }
+});
+
+async function deleteTaskById(id) {
+    await db2.promise().query('DELETE FROM student_tasks WHERE id = ?', [id]);
+    console.log(`Deleting task with ID: ${id}`);
+}
+
+
 
 app.get('/download', (req, res) => {
     const id = req.query.id; 
@@ -111,20 +124,43 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('file'), (req, res) => { 
+    console.log(req.body)
     const file = req.file;
-    const names = req.name;
+    const names = req.body.name;
     const subject = req.subject;
     const taskno = req.taskno;
+    const subdate = req.subdate;
+
     if (!file) { 
         return res.status(400).send('No file uploaded');
     }  
-    
+
     const sql = 'INSERT INTO student_submissions (submitted_pdf, student_name, subject, id) VALUES (?,?,?,?)'; 
+    
+    db2.query('INSERT INTO student_tasks(due_date, task_pdf, subject) VALUES(?,?,?)', [subdate, file, subject])
     db2.query(sql, [file.buffer, names, subject, taskno], (err, result) => { 
+
         if (err) throw err; 
         res.send('File uploaded and stored in database');
     }); 
 });
+
+app.post('/uploadTask', upload.single('file'), (req, res) => { 
+    const subject = req.body.subject;
+    const file = req.file;
+    const date2 = req.body.date;
+    console.log(subject, file, date2, req.body)
+    if (!file) { 
+        return res.status(400).send('No file uploaded');
+    }  
+    
+    const sql = 'INSERT INTO student_tasks(due_date, task_pdf, subject) VALUES(?,?,?)';
+    db2.query(sql, [date2, file.buffer, subject], (err, result) => { 
+        if (err) throw err; 
+        res.send('File uploaded and stored in database');
+    }); 
+});
+
  
 
 app.post('/count', async (req, res) => {

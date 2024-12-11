@@ -1,0 +1,16 @@
+#submitted_task{
+    background-color: silver;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ms1{
+    padding: 10px;
+}
+
+#submitted_task > a {
+    background-color: white;
+    padding: 5px;
+    color: rgb(4, 179, 248);
+}

@@ -1,10 +1,14 @@
 import {  useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Content from './content';
+import Admin from './admin';
 
 function Profile() {
+    
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate();
+
+    const [user, setUser] = useState('')
 
     useEffect(() => {
         const checkSession = async () => {
@@ -13,6 +17,10 @@ function Profile() {
                     method: 'GET',
                     credentials: 'include'
                 });
+
+                const data = await response.json();
+                setUser(data.user)
+                console.log(data)
 
                 if (response.status === 200) {
                     setIsAuthenticated(true);
@@ -33,11 +41,19 @@ function Profile() {
 
     return (
         <>
-        { isAuthenticated ? <Content></Content> : <>
-        <p>Your not logged in, return to login page</p>
-        </>}
-        </>
-
+        { isAuthenticated ? (
+            user === 'admin@gmail.com' ? (
+                <Admin />
+            ) : (
+                <Content />
+            )
+        ) : (
+            <>
+                <p>You are not logged in, please return to the login page.</p>
+            </>
+        )}
+    </>
+    
     );
 }
 
