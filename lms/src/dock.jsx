@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import './dock.css';
 
-function Dock() {
+function Assignments() {
     
     const [task, setTask] = useState([]);
 
     useEffect(() => {
         const fetchTask = async () => {
-            const data = await fetch('http://localhost:3000/assignments', {
+            const data = await fetch('http://localhost:3000/student_submissions', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type' : 'application/json' }, 
             });
 
             const response = await data.json();
-            setTask(response.data);
+            setTask(response.results);
+            console.log(response)
         };
         fetchTask();
     }, []);
@@ -23,7 +24,7 @@ function Dock() {
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3000/deleteTask/${id}`, {
+            const response = await fetch(`http://localhost:3000/deleteAssignment/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
@@ -61,4 +62,4 @@ function Dock() {
     );
 }
 
-export default Dock;
+export default Assignments;

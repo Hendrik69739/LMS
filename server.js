@@ -100,7 +100,24 @@ async function deleteTaskById(id) {
     console.log(`Deleting task with ID: ${id}`);
 }
 
+app.delete('/deleteAssignment/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log(req.params);
 
+    // Perform delete operation based on the `id`
+    try {
+        // Assuming you have a function to delete the task by ID
+        await deleteTaskById(id);
+        res.status(200).send({ message: 'Task deleted successfully' });
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to delete task', error: error.message });
+    }
+});
+
+async function deleteTaskById(id) {
+    await db2.promise().query('DELETE FROM student_submissions WHERE id = ?', [id]);
+    console.log(`Deleting task with ID: ${id}`);
+}
 
 app.get('/download', (req, res) => {
     const id = req.query.id; 
@@ -123,27 +140,41 @@ app.get('/download', (req, res) => {
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage: storage });
 
-app.post('/upload', upload.single('file'), (req, res) => { 
-    console.log(req.body)
+app.post('/student_submissions', async (req, res) => {
+    const name = req.session.firstname + ' ' + req.session.lastname
+    
+    try {
+        const [rows] = await db2.promise().query('SELECT * FROM student_submissions WHERE student_name = ?', [name]);
+        res.json({ results: rows });
+    } catch (error) {
+        console.error('Error fetching student submissions:', error);
+        res.status(500).send({ message: 'Failed to fetch student submissions' });
+    }
+});
+
+
+app.post('/upload', upload.single('file'), (req, res) => {
     const file = req.file;
     const names = req.body.name;
-    const subject = req.subject;
-    const taskno = req.taskno;
-    const subdate = req.subdate;
+    const subject = req.body.subject;
+    const taskno = req.body.taskno;
+    const subdate = req.body.subdate;
 
-    if (!file) { 
+    if (!file) {
         return res.status(400).send('No file uploaded');
-    }  
+    }
 
-    const sql = 'INSERT INTO student_submissions (submitted_pdf, student_name, subject, id) VALUES (?,?,?,?)'; 
-    
-    db2.query('INSERT INTO student_tasks(due_date, task_pdf, subject) VALUES(?,?,?)', [subdate, file, subject])
-    db2.query(sql, [file.buffer, names, subject, taskno], (err, result) => { 
+    const insertSubmissionSQL = 'INSERT INTO student_submissions(submitted_pdf, student_name, subject, id) VALUES (?, ?, ?, ?)';
 
-        if (err) throw err; 
-        res.send('File uploaded and stored in database');
-    }); 
-});
+        db2.query(insertSubmissionSQL, [file.buffer, names, subject, taskno], (err, result) => {
+            if (err) {
+                return res.status(500).send('Error storing submission in database');
+            }
+
+            res.send('File uploaded and stored in database');
+        });
+    });
+
 
 app.post('/uploadTask', upload.single('file'), (req, res) => { 
     const subject = req.body.subject;

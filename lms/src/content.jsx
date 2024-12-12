@@ -1,81 +1,80 @@
 import { useEffect, useState } from 'react';
-import Assignment from './assignment';
+import Dock from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
-import {Route, Routes, Link, Navigate} from 'react-router-dom'
+import { Route, Routes, Link, Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import Dock from './dock';
+import Assignment from './dock';
 
 
-function Content(){
+function Content() {
 
 
     const navigate = useNavigate()
-    
+
 
     const Logout = async () => {
-    await fetch('http://localhost:3000/logout', {
-             method: 'GET',
+        await fetch('http://localhost:3000/logout', {
+            method: 'GET',
             credentials: 'include'
         }).then(response => response.json())
-        .then(data => {
-            if(data.redirect){
-                navigate(data.redirect)
-                console.log(data)
-            }
-        })
-       
+            .then(data => {
+                if (data.redirect) {
+                    navigate(data.redirect)
+                    console.log(data)
+                }
+            })
+
     }
 
     const [namesetter, setNamesetter] = useState('')
 
     useEffect(() => {
         const setName = async () => {
-          const data = await fetch('http://localhost:3000/namesetter', {
-                method : 'GET',
-                credentials : 'include'
-        })
+            const data = await fetch('http://localhost:3000/namesetter', {
+                method: 'GET',
+                credentials: 'include'
+            })
 
-        const response = await data.json()
-        setNamesetter(response.firstname + " " + response.lastname)
+            const response = await data.json()
+            setNamesetter(response.firstname + " " + response.lastname)
 
         }
         setName();
     }, [])
 
-    return(
+    return (
         <>
-        <header id='prof__header'>
-            <h1>North College</h1>
-            <div>
-                <h2 id='prof__h2'>{namesetter}</h2>
-                <img src='' alt='Profile' />
+            <header id='prof__header'>
+                <h1>North College</h1>
+                <div>
+                    <h2 id='prof__h2'>{namesetter}</h2>
+                    <img src='' alt='Profile' />
+                </div>
+            </header>
+            <div id='content'>
+                <main id='main__prof'>
+                    <aside id='prof__aside'>
+                        <Link to='dashboard' id='link'>Dashboard</Link>
+                        <div id='link'>
+                            <p>Assignment</p>
+                            <div>
+                                <Link to='assignment/dock'>Dock</Link><br></br>
+                                <Link to='assignment/management'>Submitted</Link>
+                            </div>
+                        </div>
+                        <Link onClick={Logout} id='link'>Logout</Link>
+                    </aside>
+                    <section id='prof__section'>
+                        <Routes>
+                            <Route path='dashboard' element={<Dashboard />} />
+                            <Route path='assignment/management' element={<Assignment />} />
+                            <Route path='assignment/dock' element={<Dock />} />
+                        </Routes>
+                    </section>
+                </main>
             </div>
-        </header>
-        <div id='content'>
-            <main id='main__prof'>
-               <aside id='prof__aside'>
-                    <Link to='dashboard' id='link'>Dashboard</Link>
-                   <div id='link'>
-                   <p>Assignment</p>
-                   <div>
-                   <Link to='assignment/dock'>>Dock</Link><br></br>
-                   <Link to='assignment/management'>>Submitted</Link>
-                   </div>
-                   </div>
-                   <Link to='assignment' id='link'>Assignment</Link>
-                    <Link onClick={Logout} id='link'>Logout</Link>
-                </aside>
-                <section id='prof__section'>
-                    <Routes>
-                        <Route path='dashboard' element={<Dashboard />} />
-                        <Route path='assignment/dock' element={<Assignment />} />
-                        <Route path='assignment/management' element={<Dock/>}/>
-                    </Routes>
-                </section> 
-            </main>
-        </div>
-    </> 
+        </>
     )
 }
- export default Content;
+export default Content;
