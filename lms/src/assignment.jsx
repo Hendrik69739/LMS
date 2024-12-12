@@ -3,18 +3,25 @@ import { useEffect, useState } from 'react';
 
 function Dock() {
   const [file, setFile] = useState('');
+  const [name2, setName2] = useState('');
+  const [task, setTask] = useState([]);
+  const [taskno, setTaskno] = useState('');
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmit = async (e) => {
+  const handleTaskno = (e) => {
+    setTaskno(e.target.value);
+  };
+
+  const handleSubmit = async (e, subject) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('name', name2)
-    formData.append('subject', task.subject)
-    formData.append('taskno', taskno)
+    formData.append('name', name2);
+    formData.append('subject', subject);
+    formData.append('taskno', taskno);
 
     try {
       const response = await fetch('http://localhost:3000/upload', {
@@ -36,24 +43,19 @@ function Dock() {
     }
   };
 
-  const [name2, setName2] = useState('')
-
   useEffect(() => {
-    const tasks = async () => {
-      
+    const fetchName = async () => {
       const data = await fetch('http://localhost:3000/namesetter', {
         method: 'GET',
         credentials: 'include'
       });
 
       const response = await data.json();
-      setName2(response.firstname + ' ' + response.lastname)
+      setName2(response.firstname + ' ' + response.lastname);
     };
 
-    tasks();
+    fetchName();
   }, []);
-
-  const [task, setTask] = useState('');
 
   useEffect(() => {
     const fetchTask = async () => {
@@ -67,59 +69,26 @@ function Dock() {
       setTask(response.data);
     };
     fetchTask();
-
   }, []);
 
-  console.log(task)
-
-  const [taskno, setTaskno] = useState('')
-
-  const handleTaskno = (e) => {
-    setTaskno(e.target.value)
-  }
-
-  /*
-  const [ctask, setCTask] = useState('')
-
-  useEffect(() => {
-    const getTaskno = async () => {
-
-      const results = await fetch('https://localhost:3000/taskno', {
-        method : "GET",
-        credentials : 'include',
-        body : JSON.stringify({student : name2})
-      });
-
-      const response = results.json();
-      
-
-    }
-    getTaskno();
-  }, [])
-
-  console.log(taskno)
- */
   return (
     <>
       {task.length > 0 ? (
         task.map((data) => {
-          if (taskno.includes(data.id)) {
-            return null;
-          }
           return (
             <div id='assignments' key={data.id}>
               <div id='task'>
-                <h2 className='subject_name'>{data.subject + '-' + data.id}</h2>
+                <h2 className='subject_name'>{`${data.subject} - ${data.id}`}</h2>
                 <a id="download_btn" href={`http://localhost:3000/download?id=${data.id}`} download>
                   Download Assignment
                 </a>
                 <div>
-                  <form className='mb-5' onSubmit={handleSubmit}>
+                  <form className='mb-5' onSubmit={(e) => handleSubmit(e, data.subject)}>
                     <button type='submit' className='submit_btn'>
                       Submit Assignment
                     </button>
                     <input type='file' onChange={handleFileChange} />
-                    <input type='text' onChange={handleTaskno} placeholder='task-number'></input>
+                    <input type='text' onChange={handleTaskno} placeholder='task-number' />
                   </form>
                 </div>
                 <p className='submission_date'>Due date:<br />{data.due_date}</p>
@@ -130,7 +99,6 @@ function Dock() {
       ) : (
         <p>No assignments found</p>
       )}
-
     </>
   );
 }

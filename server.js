@@ -47,7 +47,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.use('/auth', auth);
+app.use('/auth', auth); 
 
 app.get('/login', (req, res) => {
     if (req.session.user) {
@@ -158,7 +158,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const names = req.body.name;
     const subject = req.body.subject;
     const taskno = req.body.taskno;
-    const subdate = req.body.subdate;
+    console.log(req.file, req.body)
 
     if (!file) {
         return res.status(400).send('No file uploaded');
@@ -168,6 +168,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
         db2.query(insertSubmissionSQL, [file.buffer, names, subject, taskno], (err, result) => {
             if (err) {
+                console.log(err.message)
                 return res.status(500).send('Error storing submission in database');
             }
 
@@ -180,13 +181,14 @@ app.post('/uploadTask', upload.single('file'), (req, res) => {
     const subject = req.body.subject;
     const file = req.file;
     const date2 = req.body.date;
+    const taskno = req.body.taskno
     console.log(subject, file, date2, req.body)
     if (!file) { 
         return res.status(400).send('No file uploaded');
     }  
     
-    const sql = 'INSERT INTO student_tasks(due_date, task_pdf, subject) VALUES(?,?,?)';
-    db2.query(sql, [date2, file.buffer, subject], (err, result) => { 
+    const sql = 'INSERT INTO student_tasks(id, due_date, task_pdf, subject) VALUES(?,?,?,?)';
+    db2.query(sql, [taskno, date2, file.buffer, subject], (err, result) => { 
         if (err) throw err; 
         res.send('File uploaded and stored in database');
     }); 

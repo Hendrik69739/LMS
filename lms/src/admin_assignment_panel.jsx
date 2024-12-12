@@ -16,6 +16,7 @@ function UploadTask() {
         formData.append('name', name2);
         formData.append('subject', subject);
         formData.append('date', date);
+        formData.append('taskno', taskno);
 
         try {
             const response = await fetch('http://localhost:3000/uploadTask', {
@@ -74,6 +75,13 @@ function UploadTask() {
         setSubject(e.target.value);
     };
 
+    const [taskno, setTaskno] = useState('');
+
+    const handleTaskno = (e) => {
+        setTaskno(e.target.value);
+    };
+
+
     const [date, setDate] = useState('');
 
     const handleDate = (e) => {
@@ -106,6 +114,7 @@ function UploadTask() {
         <section id="admin_assignment_section">
             <form onSubmit={handleSubmit} className="input_fields">
                 <label>Subject:<input type="text" placeholder="task subject" onChange={handleSubject} className="mb-2" /></label>
+                <label>Task no:<input type='text' onChange={handleTaskno}></input></label>
                 <label>Task pdf:<input type="file" accept=".pdf" onChange={handleFileChange} className="mb-2" /></label>
                 <label>Due Date:<input type="date" placeholder="due date" onChange={handleDate} className="mb-2" /></label>
                 <button type="submit" className="upload_button">Upload Task</button>
