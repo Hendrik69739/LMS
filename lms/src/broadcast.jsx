@@ -1,0 +1,74 @@
+import './broadcast.css'
+import { useEffect, useState } from 'react';
+
+function Broadcast(){
+    
+    const [dataset, setDataset] = useState([])
+
+    useEffect(() => {
+        const information = async () =>{
+            const results = await fetch('http://localhost:3000/anouncements', {
+                method : 'POST',
+                credentials : 'include'
+            })
+
+            const response = await results.json();
+            setDataset(response.results)
+            
+        }
+        information();
+    }, [])
+
+    
+    const time = new Date();
+    const day = time.getDay();
+    const month = time.getMonth();
+    const year = time.getFullYear()
+
+    const date = day + '/' + month + '/' + year;
+
+    const [text, setText] = useState('')
+
+    const handleText = (e) => {
+        setText(e.target.value)
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+     await fetch('http://localhost:3000/sendAnouncements', {
+            method : 'POST',
+            credentials : 'include',
+            headers: { 
+                'Content-Type': 'application/json',
+             },
+            body : JSON.stringify({text : text, date : date})
+        })
+    }
+
+    return(
+        <main className="anouncement-main">
+            {dataset.length > 0 ? 
+    dataset.map((data) => (
+        <div id="text-content" key={data.id}>
+        <div className="ms2">
+            <div className="anouncement">
+                <p className="anouncement-text">
+                    {data.text}
+                </p>
+                <sub>{data.date}</sub>
+            </div>
+            <a href="#">delete</a>
+        </div>
+    </div>
+    )) : <></>}
+    <form onSubmit={handleSubmit}>
+    <textarea className="textarea-admin" onChange={handleText}></textarea>
+    <button type='submit'> submit</button>
+    </form>
+
+    </main>
+    )
+}
+
+export default Broadcast;

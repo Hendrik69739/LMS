@@ -3,6 +3,7 @@ import Assignment from './admin_assignment_panel';
 import './profile.css';
 import {Route, Routes, Link, Navigate} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
+import Broadcast from './broadcast';
 
 
 function Admin(){
@@ -54,11 +55,13 @@ function Admin(){
             <main id='main__prof'>
                <aside id='prof__aside'>
                     <Link to='assignment' id='link'>Assignment</Link>
+                    <Link to='anouncement' id='link'>Anouncement</Link>
                     <Link onClick={Logout} id='link'>Logout</Link>
                 </aside>
                 <section id='prof__section'>
                     <Routes>
                         <Route path='assignment' element={<Assignment />} />
+                        <Route path='anouncement' element={<Broadcast/>} />
                     </Routes>
                 </section> 
             </main>

@@ -43,6 +43,7 @@ function Assignments() {
         }
     };
 
+    console.log(task)
     return (
         <>
             {task.length > 0 ? 
@@ -50,13 +51,13 @@ function Assignments() {
                     <div key={index} className="ms1">
                     <div id="submitted_task">
                         <p>{data.subject}</p>
-                        <p>{data.due_date}</p>
+                        <p>{data.time_submitted}</p>
                         <a onClick={(e) => handleDelete(e, data.id)}>Delete task</a>
                     </div>
                     </div>
                 ))
             : 
-                <>empty</>
+                <></>
             }
         </>
     );

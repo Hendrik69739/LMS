@@ -216,6 +216,17 @@ app.post('/events', async (req, res) => {
     const [results] = await db2.promise().query('SELECT * FROM events WHERE time >= ?', [date])
     res.json({date : results})
     
+});
+
+app.post('/anouncements', async (req, res) => {
+    const [data] = await db2.promise().query('SELECT * FROM anouncements');
+    res.json({results : data})
+})
+
+app.post('/sendAnouncements', async (req, res) => {
+    const {text, date} = req.body;
+    const response = await db2.promise().query('INSERT INTO anouncements(text, date) VALUES(?,?)', [text, date])
+    console.log(response.msg)
 })
 
 app.listen(process.env.PORT, (err) => {
