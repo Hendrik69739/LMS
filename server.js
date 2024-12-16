@@ -114,6 +114,26 @@ app.delete('/deleteAssignment/:id', async (req, res) => {
     }
 });
 
+app.delete('/deleteAnouncement/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log(req.params);
+
+    // Perform delete operation based on the `id`
+    try {
+        // Assuming you have a function to delete the task by ID
+        await deleteAnouncementById(id);
+        res.status(200).send({ message: 'Task deleted successfully' });
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to delete task', error: error.message });
+    }
+});
+
+async function deleteAnouncementById(id) {
+    await db2.promise().query('DELETE FROM anouncements WHERE id = ?', [id]);
+    console.log(`Deleting task with ID: ${id}`);
+}
+
+
 async function deleteTaskById(id) {
     await db2.promise().query('DELETE FROM student_submissions WHERE id = ?', [id]);
     console.log(`Deleting task with ID: ${id}`);
@@ -194,7 +214,11 @@ app.post('/uploadTask', upload.single('file'), (req, res) => {
     }); 
 });
 
- 
+app.post('/fetchtasks', async (req, res) => {
+    const username = req.body.name;
+    const [data] = await db2.promise().query('SELECT * FROM student_submissions WHERE student_name = ?', [username])
+    res.json({ results : data})
+})
 
 app.post('/count', async (req, res) => {
     const [results] = await db2.promise().query('SELECT COUNT(id) AS total_ids FROM student_submissions');
@@ -226,7 +250,11 @@ app.post('/anouncements', async (req, res) => {
 app.post('/sendAnouncements', async (req, res) => {
     const {text, date} = req.body;
     const response = await db2.promise().query('INSERT INTO anouncements(text, date) VALUES(?,?)', [text, date])
-    console.log(response.msg)
+})
+
+app.post('/getUsers', async (req, res) => {
+    const [data] = await db2.promise().query('SELECT * FROM students')
+    res.json({results : data});
 })
 
 app.listen(process.env.PORT, (err) => {

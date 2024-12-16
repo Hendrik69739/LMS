@@ -1,0 +1,22 @@
+#user {
+    background-color: silver;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between; 
+    text-decoration: none;
+    margin: 10px 0px;
+}
+
+#user > h2 {
+    margin: 0;
+    
+}
+
+#user > p {
+    text-align: center; 
+}
+
+.user_section{
+    padding: 15px;
+}

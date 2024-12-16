@@ -46,6 +46,28 @@ function Broadcast(){
         })
     }
 
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:3000/deleteAnouncement/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                setDataset(dataset.filter(item => item.id !== id));
+                alert('Task deleted successfully');
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to delete task:', errorText);
+                alert('Failed to delete task: ' + errorText);
+            }
+        } catch (error) {
+            console.error('Error deleting task:', error);
+            alert('Error deleting task: ' + error.message);
+        }
+    };
+
     return(
         <main className="anouncement-main">
             {dataset.length > 0 ? 
@@ -58,7 +80,7 @@ function Broadcast(){
                 </p>
                 <sub>{data.date}</sub>
             </div>
-            <a href="#">delete</a>
+            <a href="#" onClick={(e) => handleDelete(e, data.id)}>delete</a>
         </div>
     </div>
     )) : <></>}

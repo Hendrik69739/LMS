@@ -1,0 +1,37 @@
+.submitted_tasks{
+    background-color: grey;
+    width: 300px;
+    border-radius: 10px;
+    height: 250px;
+    overflow: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.submitted_tasks::-webkit-scrollbar { display: none; }
+
+.submission_bin{
+    background-color: rgb(161, 161, 161);
+    padding: 10px;
+}
+
+.mxc2{
+    padding: 0px 10px 10px 10px;
+    position: relative;
+}
+
+.submitted_tasks > h2{
+    text-align: center;
+    position: fixed;
+    background-color: white;
+    margin: 0px;
+    
+}
+
+h2{
+    margin: 0px;
+}
+
+.mcx1{
+    border-top: 1px solid black;
+}

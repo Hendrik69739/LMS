@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import Dock from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
-import { Route, Routes, Link, Navigate } from 'react-router-dom'
+import { Route, Routes, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import Assignment from './dock';
+import Anouncement from './Anouncement'
 
 
 function Content() {
-
 
     const navigate = useNavigate()
 
@@ -63,11 +63,13 @@ function Content() {
                                 <Link to='assignment/management'>Submitted</Link>
                             </div>
                         </div>
+                        <Link to='anouncement' id='link'>Anouncement</Link>
                         <Link onClick={Logout} id='link'>Logout</Link>
                     </aside>
                     <section id='prof__section'>
                         <Routes>
                             <Route path='dashboard' element={<Dashboard />} />
+                            <Route path='anouncement' element={<Anouncement/>}/>
                             <Route path='assignment/management' element={<Assignment />} />
                             <Route path='assignment/dock' element={<Dock />} />
                         </Routes>
