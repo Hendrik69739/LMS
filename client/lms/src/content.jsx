@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Dock from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
-import { Route, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Link, Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Assignment from './dock';
 import Anouncement from './Anouncement'
