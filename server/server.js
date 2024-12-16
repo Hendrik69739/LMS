@@ -57,6 +57,10 @@ app.get('/login', (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+    res.send('hello world')
+})
+
 app.get('/check-session', (req, res) => {
     if (req.session.name) {
         res.status(200).json({user : req.session.name});
