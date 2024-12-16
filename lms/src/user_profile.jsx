@@ -26,24 +26,20 @@ function User_Profile() {
     }, [username])
 
     return (
-        <>
-            {results.length > 0 ? results.map((data) => (
-                <div className="submitted_tasks" key={data.id}>
-                    <header className="submission_bin">
-                        <h2>Submitted Tasks</h2>
-                    </header>
-                    <div className="mxc2">
-                        <div className="mcx1">
-                            <p>{data.subject}</p>
-                        </div>
+        <div className="submitted_tasks">
+            <header className="submission_bin">
+                <h2>Submitted Tasks</h2>
+            </header>
+            {results && results.length > 0 ? results.map((data) => (
+                <div className="mxc2" key={data.id}> 
+                    <div className="mcx1">
+                        <p>{data.subject}</p>
                     </div>
                 </div>
-            ))
-
-                : <></>}
-        </>
-
-    )
+            )) : <p>No submitted tasks found</p>}
+        </div>
+    );
+    
 }
 
 export default User_Profile;

@@ -73,7 +73,7 @@ app.get('/namesetter', (req, res) => {
 
 app.post('/assignments', async (req, res) => {
     try {
-        const [results] = await db2.promise().query('SELECT * FROM student_tasks');
+        const [results] = await db2.promise().query('SELECT * FROM student_tasks ORDER BY id DESC');
         res.json({data : results})
     } catch (err) {
         console.error('Database query error:', err);
@@ -83,7 +83,6 @@ app.post('/assignments', async (req, res) => {
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
-    console.log(req.params);
 
     // Perform delete operation based on the `id`
     try {
@@ -97,16 +96,12 @@ app.delete('/deleteTask/:id', async (req, res) => {
 
 async function deleteTaskById(id) {
     await db2.promise().query('DELETE FROM student_tasks WHERE id = ?', [id]);
-    console.log(`Deleting task with ID: ${id}`);
 }
 
 app.delete('/deleteAssignment/:id', async (req, res) => {
     const id = req.params.id;
-    console.log(req.params);
 
-    // Perform delete operation based on the `id`
     try {
-        // Assuming you have a function to delete the task by ID
         await deleteTaskById(id);
         res.status(200).send({ message: 'Task deleted successfully' });
     } catch (error) {
@@ -116,11 +111,8 @@ app.delete('/deleteAssignment/:id', async (req, res) => {
 
 app.delete('/deleteAnouncement/:id', async (req, res) => {
     const id = req.params.id;
-    console.log(req.params);
 
-    // Perform delete operation based on the `id`
     try {
-        // Assuming you have a function to delete the task by ID
         await deleteAnouncementById(id);
         res.status(200).send({ message: 'Task deleted successfully' });
     } catch (error) {
@@ -130,13 +122,11 @@ app.delete('/deleteAnouncement/:id', async (req, res) => {
 
 async function deleteAnouncementById(id) {
     await db2.promise().query('DELETE FROM anouncements WHERE id = ?', [id]);
-    console.log(`Deleting task with ID: ${id}`);
 }
 
 
 async function deleteTaskById(id) {
     await db2.promise().query('DELETE FROM student_submissions WHERE id = ?', [id]);
-    console.log(`Deleting task with ID: ${id}`);
 }
 
 app.get('/download', (req, res) => {
@@ -178,7 +168,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const names = req.body.name;
     const subject = req.body.subject;
     const taskno = req.body.taskno;
-    console.log(req.file, req.body)
 
     if (!file) {
         return res.status(400).send('No file uploaded');
@@ -202,7 +191,6 @@ app.post('/uploadTask', upload.single('file'), (req, res) => {
     const file = req.file;
     const date2 = req.body.date;
     const taskno = req.body.taskno
-    console.log(subject, file, date2, req.body)
     if (!file) { 
         return res.status(400).send('No file uploaded');
     }  
@@ -260,7 +248,5 @@ app.post('/getUsers', async (req, res) => {
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
-    } else {
-        console.log(`Server running on port ${process.env.PORT}`);
-    }
+    } 
 });
