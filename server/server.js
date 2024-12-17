@@ -67,6 +67,7 @@ app.get('/check-session', (req, res) => {
     } else {
         res.status(401).send('Not authenticated');
     }
+    console.log(req)
 });
 
 
