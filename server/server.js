@@ -38,14 +38,14 @@ app.use(session({
     resave: false, 
     saveUninitialized: false, 
     cookie: { 
-        secure: true, 
+        secure: false, 
         maxAge: 1000 * 60 * 60 * 24 * 3 
     }
 }));
 
 
 app.use(cors({
-    origin: 'https://xsystems.onrender.com',
+    origin: ['https://xsystems.onrender.com', 'http://localhost:5173'],
     credentials: true
 }));
 
