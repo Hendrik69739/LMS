@@ -15,6 +15,7 @@ const { redirect } = require('react-router-dom');
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+/*
 const dbOptions = {
     host: process.env.HOST,
     user: process.env.USER,
@@ -27,7 +28,7 @@ const sessionStore = new MySQLStore({
     expiration: 1000 * 60 * 60 * 24 * 3, 
     checkExpirationInterval: 1000 * 60 
 }, connection);
-
+*/
 app.use(express.json());
 app.use(session({ 
     key: 'session_cookie_name',
