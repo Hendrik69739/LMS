@@ -165,6 +165,10 @@ app.post('/student_submissions', async (req, res) => {
     }
 });
 
+app.post('/hello', (req, res) => {
+    res.send('hello world')
+})
+
 
 app.post('/upload', upload.single('file'), (req, res) => {
     const file = req.file;
@@ -175,6 +179,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     if (!file) {
         return res.status(400).send('No file uploaded');
     }
+
 
     const insertSubmissionSQL = 'INSERT INTO student_submissions(submitted_pdf, student_name, subject, id) VALUES (?, ?, ?, ?)';
 
