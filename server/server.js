@@ -40,7 +40,7 @@ app.use(session({
     cookie: { 
         secure: false, 
         maxAge: 1000 * 60 * 60 * 24 * 3, 
-        domain: 'sql309.infinityfree.com'
+        domain: '4.tcp.eu.ngrok.io'
     }
 }));
 
