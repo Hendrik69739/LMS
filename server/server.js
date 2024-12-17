@@ -167,13 +167,7 @@ app.post('/student_submissions', async (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-   db2.getConnection((err, con) => {
-    if (err) {
-        res.send('error con')
-    } else{
-        console.log('connected')
-    }
-   })
+  res.send('hello')
 })
 
 
