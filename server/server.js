@@ -59,9 +59,6 @@ app.get('/login', (req, res) => {
     }
 });
 
-app.get('/', (req, res) => {
-    res.send('hello world')
-})
 
 app.get('/check-session', (req, res) => {
     if (req.session.name) {
