@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Dock from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
-/*import { BrowserRouter as Link, Route, Routes } from 'react-router-dom';*/
+import { BrowserRouter as Link, Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Assignment from './dock';
 import Anouncement from './Anouncement'
@@ -55,7 +55,7 @@ function Content() {
             <div id='content'>
                 <main id='main__prof'>
                     <aside id='prof__aside'>
-                       {/*  <Link to='dashboard' id='link'>Dashboard</Link>
+                         <Link to='dashboard' id='link'>Dashboard</Link>
                         <div id='link'>
                             <p>Assignment</p>
                             <div>
@@ -64,15 +64,15 @@ function Content() {
                             </div>
                         </div>
                         <Link to='anouncement' id='link'>Anouncement</Link>
-                        <Link onClick={Logout} id='link'>Logout</Link>*/}
+                        <Link onClick={Logout} id='link'>Logout</Link>
                     </aside>
                     <section id='prof__section'>
-                      {/*  <Routes>
+                       <Routes>
                             <Route path='dashboard' element={<Dashboard />} />
                             <Route path='anouncement' element={<Anouncement/>}/>
                             <Route path='assignment/management' element={<Assignment />} />
                             <Route path='assignment/dock' element={<Dock />} />
-                        </Routes>*/}
+                        </Routes>
                     </section>
                 </main>
             </div>
