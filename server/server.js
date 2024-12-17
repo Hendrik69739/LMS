@@ -39,7 +39,7 @@ app.use(session({
     cookie: { 
         secure: false, 
         maxAge: 1000 * 60 * 60 * 24 * 3, 
-        domain: 'localhost'
+        domain: 'sql309.infinityfree.com'
     }
 }));
 
@@ -87,9 +87,8 @@ app.post('/assignments', async (req, res) => {
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
 
-    // Perform delete operation based on the `id`
+    
     try {
-        // Assuming you have a function to delete the task by ID
         await deleteTaskById(id);
         res.status(200).send({ message: 'Task deleted successfully' });
     } catch (error) {
