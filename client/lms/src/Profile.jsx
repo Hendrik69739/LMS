@@ -4,7 +4,7 @@ import Content from './content';
 import Admin from './admin';
 
 function Profile() {
-    
+    /*
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate();
 
@@ -37,7 +37,9 @@ function Profile() {
 
         checkSession();
     }, [navigate]);
-
+*/
+const isAuthenticated = true;
+const user = '';
 
     return (
         <>
