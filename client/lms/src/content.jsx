@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react';
 import Dock from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
-import { BrowserRouter as Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom'; // Correct import
 import { useNavigate } from 'react-router-dom';
 import Assignment from './dock';
-import Anouncement from './Anouncement'
-
+import Anouncement from './Anouncement';
 
 function Content() {
 
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
 
     const Logout = async () => {
         await fetch('https://lms-tcr1.onrender.com/logout', {
@@ -20,28 +18,26 @@ function Content() {
         }).then(response => response.json())
             .then(data => {
                 if (data.redirect) {
-                    navigate(data.redirect)
-                    console.log(data)
+                    navigate(data.redirect);
+                    console.log(data);
                 }
-            })
+            });
+    };
 
-    }
-
-    const [namesetter, setNamesetter] = useState('')
+    const [namesetter, setNamesetter] = useState('');
 
     useEffect(() => {
         const setName = async () => {
             const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
                 method: 'GET',
                 credentials: 'include'
-            })
+            });
 
-            const response = await data.json()
-            setNamesetter(response.firstname + " " + response.lastname)
-
-        }
+            const response = await data.json();
+            setNamesetter(response.firstname + " " + response.lastname);
+        };
         setName();
-    }, [])
+    }, []);
 
     return (
         <>
@@ -55,11 +51,11 @@ function Content() {
             <div id='content'>
                 <main id='main__prof'>
                     <aside id='prof__aside'>
-                         <Link to='dashboard' id='link'>Dashboard</Link>
+                        <Link to='dashboard' id='link'>Dashboard</Link>
                         <div id='link'>
                             <p>Assignment</p>
                             <div>
-                                <Link to='assignment/dock'>Dock</Link><br></br>
+                                <Link to='assignment/dock'>Dock</Link><br />
                                 <Link to='assignment/management'>Submitted</Link>
                             </div>
                         </div>
@@ -67,9 +63,9 @@ function Content() {
                         <Link onClick={Logout} id='link'>Logout</Link>
                     </aside>
                     <section id='prof__section'>
-                       <Routes>
+                        <Routes>
                             <Route path='dashboard' element={<Dashboard />} />
-                            <Route path='anouncement' element={<Anouncement/>}/>
+                            <Route path='anouncement' element={<Anouncement />} />
                             <Route path='assignment/management' element={<Assignment />} />
                             <Route path='assignment/dock' element={<Dock />} />
                         </Routes>
@@ -77,6 +73,7 @@ function Content() {
                 </main>
             </div>
         </>
-    )
+    );
 }
+
 export default Content;
