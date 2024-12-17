@@ -28,7 +28,7 @@ const sessionStore = new MySQLStore({
     expiration: 1000 * 60 * 60 * 24 * 3, 
     checkExpirationInterval: 1000 * 60 
 }, connection);
-*/
+
 app.use(express.json());
 app.use(session({ 
     key: 'session_cookie_name',
@@ -42,6 +42,7 @@ app.use(session({
         domain: 'localhost'
     }
 }));
+*/
 
 app.use(cors({
     origin: 'http://localhost:5173',
