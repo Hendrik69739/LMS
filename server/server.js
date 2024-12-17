@@ -17,10 +17,10 @@ app.use(cookieParser());
 
 
 const dbOptions = {
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
+    host: 'sql309.infinityfree.com', // MySQL Hostname 
+    user: 'if0_37933761',
+    password: '1H3ndr1k4n3',
+    database: 'if0_37933761_nated_college'
 };
 
 const connection = mysql.createConnection(dbOptions);
