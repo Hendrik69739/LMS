@@ -7,7 +7,7 @@ function Dashboard() {
 
     useEffect(() => {
         const assignments = async () => {
-            const data = await fetch('https://lms-tcr1.onrender.com:3000/count', {
+            const data = await fetch('https://lms-tcr1.onrender.com/count', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -22,7 +22,7 @@ function Dashboard() {
 
     useEffect(() => {
         const time = async () => {
-            const results = await fetch('https://lms-tcr1.onrender.com:3000/events', {
+            const results = await fetch('https://lms-tcr1.onrender.com/events', {
                 method: 'POST',
                 credentials: 'include'
             });
