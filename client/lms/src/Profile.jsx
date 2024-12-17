@@ -38,22 +38,11 @@ function Profile() {
         checkSession();
     }, [navigate]);
 */
-const isAuthenticated = true;
-const user = '';
+
 
     return (
         <>
-        { isAuthenticated ? (
-            user === 'admin@gmail.com' ? (
-                <Admin />
-            ) : (
-                <Content />
-            )
-        ) : (
-            <>
-                <p>You are not logged in, please return to the login page.</p>
-            </>
-        )}
+        <Content></Content>
     </>
     
     );
