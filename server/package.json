@@ -1,27 +1,5 @@
 {
   "dependencies": {
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.2",
-    "express-mysql-session": "^3.0.3",
-    "express-session": "^1.18.1",
-    "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.11.4",
-    "nodemon": "^3.1.9",
-    "path": "^0.12.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0"
-  },
-  "name": "final-project",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "react-router-dom": "^7.0.2"
+  }
 }
