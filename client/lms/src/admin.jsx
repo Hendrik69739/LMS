@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Assignment from './admin_assignment_panel';
 import './profile.css';
-import {Route, Routes, Link, Navigate} from 'react-router-dom'
+/*import {Route, Routes, Link, Navigate} from 'react-router-dom'*/
 import { useNavigate } from 'react-router-dom';
 import Broadcast from './broadcast';
 import Users from './users';
@@ -56,19 +56,19 @@ function Admin(){
         <div id='content'>
             <main id='main__prof'>
                <aside id='prof__aside'>
-                    <Link to='assignment' id='link'>Assignment</Link>
+                   {/* <Link to='assignment' id='link'>Assignment</Link>
                     <Link to='anouncement' id='link'>Anouncement</Link>
                     <Link to='users' id='link'>Users</Link>
-                    <Link onClick={Logout} id='link'>Logout</Link>
+                    <Link onClick={Logout} id='link'>Logout</Link> */}
                 </aside>
                 <section id='prof__section'>
-                    <Routes>
+                  {/*}  <Routes>
                         <Route path='assignment' element={<Assignment />} />
                         <Route path='anouncement' element={<Broadcast/>} />
                         <Route path='users' element={<Users></Users>} />
                         <Route path='users/profile/:username' element={<User_Profile></User_Profile>} />
                         <Route path='*' element={<Assignment></Assignment>}/>
-                    </Routes>
+                    </Routes> */}
                 </section> 
             </main>
         </div>
