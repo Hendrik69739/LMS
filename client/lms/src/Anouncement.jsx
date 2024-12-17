@@ -7,7 +7,7 @@ function Broadcast(){
 
     useEffect(() => {
         const information = async () =>{
-            const results = await fetch('http://localhost:3000/anouncements', {
+            const results = await fetch('https://lms-tcr1.onrender.com:3000/anouncements', {
                 method : 'POST',
                 credentials : 'include'
             })

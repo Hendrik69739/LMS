@@ -15,7 +15,7 @@ function Admin(){
     
 
     const Logout = async () => {
-    await fetch('http://localhost:3000/logout', {
+    await fetch('https://lms-tcr1.onrender.com:3000/logout', {
              method: 'GET',
             credentials: 'include'
         }).then(response => response.json())
@@ -32,7 +32,7 @@ function Admin(){
 
     useEffect(() => {
         const setName = async () => {
-          const data = await fetch('http://localhost:3000/namesetter', {
+          const data = await fetch('https://lms-tcr1.onrender.com:3000/namesetter', {
                 method : 'GET',
                 credentials : 'include'
         })

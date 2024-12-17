@@ -51,7 +51,7 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetch('http://localhost:3000/auth/register', {
+        await fetch('https://lms-tcr1.onrender.com:3000/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

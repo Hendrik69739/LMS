@@ -12,7 +12,7 @@ function User_Profile() {
 
     useEffect(() => {
         const fetchtasks = async () => {
-            const response = await fetch(`http://localhost:3000/fetchtasks`, {
+            const response = await fetch(`https://lms-tcr1.onrender.com:3000/fetchtasks`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },

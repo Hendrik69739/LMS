@@ -10,7 +10,7 @@ function Assignments() {
         const fetchTask = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:3000/student_submissions', {
+                const response = await fetch('https://lms-tcr1.onrender.com:3000/student_submissions', {
                     method: 'POST',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +33,7 @@ function Assignments() {
 
         setDeleting(true);
         try {
-            const response = await fetch(`http://localhost:3000/deleteAssignment/${id}`, {
+            const response = await fetch(`https://lms-tcr1.onrender.com:3000/deleteAssignment/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });

@@ -7,7 +7,7 @@ function Broadcast(){
 
     useEffect(() => {
         const information = async () =>{
-            const results = await fetch('http://localhost:3000/anouncements', {
+            const results = await fetch('https://lms-tcr1.onrender.com:3000/anouncements', {
                 method : 'POST',
                 credentials : 'include'
             })
@@ -36,7 +36,7 @@ function Broadcast(){
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-     await fetch('http://localhost:3000/sendAnouncements', {
+     await fetch('https://lms-tcr1.onrender.com:3000/sendAnouncements', {
             method : 'POST',
             credentials : 'include',
             headers: { 
@@ -49,7 +49,7 @@ function Broadcast(){
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:3000/deleteAnouncement/${id}`, {
+            const response = await fetch(`https://lms-tcr1.onrender.com:3000/deleteAnouncement/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
