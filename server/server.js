@@ -17,10 +17,10 @@ app.use(cookieParser());
 
 
 const dbOptions = {
-    host: '4.tcp.eu.ngrok.io',
+    host: '0.tcp.in.ngrok.io',
     user: 'root',
     password: 'H3ndr1k4n3',
-    port: '18299',
+    port: '15527',
     database: 'students'
 };
 
@@ -39,8 +39,7 @@ app.use(session({
     saveUninitialized: false, 
     cookie: { 
         secure: true, 
-        maxAge: 1000 * 60 * 60 * 24 * 3, 
-        domain: '4.tcp.eu.ngrok.io'
+        maxAge: 1000 * 60 * 60 * 24 * 3 
     }
 }));
 
