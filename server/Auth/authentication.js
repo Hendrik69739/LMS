@@ -39,7 +39,7 @@ exports.login = async (req, res) => {
             req.session.name = email;
             req.session.firstname = rows[0].firstname;
             req.session.lastname = rows[0].lastname;
-            res.cookie('user', email, { maxAge: 1000 *60 *60 *24, httpOnly: true, sameSite : 'None'});
+            res.cookie('user', email, { maxAge: 1000 *60 *60 *24, httpOnly: true, sameSite : 'None',  secure: true});
             console.log(res)
             return res.status(200).json({message: 'Login successful', redirect: '/profile/dashboard'});
         }
