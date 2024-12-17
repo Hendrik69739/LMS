@@ -15,7 +15,7 @@ const { redirect } = require('react-router-dom');
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-/*
+
 const dbOptions = {
     host: process.env.HOST,
     user: process.env.USER,
@@ -42,10 +42,10 @@ app.use(session({
         domain: 'localhost'
     }
 }));
-*/
+
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://xsystems.onrender.com',
     credentials: true
 }));
 
