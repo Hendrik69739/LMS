@@ -39,25 +39,22 @@ exports.login = async (req, res) => {
         req.session.firstname = rows[0].firstname;
         req.session.lastname = rows[0].lastname;
 
+        
+
         req.session.save((err) => {
             if (err) {
                 console.error('Session save error:', err);
-                return res.status(500).json({ message: 'Session save error', why : err.message});
+                return res.status(500).json({ message: 'Session save error', error: err.message });
             }
-            req.session.name = email;
-            req.session.firstname = rows[0].firstname;
-            req.session.lastname = rows[0].lastname;
-
-            console.log(req.session, req.sessionID)
+        
             res.cookie('user', email, { 
                 maxAge: 1000 * 60 * 60 * 24, 
                 httpOnly: true, 
                 sameSite: 'None', 
                 secure: true 
             });
-
-           
-
+        
+            console.log('Login successful. Session:', req.session);
             return res.status(200).json({ 
                 message: 'Login successful', 
                 redirect: '/profile/dashboard', 
@@ -65,6 +62,7 @@ exports.login = async (req, res) => {
                 data: req.session 
             });
         });
+        
 
 
     } catch (error) {

@@ -17,8 +17,7 @@ function Profile() {
                 });
 
                 console.log('Response status:', response.status);
-                const results = await response.json()
-                console.log(results)
+                
 
                 if (response.status === 200) {
                     const data = await response.json();
