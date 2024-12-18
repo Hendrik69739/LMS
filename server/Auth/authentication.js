@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
     console.log(password, email)
     console.log('req reached authentication site')
     try {
-        const { rows } = await db.query('SELECT * FROM students WHERE email = $1 AND password = $2', [email, password]);
+        const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1 AND password = $2', [email, password]);
         
         if (rows.length === 0) {
             console.log('Invalid credentials');
