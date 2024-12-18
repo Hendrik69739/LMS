@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const { password, email } = req.body;
-
+    console.log('req reached authentication site')
     try {
         const { rows } = await db.query('SELECT * FROM students WHERE email = ? AND password = ?', [email, password]);
         
