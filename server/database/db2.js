@@ -1,14 +1,14 @@
-const mysql = require('mysql2')
-const dotenv = require('dotenv')
+const { Pool } = require('pg');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-db2 = mysql.createPool({
-    host: '0.tcp.in.ngrok.io',
-    user: 'root',
-    password: 'H3ndr1k4n3',
-    port: '15527',
-    database: 'students'
+const pool = new Pool({
+    host: process.env.PG_HOST,
+    user: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
+    port: process.env.PG_PORT,
+    database: process.env.PG_DATABASE
 });
 
-module.exports = db2;
+module.exports = pool;
