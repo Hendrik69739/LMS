@@ -42,7 +42,7 @@ exports.login = async (req, res) => {
         req.session.save((err) => {
             if (err) {
                 console.error('Session save error:', err);
-                return res.status(500).json({ message: 'Session save error' });
+                return res.status(500).json({ message: 'Session save error', why : err.message});
             }
 
             res.cookie('user', email, { 
@@ -59,6 +59,7 @@ exports.login = async (req, res) => {
                 data: req.session 
             });
         });
+
 
     } catch (error) {
         console.error('Internal server error:', error);

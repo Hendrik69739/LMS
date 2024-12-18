@@ -19,24 +19,23 @@ app.use(cors({
 }));
 
 const pool = new Pool({
-    user: process.env.PG_USER, 
-    host: process.env.PG_HOST, 
-    database: process.env.PG_DATABASE, 
-    password: process.env.PG_PASSWORD, 
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.PG_DATABASE,
+    password: process.env.PG_PASSWORD,
     port: process.env.PG_PORT,
-    ssl : {
+    ssl: {
         rejectUnauthorized: false
     },
-    options: `--search_path=students`
+    options: '--search_path=students'
 });
-
 
 app.use(session({
     store: new pgSession({
         pool: pool,
         tableName: 'students.session'
     }),
-    secret: process.env.SESSION_SECRET, // Replace with your actual secret key
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -45,6 +44,7 @@ app.use(session({
         sameSite: 'None'
     }
 }));
+
 
 app.use('/auth', auth);
 
