@@ -48,22 +48,8 @@ function Login() {
       <aside className="login-aside">
         <h2 className="login-title">Sign in</h2>
         <form id="form1" className="login-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            id="email"
-            className="login-input"
-            placeholder="Email"
-            onChange={handleUsername}
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            className="login-input"
-            placeholder="Password"
-            onChange={handleUserPassword}
-            required
-          />
+          <input type="email" id="email" className="login-input" placeholder="Email" onChange={handleUsername} required/>
+          <input type="password" id="password" className="login-input" placeholder="Password" onChange={handleUserPassword} required/>
           <button type="submit" className="login-button">Login</button>
         </form>
         <p className="signup-text">Dont have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>

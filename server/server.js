@@ -62,10 +62,12 @@ app.get('/login', (req, res) => {
 
 
 app.get('/check-session', (req, res) => {
+    console.log('Session Check:', req.session); // Log session data
+
     if (req.session.name) {
-        res.status(200).json({user : req.session.name});
+        res.status(200).json({ user: req.session.name });
     } else {
-        console.log(req)
+        console.log('No session found:', req.session);
         res.status(401).send('Not authenticated');
     }
 });

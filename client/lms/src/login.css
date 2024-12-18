@@ -1,69 +1,65 @@
+.login-container{
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(19, 19, 19);
+}
 
+.college-name{
+  color: white;
+  font-size: xxx-large;
+}
 
-.main-content {
-  flex: 1;
+.main-content{
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
-.login-aside {
-  flex: 1;
+.login-aside{
   display: flex;
-  flex-direction: column;
+  width: 50%;
+  height: 100%;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-.college-name {
-  font-size: 3rem;
+
+
+.login-input{
+  display: block;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  margin: 20px;
+}
+
+.login-title{
+  color: #CC99CC;
+  font-size: xx-large;
+}
+
+.signup-text{
   color: white;
 }
 
-.login-title {
-  font-size: 2rem;
-  color: white;
-}
-
-.login-form {
+.login-form{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 15px;
+  border-radius: 15px;
+
 }
 
-.login-input {
-  width: 200px;
-  padding: 10px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
+.login-button{
+  width: fit-content;
+  align-self: center;
+  margin: 5px;
 }
 
-.login-button {
-  width: 220px;
-  padding: 10px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.login-button:hover {
-  background-color: #45a049;
-}
-
-.signup-text {
-  color: white;
-}
-
-.signup-link {
-  color: #4CAF50;
-  text-decoration: none;
-}
-
-.signup-link:hover {
-  text-decoration: underline;
+.signup-link{
+  color: #CC99CC;
 }
