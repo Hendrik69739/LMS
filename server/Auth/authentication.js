@@ -28,37 +28,37 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const { password, email } = req.body;
-    console.log(password, email)
-    console.log('req reached authentication site')
     try {
         const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1 AND password = $2', [email, password]);
         
         if (rows.length === 0) {
-            console.log('Invalid credentials');
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         req.session.name = email;
         req.session.firstname = rows[0].firstname;
         req.session.lastname = rows[0].lastname;
-        console.log(req.session.id)
 
-        req.session.save((err) => { 
-            if (err) { console.error('Session save error:', err); 
-                return res.status(500).json({ message: 'Session save error' }); 
-            } 
-            res.cookie('user', email, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true, sameSite: 'None', secure: true });
-            return res.status(200).json({ message: 'Login successful', redirect: '/profile/dashboard', sessionID: req.sessionID, data: req.session }); });
-        
-        res.cookie('user', email, { 
-            maxAge: 1000 * 60 * 60 * 24, 
-            httpOnly: true, 
-            sameSite: 'None', 
-            secure: true 
+        req.session.save((err) => {
+            if (err) {
+                console.error('Session save error:', err);
+                return res.status(500).json({ message: 'Session save error' });
+            }
+
+            res.cookie('user', email, { 
+                maxAge: 1000 * 60 * 60 * 24, 
+                httpOnly: true, 
+                sameSite: 'None', 
+                secure: true 
+            });
+
+            return res.status(200).json({ 
+                message: 'Login successful', 
+                redirect: '/profile/dashboard', 
+                sessionID: req.sessionID, 
+                data: req.session 
+            });
         });
-
-        console.log('Login successful. Session:', req.session); 
-        return res.status(200).json({ message: 'Login successful', redirect: '/profile/dashboard', data : req.session });
 
     } catch (error) {
         console.error('Internal server error:', error);
