@@ -23,22 +23,24 @@ const pool = new Pool({
     host: process.env.PG_HOST, 
     database: process.env.PG_DATABASE, 
     password: process.env.PG_PASSWORD, 
-    port: process.env.PG_PORT
+    port: process.env.PG_PORT,
+    ssl : {
+        rejectUnauthorized: false
+    }
 });
 
-const testConnection = async () => {
-     try { 
+const testConnection = async () => { 
+    try { 
         const client = await pool.connect(); 
-        console.log('Connected to PostgreSQL database'); 
-        const res = await client.query('SELECT NOW()'); 
-        console.log('Current Time:', res.rows[0]); 
+        console.log('Connected to PostgreSQL database');
+        /const res = await client.query('SELECT NOW()'); 
+            console.log('Current Time:', res.rows[0]); 
         client.release(); 
-    } catch (err) {
-         console.error('Error connecting to PostgreSQL database:', err); 
-        } finally {
-             pool.end(); 
-            } }; 
-            
+    } catch (err) { 
+        console.error('Error connecting to PostgreSQL database:', err);
+    } finally { 
+        pool.end(); 
+    } };
         testConnection();
 
 app.use(session({
