@@ -56,16 +56,21 @@ app.get('/login', (req, res) => {
     }
 });
 
-app.get('/check-session', (req, res) => {
-    console.log('Session Check:', req.session);
 
-    if (req.session) {
+
+app.get('/check-session', (req, res) => {
+    console.log('Session Check Request:', req.session);
+    console.log('Cookies:', req.cookies);
+
+    if (req.session.name) {
+        console.log('Session Found:', req.session.name);
         res.status(200).json({ user: req.session.name });
     } else {
         console.log('No session found:', req.session);
         res.status(401).send('Not authenticated');
     }
 });
+
 
 app.get('/namesetter', (req, res) => {
     res.json({firstname: req.session.firstname, lastname: req.session.lastname});
