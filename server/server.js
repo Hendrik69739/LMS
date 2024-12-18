@@ -233,6 +233,6 @@ app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
     } else{
-        console.log('con successful')
+console.log('connection successful')
     }
 })
