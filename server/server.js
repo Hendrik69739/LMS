@@ -33,7 +33,7 @@ const pool = new Pool({
 app.use(session({
     store: new pgSession({
         pool: pool,
-        tableName: 'students.session'
+        tableName: 'session'
     }),
     secret: process.env.SESSION_SECRET,
     resave: false,
