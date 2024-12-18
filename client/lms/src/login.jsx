@@ -27,7 +27,7 @@ function Login() {
         body: JSON.stringify({ email: username, password: userpassword }),
         credentials: 'include', 
       });
-
+      
       const data = await response.json();
       
       if (data.redirect) {

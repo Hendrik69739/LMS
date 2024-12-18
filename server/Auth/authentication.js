@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
         });
 
         console.log('Login successful. Session:', req.session); // Log session details
-        return res.status(200).json({ message: 'Login successful', redirect: '/profile/dashboard' });
+        return res.status(200).json({ message: 'Login successful', redirect: '/profile/dashboard', data : req.session });
 
     } catch (error) {
         console.error('Internal server error:', error);
