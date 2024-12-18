@@ -26,7 +26,8 @@ const pool = new Pool({
     port: process.env.PG_PORT,
     ssl : {
         rejectUnauthorized: false
-    }
+    },
+    options: `--search_path=students`
 });
 
 

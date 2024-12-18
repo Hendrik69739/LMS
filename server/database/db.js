@@ -11,7 +11,8 @@ const pool = new Pool({
     database: process.env.PG_DATABASE,
     ssl : {
         rejectUnauthorized: false
-    }
+    },
+    options: `--search_path=students`
 });
 
 module.exports = pool;
