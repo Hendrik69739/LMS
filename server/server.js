@@ -235,9 +235,23 @@ app.post('/getUsers', async (req, res) => {
 });
 
 app.get('/home', async (req, res) => {
-    const data = await pool.query('SELECT * FROM students.session')
-    res.json({ data : data})
-})
+    try {
+        const sessionId = 'example-session-id'; // Replace with actual session ID
+        const sessionData = { exampleKey: 'exampleValue' }; // Replace with actual session data
+        const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3); // 3 days from now
+
+        const queryText = 'INSERT INTO students.session (sid, sess, expire) VALUES ($1, $2, $3)';
+        const values = [sessionId, JSON.stringify(sessionData), expiryDate];
+
+        await pool.query(queryText, values);
+
+        res.json({ message: 'Session data inserted successfully' });
+    } catch (error) {
+        console.error('Error inserting session data:', error);
+        res.status(500).json({ error: 'Database insertion error' });
+    }
+});
+
 
 app.listen(process.env.PORT, (err) => {
     if (err) {
