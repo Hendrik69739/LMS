@@ -59,7 +59,7 @@ app.get('/login', (req, res) => {
 app.get('/check-session', (req, res) => {
     console.log('Session Check:', req.session);
 
-    if (req.session.name) {
+    if (req.session) {
         res.status(200).json({ user: req.session.name });
     } else {
         console.log('No session found:', req.session);
