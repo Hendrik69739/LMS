@@ -33,7 +33,7 @@ const testConnection = async () => {
     try { 
         const client = await pool.connect(); 
         console.log('Connected to PostgreSQL database');
-        /const res = await client.query('SELECT NOW()'); 
+        const res = await client.query('SELECT NOW()'); 
             console.log('Current Time:', res.rows[0]); 
         client.release(); 
     } catch (err) { 
