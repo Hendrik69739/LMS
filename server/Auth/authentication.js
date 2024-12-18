@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
             secure: true 
         });
 
-        console.log('Login successful. Session:', req.session); // Log session details
+        console.log('Login successful. Session:', req.session); 
         return res.status(200).json({ message: 'Login successful', redirect: '/profile/dashboard', data : req.session });
 
     } catch (error) {

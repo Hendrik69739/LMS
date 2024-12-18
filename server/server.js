@@ -234,6 +234,11 @@ app.post('/getUsers', async (req, res) => {
     res.json({ results: result.rows });
 });
 
+app.get('/home', async (req, res) => {
+    const data = await pool.query('SELECT * FROM students.session')
+    res.json({ data : data})
+})
+
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
