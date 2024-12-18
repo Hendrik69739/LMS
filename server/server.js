@@ -46,7 +46,7 @@ const testConnection = async () => {
 app.use(session({
     store: new pgSession({
         pool: pool,
-        tableName: 'session'
+        tableName: 'students.session'
     }),
     secret: process.env.SESSION_SECRET, // Replace with your actual secret key
     resave: false,
