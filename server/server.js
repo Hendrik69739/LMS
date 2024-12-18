@@ -232,6 +232,7 @@ app.post('/getUsers', async (req, res) => {
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
-    } else
-
+    } else{
+        console.log('con successful')
+    }
 })
