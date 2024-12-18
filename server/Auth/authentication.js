@@ -41,6 +41,7 @@ exports.login = async (req, res) => {
         req.session.name = email;
         req.session.firstname = rows[0].firstname;
         req.session.lastname = rows[0].lastname;
+        console.log(req.session.id)
         
         res.cookie('user', email, { 
             maxAge: 1000 * 60 * 60 * 24, 

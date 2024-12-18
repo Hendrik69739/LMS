@@ -29,19 +29,6 @@ const pool = new Pool({
     }
 });
 
-const testConnection = async () => { 
-    try { 
-        const client = await pool.connect(); 
-        console.log('Connected to PostgreSQL database');
-        const res = await client.query('SELECT NOW()'); 
-            console.log('Current Time:', res.rows[0]); 
-        client.release(); 
-    } catch (err) { 
-        console.error('Error connecting to PostgreSQL database:', err);
-    } finally { 
-        pool.end(); 
-    } };
-        testConnection();
 
 app.use(session({
     store: new pgSession({
