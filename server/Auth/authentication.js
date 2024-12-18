@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
     const { password, email } = req.body;
 
     try {
-        const { rows } = await db.query('SELECT * FROM students WHERE email = $1 AND password = $2', [email, password]);
+        const { rows } = await db.query('SELECT * FROM students WHERE email = ? AND password = ?', [email, password]);
         
         if (rows.length === 0) {
             console.log('Invalid credentials');
