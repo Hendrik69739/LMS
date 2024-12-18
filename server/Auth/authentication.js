@@ -52,6 +52,10 @@ exports.login = async (req, res) => {
                 secure: true 
             });
 
+            req.session.name = email;
+            req.session.firstname = rows[0].firstname;
+            req.session.lastname = rows[0].lastname;
+
             return res.status(200).json({ 
                 message: 'Login successful', 
                 redirect: '/profile/dashboard', 
