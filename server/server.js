@@ -35,13 +35,14 @@ app.use(session({
         pool: pool,
         tableName: 'session'
     }),
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'default-secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false,
+        secure: true, // Secure must be true for production
         maxAge: 1000 * 60 * 60 * 24 * 3, // 3 days
-        sameSite: 'None'
+        sameSite: 'None',
+        httpOnly: true
     }
 }));
 
