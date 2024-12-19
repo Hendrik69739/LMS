@@ -199,13 +199,11 @@ app.post('/fetchtasks', async (req, res) => {
 });
 
 app.post('/count', (req, res, next) => {
-    // Set CORS headers for this specific route
     res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); // or "http://localhost:5173"
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
 
-    // Proceed to the next middleware or route handler
     next();
 }, async (req, res) => {
     try {
@@ -214,7 +212,7 @@ app.post('/count', (req, res, next) => {
         res.json({ total_ids: result1.rows[0].total_ids, total_id: result2.rows[0].total_ids });
     } catch (err) {
         console.error('Database query error:', err);
-        res.status(500).json({ error: 'Database query error' });
+        res.status(500).json({ error: 'Database query error', why : err.message });
     }
 });
 
@@ -241,7 +239,7 @@ app.post('/events', (req, res, next) => {
         res.json({ date: result.rows });
     } catch (err) {
         console.error('Database query error:', err);
-        res.status(500).json({ error: 'Database query error' });
+        res.status(500).json({ error: 'Database query error', why : err.message});
     }
 });
 
