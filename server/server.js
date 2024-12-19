@@ -30,6 +30,13 @@ const pool = new Pool({
     options: '--search_path=students'
 });
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+  
+
 app.use(session({
     store: new pgSession({
         pool: pool,
@@ -46,6 +53,7 @@ app.use(session({
         httpOnly: true
     }
 }));
+
 
 
 app.use('/auth', auth);
