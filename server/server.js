@@ -52,7 +52,6 @@ app.use(session({
 
 
 app.use('/auth', auth);
-app.get("*", (req, res) => { res.sendFile(path.resolve(__dirname, 'client', 'lms', 'dist', 'index.html')); });
 
 app.get('/check-session', (req, res) => {
     console.log('Session Check Request:', req.session);
