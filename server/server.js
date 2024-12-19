@@ -67,6 +67,19 @@ app.get('/check-session', (req, res) => {
     }
 });
 
+const path = require('path');
+
+app.get("/home", (req, res) => {
+    const indexPath = path.resolve(__dirname, 'client', 'lms', 'dist', 'index.html');
+    console.log('Serving file from:', indexPath);  // Log the resolved path for debugging
+    res.sendFile(indexPath, (err) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+    });
+});
+
+
 
 app.get('/namesetter', (req, res) => {
     console.log(req)
