@@ -39,6 +39,8 @@ exports.login = async (req, res) => {
         req.session.firstname = rows[0].firstname;
         req.session.lastname = rows[0].lastname;
 
+        console.log('Session before saving:', req.session);
+
         req.session.save((err) => {
             if (err) {
                 console.error('Session save error:', err);
@@ -51,6 +53,8 @@ exports.login = async (req, res) => {
                 sameSite: 'None', 
                 secure: true 
             });
+
+            console.log('Session after saving:', req.session);
 
             return res.status(200).json({ 
                 message: 'Login successful', 
