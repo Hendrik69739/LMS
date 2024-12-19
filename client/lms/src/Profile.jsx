@@ -15,10 +15,7 @@ function Profile() {
                     credentials: 'include'
                 });
 
-                console.log('Response status:', response);
-
-                const data = await response.json();
-                console.log('Session data:', data);
+                console.log('Response status:', response);;
 
               if (response.status === 200) {
                     const data = await response.json();
