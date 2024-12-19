@@ -65,6 +65,7 @@ app.get('/check-session', (req, res) => {
 
 
 app.get('/namesetter', (req, res) => {
+    console.log(req)
     res.json({firstname: req.session.firstname, lastname: req.session.lastname});
 });
 
