@@ -10,7 +10,7 @@ function Profile() {
 
     useEffect(() => {
         const checkSession = async () => {
-                const response = await fetch('https://lms-tcr1.onrender.com/check-session', { 
+                const response = await fetch('http://localhost:3000/check-session', { 
                     method: 'GET',
                     credentials: 'include'
                 });

@@ -39,7 +39,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true,
+        secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 3, // 3 days
         sameSite: 'None'
     }
@@ -47,14 +47,6 @@ app.use(session({
 
 
 app.use('/auth', auth);
-
-app.get('/login', (req, res) => {
-    if (req.session.user) {
-        res.redirect('https://xsystems.onrender.com/profile');
-    } else {
-        res.status(200).send('Please log in');
-    }
-});
 
 
 
