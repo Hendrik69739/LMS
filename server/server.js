@@ -35,6 +35,7 @@ app.use(session({
         pool: pool,
         tableName: 'session'
     }),
+    proxy: true,
     secret: process.env.SESSION_SECRET || 'default-secret',
     resave: false,
     saveUninitialized: false,
