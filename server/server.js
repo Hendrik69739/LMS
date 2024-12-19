@@ -29,12 +29,6 @@ const pool = new Pool({
     },
     options: '--search_path=students'
 });
-
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "/count");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
   
 
 app.use(session({
@@ -204,11 +198,26 @@ app.post('/fetchtasks', async (req, res) => {
     res.json({ results: result.rows });
 });
 
-app.post('/count', async (req, res) => {
-    const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM student_submissions');
-    const result2 = await pool.query('SELECT COUNT(id) AS total_ids FROM student_tasks');
-    res.json({ total_ids: result1.rows[0].total_ids, total_id: result2.rows[0].total_ids });
+app.post('/count', (req, res, next) => {
+    // Set CORS headers for this specific route
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); // or "http://localhost:5173"
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    // Proceed to the next middleware or route handler
+    next();
+}, async (req, res) => {
+    try {
+        const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM student_submissions');
+        const result2 = await pool.query('SELECT COUNT(id) AS total_ids FROM student_tasks');
+        res.json({ total_ids: result1.rows[0].total_ids, total_id: result2.rows[0].total_ids });
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error' });
+    }
 });
+
 
 app.get('/logout', (req, res) => {
     req.session.destroy();
