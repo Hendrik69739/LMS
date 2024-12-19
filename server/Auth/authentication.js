@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
                     maxAge: 1000 * 60 * 60 * 24,
                     httpOnly: false,
                     sameSite: 'None',
-                    secure: false
+                    secure: true
                 });
 
                 console.log('Session after saving:', req.session);
