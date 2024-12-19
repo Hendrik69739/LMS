@@ -10,16 +10,17 @@ function Profile() {
 
     useEffect(() => {
         const checkSession = async () => {
-            try {
                 const response = await fetch('https://lms-tcr1.onrender.com/check-session', { 
                     method: 'GET',
                     credentials: 'include'
                 });
 
-                console.log('Response status:', response.status);
-                
+                console.log('Response status:', response);
 
-                if (response.status === 200) {
+                const data = await response.json();
+                console.log('Session data:', data);
+
+              if (response.status === 200) {
                     const data = await response.json();
                     console.log('Session data:', data);
 
@@ -29,11 +30,7 @@ function Profile() {
                 } else {
                     console.log('No session found:', response.status);
                     navigate('/login');
-                }
-            } catch (error) {
-                console.log('Error occurred while checking for session:', error);
-                navigate('/login');
-            }
+                } 
         };
 
         checkSession();

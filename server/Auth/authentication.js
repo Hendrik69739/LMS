@@ -54,8 +54,6 @@ exports.login = async (req, res) => {
                 secure: true 
             });
 
-            console.log('Session after saving:', req.session);
-
             return res.status(200).json({ 
                 message: 'Login successful', 
                 redirect: '/profile/dashboard', 

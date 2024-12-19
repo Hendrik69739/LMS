@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-    origin: 'https://xsystems.onrender.com',
+    origin: ['https://xsystems.onrender.com', 'http://localhost:5173'],
     credentials: true
 }));
 
@@ -40,7 +40,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         secure: true,
-        maxAge: 1000 * 60 * 60 * 24 * 3,
+        maxAge: 1000 * 60 * 60 * 24 * 3, // 3 days
         sameSite: 'None'
     }
 }));
@@ -70,27 +70,6 @@ app.get('/check-session', (req, res) => {
         res.status(401).send('Not authenticated');
     }
 });
-
-app.get('/test-session-create', (req, res) => {
-    req.session.test = 'Session Created!';
-    req.session.save((err) => {
-        if (err) {
-            console.error('Session save error:', err);
-            return res.status(500).json({ message: 'Session save error', error: err.message });
-        }
-        res.send('Session created and saved.');
-    });
-});
-
-app.get('/test-session-check', (req, res) => {
-    if (req.session.test) {
-        res.status(200).send(`Session Data: ${req.session.test}`);
-    } else {
-        res.status(404).send('No session data found.');
-    }
-});
-
-
 
 
 app.get('/namesetter', (req, res) => {
