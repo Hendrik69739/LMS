@@ -228,9 +228,21 @@ const time = new Date();
 const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
 const date = time.toLocaleDateString('en-US', options);
 
-app.post('/events', async (req, res) => {
-    const result = await pool.query('SELECT * FROM events WHERE time >= $1', [date]);
-    res.json({ date: result.rows });
+app.post('/events', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    next();
+}, async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM events WHERE time >= $1', [date]);
+        res.json({ date: result.rows });
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error' });
+    }
 });
 
 app.post('/anouncements', async (req, res) => {
