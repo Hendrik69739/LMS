@@ -235,7 +235,7 @@ app.post('/events', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM events WHERE time >= $1', [date]);
+        const result = await pool.query('SELECT * FROM events WHERE event_date >= $1', [date]);
         res.json({ date: result.rows });
     } catch (err) {
         console.error('Database query error:', err);
@@ -257,24 +257,6 @@ app.post('/sendAnouncements', async (req, res) => {
 app.post('/getUsers', async (req, res) => {
     const result = await pool.query('SELECT * FROM students');
     res.json({ results: result.rows });
-});
-
-app.get('/home', async (req, res) => {
-    try {
-        const sessionId = 'example-session-id'; // Replace with actual session ID
-        const sessionData = { exampleKey: 'exampleValue' }; // Replace with actual session data
-        const expiryDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 3); // 3 days from now
-
-        const queryText = 'INSERT INTO students.session (sid, sess, expire) VALUES ($1, $2, $3)';
-        const values = [sessionId, JSON.stringify(sessionData), expiryDate];
-
-        await pool.query(queryText, values);
-
-        res.json({ message: 'Session data inserted successfully' });
-    } catch (error) {
-        console.error('Error inserting session data:', error);
-        res.status(500).json({ error: 'Database insertion error' });
-    }
 });
 
 
