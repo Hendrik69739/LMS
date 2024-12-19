@@ -7,6 +7,7 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const multer = require('multer');
 const { Pool } = require('pg');
+const path = require('path')
 dotenv.config();
 
 const cookieParser = require('cookie-parser');
@@ -48,9 +49,9 @@ app.use(session({
     }
 }));
 
-app.use(express.static(path.join(__dirname, 'client', 'lms', 'dist')));
 
 app.use('/auth', auth);
+app.get("*", (req, res) => { res.sendFile(path.resolve(__dirname, 'client', 'lms', 'dist', 'index.html')); });
 
 app.get('/check-session', (req, res) => {
     console.log('Session Check Request:', req.session);
