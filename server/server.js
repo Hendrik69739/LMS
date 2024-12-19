@@ -30,12 +30,7 @@ const pool = new Pool({
     options: '--search_path=students'
 });
   
-app.get("/*", (req, res) => {
-    res.header("Cache-Control", "max-age=-1");
-    res.header("Expires", "-1");
-    res.header("Pragma", "no-cache");
-    res.sendFile(path.join(__dirname, "dist/index.html"));
-});
+
 
 app.use(session({
     store: new pgSession({
