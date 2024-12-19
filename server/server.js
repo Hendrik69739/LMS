@@ -50,6 +50,8 @@ app.use(session({
     }
 }));
 
+app.get("*", (req, res) => { const indexPath = path.resolve(__dirname, 'client', 'lms', 'index.html'); console.log('Serving file from:', indexPath); res.sendFile(indexPath, (err) => { if (err) { console.error('Error sending file:', err); res.status(500).send(err); } }); });
+
 
 app.use('/auth', auth);
 
