@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Dock from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
-import { Link, Route, Switch } from 'react-router-dom'; // Correct import
+import { Link, Route, Routes } from 'react-router-dom'; // Correct import
 import { useNavigate } from 'react-router-dom';
 import Assignment from './dock';
 import Anouncement from './Anouncement';
@@ -63,12 +63,12 @@ function Content() {
                         <Link onClick={Logout} id='link'>Logout</Link>
                     </aside>
                     <section id='prof__section'>
-                        <Switch>
+                        <Routes>
                             <Route path='dashboard' element={<Dashboard />} />
                             <Route path='anouncement' element={<Anouncement />} />
                             <Route path='assignment/management' element={<Assignment />} />
                             <Route path='assignment/dock' element={<Dock />} />
-                        </Switch>
+                        </Routes>
                     </section>
                 </main>
             </div>
