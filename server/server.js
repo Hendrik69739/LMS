@@ -50,8 +50,6 @@ app.use(session({
 
 app.use('/auth', auth);
 
-
-
 app.get('/check-session', (req, res) => {
     console.log('Session Check Request:', req.session);
     console.log('Cookies:', req.cookies);
