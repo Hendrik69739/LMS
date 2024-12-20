@@ -4,7 +4,7 @@ import Dashboard from './dashboard';
 import './profile.css';
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import Assignment from './dock';
-import Announcement from './Announcement';
+import Anouncement from './Anouncement';
 
 function Content() {
     const navigate = useNavigate();
@@ -65,7 +65,7 @@ function Content() {
                     <section id='prof__section'>
                         <Routes>
                             <Route path='dashboard' element={<Dashboard />} />
-                            <Route path='announcement' element={<Announcement />} />
+                            <Route path='announcement' element={<Anouncement />} />
                             <Route path='assignment/management' element={<Assignment />} />
                             <Route path='assignment/dock' element={<Dock />} />
                         </Routes>
