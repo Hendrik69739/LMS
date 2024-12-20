@@ -4,7 +4,7 @@ exports.register = async (req, res) => {
     const { email, password, lastname, firstname, secondname, ethnicgroup, IDnumber, cellnumber, altnumber } = req.body;
 
     try {
-        const { rows } = await db.query('SELECT * FROM students WHERE email = $1', [email]);
+        const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1', [email]);
 
         if (rows.length > 0) {
             console.log('User exists:', rows);

@@ -8,6 +8,7 @@ function Profile() {
     const [user, setUser] = useState('');
     const navigate = useNavigate();
 
+/*
     useEffect(() => {
         const checkSession = async () => {
                 const response = await fetch('https://lms-tcr1.onrender.com/check-session', { 
@@ -32,18 +33,18 @@ function Profile() {
 
         checkSession();
     }, [navigate]);
-
+*/
     return (
         <>
-            {isAuthenticated ? (
+           {/* {isAuthenticated ? (
                 user === 'admin@gmail.com' ? (
                     <Admin />
-                ) : (
+                ) : ( */}
                     <Content />
-                )
+               {/*)
             ) : (
                 <p>You are not logged in, please return to the login page.</p>
-            )}
+            )} */}
         </>
     );
 }

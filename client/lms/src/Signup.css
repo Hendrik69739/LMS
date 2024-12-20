@@ -1,0 +1,46 @@
+#reg-board{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: scroll;
+}
+
+#reg-board::-webkit-scrollbar {
+     display: none; 
+    }
+
+.signup-heading{
+    color: white;
+    text-align: center;
+}
+
+#form1{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.form-input{
+    padding: 8px;
+    margin: 10px;
+}
+
+.form-button{
+    width: fit-content;
+    align-self: center;
+}
+
+.firstrow, .secondrow, .thirdrow{
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0px;
+    flex-wrap: wrap;
+}
+
+.signup-text{
+    text-align: center;
+}
+
+
+

@@ -75,9 +75,10 @@ function Signup() {
     };
 
     return (
-        <>
+        <div id='reg-board'>
             <h1 className="signup-heading">Student Registration</h1>
             <form id="form1" onSubmit={handleSubmit} className="signup-form">
+                <div className='firstrow'>
                 <input
                     type="text"
                     id="firstname"
@@ -99,6 +100,8 @@ function Signup() {
                     onChange={handleLastname}
                     className="form-input"
                 />
+                </div>
+                <div className='secondrow'>
                 <input
                     type="text"
                     id="IDnumber"
@@ -120,6 +123,9 @@ function Signup() {
                     onChange={handleAltCell}
                     className="form-input"
                 />
+                
+                </div>
+                <div className='thirdrow'>
                 <input
                     type="text"
                     id="email"
@@ -141,10 +147,11 @@ function Signup() {
                     onChange={handlePassword}
                     className="form-input"
                 />
+                </div>
                 <button type="submit" className="form-button">Register</button>
             </form>
             <p className="signup-text">Have an account? <Link to="/login" className="signup-link">Sign in</Link></p>
-        </>
+        </div>
     );
 }
 

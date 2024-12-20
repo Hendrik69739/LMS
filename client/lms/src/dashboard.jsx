@@ -64,12 +64,12 @@ function Dashboard() {
                         <iframe src="https://calendar.google.com/calendar/embed?src=retshephilengm%40gmail.com&ctz=UTC" width="340" height="300"></iframe>
                     </div>
                     <div id='upcoming'>
-                       <header className='dash_header'> <h4>Upcoming</h4></header>
-                       <aside className='dash_aside'>
-                       {event.map((data) => (
-                            <p key={data.time}>{data.event}<br/>{data.time}</p>
-                        ))}
-                       </aside>
+                        <header className='dash_header'> <h4>Upcoming</h4></header>
+                        <aside className='dash_aside'>
+                            {event.map((data) => (
+                                <p key={data.time}>{data.event}<br />{data.time}</p>
+                            ))}
+                        </aside>
                     </div>
                 </section>
             </div>

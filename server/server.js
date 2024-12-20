@@ -65,16 +65,6 @@ app.get('/check-session', (req, res) => {
     }
 });
 
-app.get("/home", (req, res) => {
-    const indexPath = path.resolve(__dirname, 'client', 'lms', 'dist', 'index.html');
-    console.log('Serving file from:', indexPath);  // Log the resolved path for debugging
-    res.sendFile(indexPath, (err) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-    });
-});
-
 
 
 app.get('/namesetter', (req, res) => {
@@ -159,10 +149,6 @@ app.post('/student_submissions', async (req, res) => {
         console.error('Error fetching student submissions:', error);
         res.status(500).send({ message: 'Failed to fetch student submissions' });
     }
-});
-
-app.get('/', (req, res) => {
-    res.send('hello');
 });
 
 app.post('/upload', upload.single('file'), (req, res) => {
