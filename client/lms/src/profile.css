@@ -36,13 +36,6 @@ img {
     color: white;
 }
 
-#prof__aside #link.active-link {
-    background-color: rgba(255, 0, 0, 0.267);
-    color: #ffffff; 
-    font-weight: bold; 
-}
-
-
 header > div {
     display: flex;
     justify-content: center;
@@ -81,4 +74,12 @@ header > div {
     text-decoration: none;
     font-size: larger;
     color: rgb(255, 255, 255);
+}
+
+#link:active{
+    background-color: rgba(0, 255, 255, 0.116);
+}
+
+#link:hover{
+    background-color: rgba(0, 255, 255, 0.116);
 }

@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import './Signup.css'
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
+
+    const navigate = useNavigate();
+
     const [firstname, setFirstname] = useState('');
     const handleFirstname = (e) => {
         setFirstname(e.target.value);
@@ -69,7 +73,7 @@ function Signup() {
         .then((data) => data.json())
         .then((response) => {
             if (response.redirect) {
-                console.log('hi');
+                navigate(response.redirect)
             }
         });
     };

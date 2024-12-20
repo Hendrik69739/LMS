@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
 
         await db.query(query, [email, firstname, lastname, secondname, password, cellnumber, altnumber, IDnumber, ethnicgroup]);
         console.log('Registration complete');
-        return res.json({ message: 'registration complete' });
+        return res.json({ message: 'registration complete', redirect : '/profile/dashboard' });
 
     } catch (error) {
         console.error('Internal server error:', error);

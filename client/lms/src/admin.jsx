@@ -10,12 +10,10 @@ import User_Profile from './user_profile';
 
 function Admin(){
 
-
     const navigate = useNavigate()
-    
 
     const Logout = async () => {
-    await fetch('https://lms-tcr1.onrender.com:3000/logout', {
+    await fetch('https://lms-tcr1.onrender.com/logout', {
              method: 'GET',
             credentials: 'include'
         }).then(response => response.json())
@@ -28,11 +26,11 @@ function Admin(){
        
     }
 
-    const [namesetter, setNamesetter] = useState('hello')
+    const [namesetter, setNamesetter] = useState('')
 
     useEffect(() => {
         const setName = async () => {
-          const data = await fetch('https://lms-tcr1.onrender.com:3000/namesetter', {
+          const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
                 method : 'GET',
                 credentials : 'include'
         })
@@ -56,9 +54,9 @@ function Admin(){
         <div id='content'>
             <main id='main__prof'>
                <aside id='prof__aside'>
-                    <Link to='assignment' id='link'>Assignment</Link>
-                    <Link to='anouncement' id='link'>Anouncement</Link>
-                    <Link to='users' id='link'>Users</Link>
+                    <Link to='/profile/assignment' id='link'>Assignment</Link>
+                    <Link to='/profile/anouncement' id='link'>Anouncement</Link>
+                    <Link to='/profile/users' id='link'>Users</Link>
                     <Link onClick={Logout} id='link'>Logout</Link>
                 </aside>
                 <section id='prof__section'>
