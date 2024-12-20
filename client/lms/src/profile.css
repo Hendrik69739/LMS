@@ -33,7 +33,15 @@ img {
 
 #prof__h2 {
     margin: 5px;
+    color: white;
 }
+
+#prof__aside #link.active-link {
+    background-color: #f0f0f0; 
+    color: #000; 
+    font-weight: bold; 
+}
+
 
 header > div {
     display: flex;

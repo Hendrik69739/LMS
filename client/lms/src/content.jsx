@@ -2,28 +2,12 @@ import { useEffect, useState } from 'react';
 import Dock from './assignment';
 import Dashboard from './dashboard';
 import './profile.css';
-import { Link, Route, Routes } from 'react-router-dom'; // Correct import
-import { useNavigate } from 'react-router-dom';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import Assignment from './dock';
-import Anouncement from './Anouncement';
+import Announcement from './Announcement';
 
 function Content() {
-
     const navigate = useNavigate();
-
-    const Logout = async () => {
-        await fetch('https://lms-tcr1.onrender.com/logout', {
-            method: 'GET',
-            credentials: 'include'
-        }).then(response => response.json())
-            .then(data => {
-                if (data.redirect) {
-                    navigate(data.redirect);
-                    console.log(data);
-                }
-            });
-    };
-
     const [namesetter, setNamesetter] = useState('');
 
     useEffect(() => {
@@ -39,10 +23,26 @@ function Content() {
         setName();
     }, []);
 
+    const Logout = async () => {
+        try {
+            const response = await fetch('https://lms-tcr1.onrender.com/logout', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            const data = await response.json();
+            if (data.redirect) {
+                navigate(data.redirect);
+                console.log(data);
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
+
     return (
         <>
             <header id='prof__header'>
-                <h1 className='college'>North College</h1>
+                <h1>North College</h1>
                 <div>
                     <h2 id='prof__h2'>{namesetter}</h2>
                     <img src='' alt='Profile' />
@@ -51,21 +51,21 @@ function Content() {
             <div id='content'>
                 <main id='main__prof'>
                     <aside id='prof__aside'>
-                        <Link to='/profile/dashboard' id='link'>Dashboard</Link>
+                        <NavLink to='/profile/dashboard' id='link' activeClassName='active-link'>Dashboard</NavLink>
                         <div id='link'>
                             <p>Assignment</p>
                             <div>
-                                <Link to='/profile/assignment/dock'>Dock</Link><br />
-                                <Link to='/profile/assignment/management'>Submitted</Link>
+                                <NavLink to='/profile/assignment/dock' activeClassName='active-link'>Dock</NavLink><br />
+                                <NavLink to='/profile/assignment/management' activeClassName='active-link'>Submitted</NavLink>
                             </div>
                         </div>
-                        <Link to='/profile/anouncement' id='link'>Anouncement</Link>
-                        <Link onClick={Logout} id='link'>Logout</Link>
+                        <NavLink to='/profile/announcement' id='link' activeClassName='active-link'>Announcement</NavLink>
+                        <NavLink to='#' id='link' activeClassName='active-link' onClick={Logout}>Logout</NavLink>
                     </aside>
                     <section id='prof__section'>
                         <Routes>
                             <Route path='dashboard' element={<Dashboard />} />
-                            <Route path='anouncement' element={<Anouncement />} />
+                            <Route path='announcement' element={<Announcement />} />
                             <Route path='assignment/management' element={<Assignment />} />
                             <Route path='assignment/dock' element={<Dock />} />
                         </Routes>
