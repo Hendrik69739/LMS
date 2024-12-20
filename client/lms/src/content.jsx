@@ -59,15 +59,15 @@ function Content() {
                                 <NavLink to='/profile/assignment/management' activeClassName='active-link'>Submitted</NavLink>
                             </div>
                         </div>
-                        <NavLink to='/profile/announcement' id='link' activeClassName='active-link'>Announcement</NavLink>
+                        <NavLink to='/profile/anouncement' id='link' activeClassName='active-link'>Announcement</NavLink>
                         <NavLink to='#' id='link' activeClassName='active-link' onClick={Logout}>Logout</NavLink>
                     </aside>
                     <section id='prof__section'>
                         <Routes>
-                            <Route path='dashboard' element={<Dashboard />} />
-                            <Route path='announcement' element={<Anouncement />} />
-                            <Route path='assignment/management' element={<Assignment />} />
-                            <Route path='assignment/dock' element={<Dock />} />
+                            <Route path='/profile/dashboard' element={<Dashboard />} />
+                            <Route path='/profile/anouncement' element={<Anouncement />} />
+                            <Route path='/profile/assignment/management' element={<Assignment />} />
+                            <Route path='/profile/assignment/dock' element={<Dock />} />
                         </Routes>
                     </section>
                 </main>
