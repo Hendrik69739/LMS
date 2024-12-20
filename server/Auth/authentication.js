@@ -18,12 +18,10 @@ exports.register = async (req, res) => {
 
         await db.query(query, [email, firstname, lastname, secondname, password, cellnumber, altnumber, IDnumber, ethnicgroup]);
         console.log('Registration complete');
-
         req.session.name = email;
         req.session.firstname = rows[0].firstname;
         req.session.lastname = rows[0].lastname;
         req.session.save((err) => {
-
             if (err) {
                 console.error('Session save error:', err);
                 return res.status(500).json({ message: 'Session save error', error: err.message });
@@ -36,7 +34,7 @@ exports.register = async (req, res) => {
                 secure: true
             });
         })
-        return res.json({ message: 'registration complete', redirect : '/profile/dashboard', session : req.session });
+        return res.json({ message: 'registration complete', redirect : '/profile/dashboard' });
 
     } catch (error) {
         console.error('Internal server error:', error);
