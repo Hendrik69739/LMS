@@ -18,7 +18,7 @@ function Dashboard() {
         assignments();
     }, []);
 
-    const [event, setEvent] = useState([]); // Initialize as an array
+    const [event, setEvent] = useState([]); 
 
     useEffect(() => {
         const time = async () => {
