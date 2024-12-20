@@ -51,15 +51,15 @@ function Content() {
             <div id='content'>
                 <main id='main__prof'>
                     <aside id='prof__aside'>
-                        <Link to='dashboard' id='link'>Dashboard</Link>
+                        <Link to='/profile/dashboard' id='link'>Dashboard</Link>
                         <div id='link'>
                             <p>Assignment</p>
                             <div>
-                                <Link to='assignment/dock'>Dock</Link><br />
-                                <Link to='assignment/management'>Submitted</Link>
+                                <Link to='/profile/assignment/dock'>Dock</Link><br />
+                                <Link to='/profile/assignment/management'>Submitted</Link>
                             </div>
                         </div>
-                        <Link to='anouncement' id='link'>Anouncement</Link>
+                        <Link to='/profile/anouncement' id='link'>Anouncement</Link>
                         <Link onClick={Logout} id='link'>Logout</Link>
                     </aside>
                     <section id='prof__section'>

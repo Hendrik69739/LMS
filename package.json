@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "connect-pg-simple": "^10.0.0",
-    "pg": "^8.13.1"
-  }
-}
