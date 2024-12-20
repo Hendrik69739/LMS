@@ -2,7 +2,7 @@ const db = require('../database/db');
 
 exports.register = async (req, res) => {
     const { email, password, lastname, firstname, secondname, ethnicgroup, IDnumber, cellnumber, altnumber } = req.body;
-    res.send(email, password, lastname, firstname, secondname, ethnicgroup, IDnumber, cellnumber, altnumber)
+
     try {
         const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1', [email]);
 
