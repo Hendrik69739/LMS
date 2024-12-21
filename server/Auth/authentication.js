@@ -12,16 +12,24 @@ exports.register = async (req, res) => {
         }
 
         const query = `
-            INSERT INTO students (email, firstname, lastname, median_name, password, cell_number, alternate_cell_number, id_number, ethnic_group) 
+            INSERT INTO students.students (email, firstname, lastname, median_name, password, cell_number, alternate_cell_number, id_number, ethnic_group) 
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         `;
         const results = await db.query(query, [email, firstname, lastname, secondname, password, cellnumber, altnumber, IDnumber, ethnicgroup]);
         console.log('Registration complete');
 
         if(results.rowCount = 1){
+            const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1 AND password = $2', [email, password]);
+
+        if (rows.length === 0) {
+            console.log('Invalid credentials');
+            return res.status(401).json({ message: 'Invalid credentials' });
+        } else {
             req.session.name = email;
-            req.session.firstname = firstname;
-            req.session.lastname = lastname;
+            req.session.firstname = rows[0].firstname;
+            req.session.lastname = rows[0].lastname;
+
+            console.log('Session before saving:', req.session);
 
             req.session.save((err) => {
                 if (err) {
@@ -35,8 +43,16 @@ exports.register = async (req, res) => {
                     sameSite: 'None',
                     secure: true
                 });
-                return res.status(200).json({ message: 'registration complete', redirect : '/profile/dashboard', session : req.session });
+
+                console.log('Session after saving:', req.session);
+                console.log('Set-Cookie Header:', res.get('Set-Cookie'));
+
+                return res.status(200).json({
+                    message: 'Login successful',
+                    redirect: '/profile/dashboard'
+                });
             });
+        }
         } 
 
     } catch (error) {
