@@ -35,10 +35,9 @@ exports.register = async (req, res) => {
                     sameSite: 'None',
                     secure: true
                 });
+                return res.json({ message: 'registration complete', redirect : '/profile/dashboard', session : req.session });
             });
-        }
-       
-        return res.json({ message: 'registration complete', redirect : '/profile/dashboard', session : req.session });
+        } 
 
     } catch (error) {
         console.error('Internal server error:', error);
