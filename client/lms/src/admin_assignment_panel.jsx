@@ -42,7 +42,7 @@ function UploadTask() {
 
     useEffect(() => {
         const tasks = async () => {
-            const data = await fetch('https://lms-tcr1.onrender.com:3000/namesetter', {
+            const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -57,7 +57,7 @@ function UploadTask() {
 
     useEffect(() => {
         const fetchTask = async () => {
-            const data = await fetch('https://lms-tcr1.onrender.com:3000/assignments', {
+            const data = await fetch('https://lms-tcr1.onrender.com/assignments', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type' : 'application/json' }, 
@@ -91,7 +91,7 @@ function UploadTask() {
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            const response = await fetch(`https://lms-tcr1.onrender.com:3000/deleteTask/${id}`, {
+            const response = await fetch(`https://lms-tcr1.onrender.com/deleteTask/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
