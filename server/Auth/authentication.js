@@ -15,11 +15,12 @@ exports.register = async (req, res) => {
             INSERT INTO students (email, firstname, lastname, median_name, password, cell_number, alternate_cell_number, id_number, ethnic_group) 
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         `;
-
-        await db.query(query, [email, firstname, lastname, secondname, password, cellnumber, altnumber, IDnumber, ethnicgroup]);
+        const results = await db.query(query, [email, firstname, lastname, secondname, password, cellnumber, altnumber, IDnumber, ethnicgroup]);
         console.log('Registration complete');
+
+
        
-        return res.json({ message: 'registration complete', redirect : '/profile/dashboard' });
+        return res.json({ message: 'registration complete', redirect : '/profile/dashboard', results : results });
 
     } catch (error) {
         console.error('Internal server error:', error);
