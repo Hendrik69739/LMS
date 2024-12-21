@@ -5,18 +5,35 @@ function Dashboard() {
     const [count, setCount] = useState('');
     const [count2, setCount2] = useState('');
 
+    const [namesetter, setNamesetter] = useState('');
+
+    useEffect(() => {
+        const setName = async () => {
+            const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            const response = await data.json();
+            setNamesetter(response.firstname + " " + response.lastname);
+        };
+        setName();
+    }, []);
+
+
     useEffect(() => {
         const assignments = async () => {
             const data = await fetch('https://lms-tcr1.onrender.com/count', {
                 method: 'POST',
-                credentials: 'include'
+                credentials: 'include',
+                body : JSON.stringify({name : namesetter})
             });
             const response = await data.json();
             setCount(response.total_ids);
             setCount2(response.total_id);
         };
         assignments();
-    }, []);
+    }, [namesetter]);
 
     const [event, setEvent] = useState([]); 
 
