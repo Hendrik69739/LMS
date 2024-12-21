@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import './admin_assignment_panel.css';
 
 function UploadTask() {
-
     const [file, setFile] = useState('');
+    const [name2, setName2] = useState('');
+    const [task, setTask] = useState([]);
+    const [subject, setSubject] = useState('');
+    const [taskno, setTaskno] = useState('');
+    const [date, setDate] = useState('');
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -38,8 +42,6 @@ function UploadTask() {
         }
     };
 
-    const [name2, setName2] = useState('');
-
     useEffect(() => {
         const tasks = async () => {
             const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
@@ -53,14 +55,12 @@ function UploadTask() {
         tasks();
     }, []);
 
-    const [task, setTask] = useState([]);
-
     useEffect(() => {
         const fetchTask = async () => {
             const data = await fetch('https://lms-tcr1.onrender.com/assignments', {
                 method: 'POST',
                 credentials: 'include',
-                headers: { 'Content-Type' : 'application/json' }, 
+                headers: { 'Content-Type': 'application/json' }, 
             });
 
             const response = await data.json();
@@ -69,20 +69,13 @@ function UploadTask() {
         fetchTask();
     }, []);
 
-    const [subject, setSubject] = useState('');
-
     const handleSubject = (e) => {
         setSubject(e.target.value);
     };
 
-    const [taskno, setTaskno] = useState('');
-
     const handleTaskno = (e) => {
         setTaskno(e.target.value);
     };
-
-
-    const [date, setDate] = useState('');
 
     const handleDate = (e) => {
         setDate(e.target.value);

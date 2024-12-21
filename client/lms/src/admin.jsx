@@ -45,7 +45,7 @@ function Admin(){
     return(
         <>
         <header id='prof__header'>
-            <h1>North College</h1>
+            <h1 className='wht'>North College</h1>
             <div>
                 <h2 id='prof__h2'>{namesetter}</h2>
                 <img src='' alt='Profile' />
