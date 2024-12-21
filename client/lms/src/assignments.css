@@ -19,6 +19,13 @@
     border-radius: 5px;
 }
 
+.empty-assignments{
+    color: white;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+}
+
 #download_btn{
 
 }

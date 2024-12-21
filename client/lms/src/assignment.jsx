@@ -97,7 +97,9 @@ function Dock() {
           );
         })
       ) : (
-        <p>No assignments found</p>
+        <div className='empty-assignments'>
+          <p>No assignments found</p>
+        </div>
       )}
     </>
   );
