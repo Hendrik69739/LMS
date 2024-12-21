@@ -1,10 +1,12 @@
+/* Dark theme styles */
 #admin_assignment_section {
-    background-color: #f4f4f4; /* Light grey background */
+    background-color: #333; /* Dark background color */
     padding: 20px; /* Padding around the section */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
     max-width: 600px; /* Max width of the section */
     margin: 0 auto; /* Center align */
+    color: #f4f4f4; /* Light text color */
 }
 
 .input_fields {
@@ -15,14 +17,16 @@
 .input_fields label {
     margin-bottom: 10px; /* Spacing between labels */
     font-size: 16px; /* Font size for labels */
-    color: #333; /* Dark text color */
+    color: #f4f4f4; /* Light text color */
 }
 
 .input_fields input[type="text"],
 .input_fields input[type="file"],
 .input_fields input[type="date"] {
+    background-color: #555; /* Darker background for inputs */
+    color: #f4f4f4; /* Light text color for inputs */
     padding: 10px; /* Padding inside inputs */
-    border: 1px solid #ccc; /* Light grey border */
+    border: 1px solid #444; /* Darker border */
     border-radius: 4px; /* Rounded corners for inputs */
     margin-top: 5px; /* Space between label and input */
     font-size: 14px; /* Font size for inputs */
@@ -50,9 +54,9 @@
 .ms6 {
     margin-top: 20px; /* Space above each task */
     padding: 10px; /* Padding inside task div */
-    border: 1px solid #ccc; /* Light grey border */
+    border: 1px solid #444; /* Darker border */
     border-radius: 4px; /* Rounded corners */
-    background-color: white; /* White background for tasks */
+    background-color: #444; /* Darker background for tasks */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
 }
 
@@ -65,7 +69,7 @@
 .ms6 p {
     margin: 10px 0 0; /* Space above paragraph */
     font-size: 14px; /* Font size for date */
-    color: #555; /* Grey text color for date */
+    color: #f4f4f4; /* Light text color for date */
 }
 
 .delete_link {
