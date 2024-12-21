@@ -35,7 +35,7 @@ exports.register = async (req, res) => {
                     sameSite: 'None',
                     secure: true
                 });
-                return res.json({ message: 'registration complete', redirect : '/profile/dashboard', session : req.session });
+                return res.status(200).json({ message: 'registration complete', redirect : '/profile/dashboard', session : req.session });
             });
         } 
 
