@@ -90,7 +90,7 @@ function UploadTask() {
             });
 
             if (response.ok) {
-                setTask(task.filter(item => item.id !== id));
+                setTask(task.filter(item => item.id !== id)); // Update task state after deletion
                 alert('Task deleted successfully');
             } else {
                 const errorText = await response.text();
