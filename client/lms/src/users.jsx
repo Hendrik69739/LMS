@@ -8,7 +8,7 @@ function Users() {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const response = await fetch('https://lms-tcr1.onrender.com:3000/getUsers', {
+                const response = await fetch('https://lms-tcr1.onrender.com/getUsers', {
                     method: 'POST',
                     credentials: 'include'
                 });

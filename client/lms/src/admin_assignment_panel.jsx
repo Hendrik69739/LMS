@@ -19,7 +19,7 @@ function UploadTask() {
         formData.append('taskno', taskno);
 
         try {
-            const response = await fetch('https://lms-tcr1.onrender.com:3000/uploadTask', {
+            const response = await fetch('https://lms-tcr1.onrender.com/uploadTask', {
                 method: 'POST',
                 body: formData,
                 credentials: 'include',
