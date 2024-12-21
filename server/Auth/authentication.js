@@ -18,7 +18,25 @@ exports.register = async (req, res) => {
         const results = await db.query(query, [email, firstname, lastname, secondname, password, cellnumber, altnumber, IDnumber, ethnicgroup]);
         console.log('Registration complete');
 
+        if(results.rowCount = 1){
+            req.session.name = email;
+            req.session.firstname = firstname;
+            req.session.lastname = lastname;
 
+            req.session.save((err) => {
+                if (err) {
+                    console.error('Session save error:', err);
+                    return res.status(500).json({ message: 'Session save error', error: err.message });
+                }
+
+                res.cookie('user', email, {
+                    maxAge: 1000 * 60 * 60 * 24,
+                    httpOnly: false,
+                    sameSite: 'None',
+                    secure: true
+                });
+            });
+        }
        
         return res.json({ message: 'registration complete', redirect : '/profile/dashboard', results : results });
 
