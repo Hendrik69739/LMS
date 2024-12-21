@@ -67,7 +67,9 @@ function Assignments() {
                             </div>
                         </div>
                     ))
-                : <p>No assignments submitted yet</p>
+                : <div className='empty-assignments'>
+          <p>No assignments submitted yet</p>
+        </div>
             )}
         </div>
     );
