@@ -57,6 +57,7 @@ function Signup() {
 
         await fetch('https://lms-tcr1.onrender.com/auth/register', {
             method: 'POST',
+            credentials: "include",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 firstname: firstname,
