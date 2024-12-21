@@ -53,17 +53,15 @@ app.use(session({
 app.use('/auth', auth);
 
 app.get('/check-session', (req, res) => {
-    console.log('Session Check Request:', req.session);
-    console.log('Cookies:', req.cookies);
-
-    if (req.session.name) {
-        console.log('Session Found:', req.session.name);
-        res.status(200).json({ user: req.session.name });
-    } else {
-        console.log('No session found:', req.session);
-        res.status(401).send('Not authenticated');
-    }
+    setTimeout(() => {
+        if (req.session && req.session.name) {
+            res.json({ message: 'Session exists', session: req.session });
+        } else {
+            res.status(401).json({ message: 'No active session' });
+        }
+    }, 1000); 
 });
+
 
 app.get('/namesetter', (req, res) => {
     console.log(req)
