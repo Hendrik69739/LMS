@@ -153,14 +153,14 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const subject = req.body.subject;
     const taskno = req.body.taskno;
     const date = req.body.date;
-    const email = req.body.name;
+    const email = req.session.name;
 
     if (!file) {
         return res.status(400).send('No file uploaded', req.session.name);
     }
 
     const insertSubmissionSQL = 'INSERT INTO student_submissions(submitted_pdf, student_name, subject, id, time_submitted, student_email) VALUES ($1, $2, $3, $4, $5, $6)';
-    pool.query(insertSubmissionSQL, [file.buffer, names, subject, taskno, date, req.body.name], (err, result) => {
+    pool.query(insertSubmissionSQL, [file.buffer, names, subject, taskno, date, email], (err, result) => {
         if (err) {
             console.log(err.message);
             return res.status(500).send('Error storing submission in database');
@@ -208,7 +208,7 @@ app.post('/count', (req, res, next) => {
 }, async (req, res) => {
     console.log(req)
     try {
-        const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_email = $1', [req.body.email]);
+        const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_email = $1', [req.session.name]);
         const result2 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_tasks');
         console.log(result1)
         res.json({ total_ids: result1.rows[0].total_ids, total_id: result2.rows[0].total_ids, email : req.body.email });
