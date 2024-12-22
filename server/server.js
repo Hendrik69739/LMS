@@ -70,7 +70,7 @@ app.get('/namesetter', (req, res) => {
 
 app.post('/assignments', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM student_tasks ORDER BY id DESC');
+        const result = await pool.query('SELECT * FROM students.student_tasks ORDER BY id DESC');
         res.json({data: result.rows});
     } catch (err) {
         console.error('Database query error:', err);
@@ -89,7 +89,7 @@ app.delete('/deleteTask/:id', async (req, res) => {
 });
 
 async function deleteTaskById(id) {
-    await pool.query('DELETE FROM student_tasks WHERE id = $1', [id]);
+    await pool.query('DELETE FROM students.student_tasks WHERE id = $1', [id]);
 }
 
 app.delete('/deleteAssignment/:id', async (req, res) => {
