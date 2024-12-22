@@ -89,7 +89,7 @@ app.delete('/deleteTask/:id', async (req, res) => {
 });
 
 async function deleteTaskById(id) {
-    await pool.query('DELETE FROM students.student_tasks WHERE id = $1', [id]);
+    await pool.query('DELETE FROM students.student_submissions WHERE id = $1', [id]);
 }
 
 app.delete('/deleteAssignment/:id', async (req, res) => {
