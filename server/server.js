@@ -192,7 +192,7 @@ app.post('/fetchtasks', async (req, res) => {
 });
 
 app.post('/count', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); // or "http://localhost:5173"
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -200,8 +200,9 @@ app.post('/count', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submission WHERE student_email = $1', [req.body.email]);
-        const result2 = await pool.query('SELECT COUNT(id) AS total_ids FROM student_tasks');
+        console.log(req.session.name)
+        const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.submission WHERE student_email = $1', [req.body.email]);
+        const result2 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_tasks');
         res.json({ total_ids: result1.rows[0].total_ids, total_id: result2.rows[0].total_ids });
     } catch (err) {
         console.error('Database query error:', err);
