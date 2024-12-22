@@ -152,13 +152,15 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const names = req.body.name;
     const subject = req.body.subject;
     const taskno = req.body.taskno;
+    const date = req.body.date;
+    const email = req.body.name;
 
     if (!file) {
         return res.status(400).send('No file uploaded');
     }
 
-    const insertSubmissionSQL = 'INSERT INTO student_submissions(submitted_pdf, student_name, subject, id) VALUES ($1, $2, $3, $4)';
-    pool.query(insertSubmissionSQL, [file.buffer, names, subject, taskno], (err, result) => {
+    const insertSubmissionSQL = 'INSERT INTO student_submissions(submitted_pdf, student_name, subject, id, time_submitted, student_email) VALUES ($1, $2, $3, $4, $5, $6)';
+    pool.query(insertSubmissionSQL, [file.buffer, names, subject, taskno, date, email], (err, result) => {
         if (err) {
             console.log(err.message);
             return res.status(500).send('Error storing submission in database');

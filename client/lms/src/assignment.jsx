@@ -15,6 +15,9 @@ function Dock() {
     setTaskno(e.target.value);
   };
 
+  const time = new Date();
+  const day = time.getDay() + '/' + time.getMonth() + '/' + time.getFullYear()
+
   const handleSubmit = async (e, subject) => {
     e.preventDefault();
     const formData = new FormData();
@@ -22,6 +25,7 @@ function Dock() {
     formData.append('name', name2);
     formData.append('subject', subject);
     formData.append('taskno', taskno);
+    formData.append('date', day)
 
     try {
       const response = await fetch('https://lms-tcr1.onrender.com/upload', {
