@@ -193,6 +193,11 @@ app.post('/fetchtasks', async (req, res) => {
     res.json({ results: result.rows });
 });
 
+app.get("/home", async (req, res) => {
+    const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_email = $1', [req.session.name]);
+    res.json({results : result1})
+})
+
 app.post('/count', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
