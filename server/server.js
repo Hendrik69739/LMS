@@ -201,6 +201,7 @@ app.post('/count', (req, res, next) => {
 
     next();
 }, async (req, res) => {
+    console.log(req)
     try {
         const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_email = $1', [req.body.email]);
         const result2 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_tasks');
