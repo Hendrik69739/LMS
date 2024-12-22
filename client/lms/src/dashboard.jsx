@@ -20,20 +20,34 @@ function Dashboard() {
         setName();
     }, []);
 
+    const [emailsetter, setEmailsetter] = useState('');
+
+    useEffect(() => {
+        const setName = async () => {
+            const data = await fetch('https://lms-tcr1.onrender.com/emailsetter', {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            const response = await data.json();
+            setEmailsetter(response.email);
+        };
+        setName();
+    }, []);
 
     useEffect(() => {
         const assignments = async () => {
             const data = await fetch('https://lms-tcr1.onrender.com/count', {
                 method: 'POST',
                 credentials: 'include',
-                body : JSON.stringify({name : namesetter})
+                body : JSON.stringify({email : emailsetter})
             });
             const response = await data.json();
             setCount(response.total_ids);
             setCount2(response.total_id);
         };
         assignments();
-    }, [namesetter]);
+    }, [emailsetter]);
 
     const [event, setEvent] = useState([]); 
 

@@ -200,7 +200,7 @@ app.post('/count', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_name = $1', [req.body.name]);
+        const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submission WHERE student_email = $1', [req.body.email]);
         const result2 = await pool.query('SELECT COUNT(id) AS total_ids FROM student_tasks');
         res.json({ total_ids: result1.rows[0].total_ids, total_id: result2.rows[0].total_ids });
     } catch (err) {
@@ -208,6 +208,11 @@ app.post('/count', (req, res, next) => {
         res.status(500).json({ error: 'Database query error', why : err.message });
     }
 });
+
+app.get('/emailsetter', async (req, res) => {
+    const email = req.session.name;
+    res.send({email : email});
+})
 
 
 app.get('/logout', (req, res) => {
