@@ -195,7 +195,8 @@ app.post('/fetchtasks', async (req, res) => {
 
 app.get("/home", async (req, res) => {
     const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_email = $1', [req.session.name]);
-    res.json({results : result1, email : req.session.name})
+    const result = result1.json();
+    res.json({results : result, email : req.session.name})
 })
 
 app.post('/count', (req, res, next) => {
