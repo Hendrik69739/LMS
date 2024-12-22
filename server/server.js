@@ -53,13 +53,12 @@ app.use(session({
 app.use('/auth', auth);
 
 app.get('/check-session', (req, res) => {
-    setTimeout(() => {
         if (req.session && req.session.name) {
-            res.json({ message: 'Session exists', session: req.session });
+            res.json({ message: 'Session exists', session: req.session.name });
         } else {
             res.status(401).json({ message: 'No active session' });
         }
-    }, 1000); 
+
 });
 
 
