@@ -20,9 +20,8 @@ function Profile() {
 
             if (response.status === 200) {
                 const data = await response.json();
-                console.log('Session data:', data);
 
-                setUser(data.user);
+                setUser(data.session);
                 setIsAuthenticated(true);
                 console.log('There is a session on the profile page');
             } else {

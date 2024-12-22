@@ -54,7 +54,7 @@ app.use('/auth', auth);
 
 app.get('/check-session', (req, res) => {
         if (req.session && req.session.name) {
-            res.json({ message: 'Session exists', session: req.session.name });
+            res.status(200).json({ message: 'Session exists', session: req.session.name });
         } else {
             res.status(401).json({ message: 'No active session' });
         }
