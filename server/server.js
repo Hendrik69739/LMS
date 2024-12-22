@@ -188,7 +188,7 @@ app.post('/uploadTask', upload.single('file'), (req, res) => {
 
 app.post('/fetchtasks', async (req, res) => {
     const username = req.body.name;
-    const result = await pool.query('SELECT * FROM student_submissions WHERE student_name = $1', [username]);
+    const result = await pool.query('SELECT * FROM students.student_submissions WHERE student_name = $1', [username]);
     res.json({ results: result.rows });
 });
 
