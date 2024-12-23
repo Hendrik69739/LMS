@@ -35,10 +35,26 @@ function Login() {
       } else {
         console.log('No redirect URL found in the response.');
       }
+
+      if(data.failed){
+        const toast = document.createElement('div')
+        toast.innerHTML = 'Unsuccessful'
+        toast.setAttribute('id', 'alert')
+        const toasted = document.getElementById('toasted')
+        toasted.appendChild(toast)
+
+        removeAlert();
+      }
     } catch (error) {
       console.error('Error during login:', error);
     }
   };
+
+  function removeAlert(){
+    setTimeout(() => {
+      document.getElementById('alert').remove();
+    }, 5000)
+  }
 
   return (
     <div className="login-container">
@@ -54,6 +70,7 @@ function Login() {
         </form>
         <p className="signup-text">Dont have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>
       </aside>
+      <div id='toasted'>Login Failed</div>
     </div>
   );
 }
