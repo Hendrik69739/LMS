@@ -46,7 +46,7 @@
   color: white;
 }
 
-#toasted{
+#alert{
   display: flex;
   position: absolute;
   bottom: 30px;
@@ -59,6 +59,33 @@
   color: red;
   animation: slidin 5s ease-in-out;
   transform: translateX(150%);
+}
+
+#loader{
+  height: 3px;
+  width: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: aqua;
+  animation: loader 2s infinite ease-in-out;
+}
+
+#loading{
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  color: white;
+}
+
+@keyframes loader {
+  33.3%{
+    width: 100px;
+  }
+
+  66.6%{
+    width: 100px;
+  }
 }
 
 @keyframes slidin {
