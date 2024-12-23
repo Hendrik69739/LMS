@@ -242,7 +242,7 @@ app.post('/events', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM events WHERE event_date >= $1', [date]);
+        const result = await pool.query('SELECT * FROM students.events WHERE date >= $1', [date]);
         res.json({ date: result.rows });
     } catch (err) {
         console.error('Database query error:', err);

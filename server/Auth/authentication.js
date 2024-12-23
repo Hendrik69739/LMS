@@ -49,7 +49,7 @@ exports.register = async (req, res) => {
 
                 return res.status(200).json({
                     message: 'Login successful',
-                    redirect: '/profile/dashboard'
+                    redirect: '/profile'
                 });
             });
         }
