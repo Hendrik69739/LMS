@@ -7,7 +7,8 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const multer = require('multer');
 const { Pool } = require('pg');
-const path = require('path')
+const path = require('path');
+const nodemailer = require('nodemailer')
 dotenv.config();
 
 const cookieParser = require('cookie-parser');
@@ -60,6 +61,39 @@ app.get('/check-session', (req, res) => {
         }
 
 });
+
+
+
+
+app.post('/recover', (req,res) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'retshephilengm@gmail.com',
+            pass: 'H3ndr1k4n3'
+        }
+    });
+    
+    
+    const sendEmail = (recipient, subject, message) => {
+        const mailOptions = {
+            from: 'retshephilengm@gmail.com',
+            to: recipient,
+            subject: subject,
+            text: message
+        };
+    
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+        });
+    };
+    
+    sendEmail('retshephilenghendrik@gmail.com', 'Thank you for contacting us!', 'We have received your message and will get back to you shortly.');    
+})
 
 
 app.get('/namesetter', (req, res) => {

@@ -91,6 +91,7 @@ function Login() {
           <input type="password" id="password" className="login-input" placeholder="Password" onChange={handleUserPassword} required />
           <button type="submit" className="login-button">Login</button>
         </form>
+        <Link to='/forgotpass'>forgot password</Link>
         <p className="signup-text">Dont have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>
       </aside>
       <div id="toasted"></div>

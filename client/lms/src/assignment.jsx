@@ -102,7 +102,7 @@ function Dock() {
         })
       ) : (
         <div className='empty-assignments'>
-          <p>No assignments found</p>
+         <div className='loader'/>
         </div>
       )}
     </>
