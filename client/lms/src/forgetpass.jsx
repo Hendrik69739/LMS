@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './forgetpass.css'
+import { Link } from 'react-router';
 
 function Forgottenpass(){
 
@@ -15,6 +16,7 @@ function Forgottenpass(){
        await fetch('https://lms-tcr1.onrender.com/recover', {
         method: "POST",
         credentials : 'include',
+        headers : { "Content-Type" : "application/json"},
         body: JSON.stringify({email : email})
        }
        )
@@ -33,6 +35,7 @@ function Forgottenpass(){
                     <button type="submit" className="recover-btn">Recover</button>
                 </form>
             </div>
+            <Link to='/login'>Login</Link>
         </main>
     )
 }
