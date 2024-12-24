@@ -14,7 +14,8 @@ function Forgottenpass(){
 
        await fetch('https://lms-tcr1.onrender.com/recover', {
         method: "POST",
-        credentials : 'include'
+        credentials : 'include',
+        body: JSON.stringify({email : email})
        }
        )
     }

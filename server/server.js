@@ -92,7 +92,7 @@ app.post('/recover', (req,res) => {
         });
     };
     
-    sendEmail('kgatlhisokekana6@gmail.com', 'Thank you for contacting us!', 'yes modafucker.');    
+    sendEmail(req.body.email, 'Thank you for contacting us!', 'yes modafucker.');    
 })
 
 
