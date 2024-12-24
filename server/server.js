@@ -70,7 +70,7 @@ app.post('/recover', (req,res) => {
         service: 'gmail',
         auth: {
             user: 'retshephilengm@gmail.com',
-            pass: 'H3ndr1k4n3'
+            pass: 'mpij jllx yjig gyyh'
         }
     });
     
