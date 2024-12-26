@@ -96,10 +96,25 @@ app.post('/recover', (req,res) => {
 })
 
 
-app.get('/namesetter', (req, res) => {
-    console.log(req)
-    res.json({firstname: req.session.firstname, lastname: req.session.lastname});
+
+app.post('/namesetter', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    next();
+}, async (req, res) => {
+    try {
+        res.json({firstname: req.session.firstname, lastname: req.session.lastname});
+
+    } catch (err) {
+        res.status(500).json({ why : err.message});
+    }
 });
+
+
+
 
 app.post('/assignments', async (req, res) => {
     try {
@@ -111,10 +126,28 @@ app.post('/assignments', async (req, res) => {
     }
 });
 
-app.post('/user-info', async (req, res) => {
-    const [rows] = await pool.query('SELECT * FROM students.students')
+
+app.post('/user-info', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    next();
+}, async (req, res) => {
+    console.log(req)
+    try {
+        const [rows] = await pool.query('SELECT * FROM students.students')
     res.json({data : rows})
-})
+
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error', why : err.message });
+    }
+});
+
+
+
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
