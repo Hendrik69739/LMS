@@ -37,7 +37,6 @@ function Signup() {
             body: JSON.stringify({
                 firstname: firstname,
                 lastname: lastname,
-                IDnumber: ID,
                 email: Email,
                 password: Password,
             }),
