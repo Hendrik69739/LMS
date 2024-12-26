@@ -263,6 +263,7 @@ app.get('/emailsetter', async (req, res) => {
 })
 
 
+
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.status(200).json({ message: 'logged out', redirect: '/login' });
@@ -300,10 +301,25 @@ app.post('/sendAnouncements', async (req, res) => {
     res.status(201).json({ message: 'Announcement sent', response: response.rows });
 });
 
-app.post('/getUsers', async (req, res) => {
-    const result = await pool.query('SELECT * FROM students.students');
-    res.json({ results: result.rows });
+app.post('/getUsers', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    next();
+}, async (req, res) => {
+    console.log(req)
+    try {
+        const result = await pool.query('SELECT * FROM students.students');
+        res.json({ results: result.rows });
+
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error', why : err.message });
+    }
 });
+
 
 
 app.listen(process.env.PORT, (err) => {
