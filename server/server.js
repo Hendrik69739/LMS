@@ -111,6 +111,11 @@ app.post('/assignments', async (req, res) => {
     }
 });
 
+app.post('/user-info', async (req, res) => {
+    const [rows] = await pool.query('SELECT * FROM students.students')
+    res.json({data : rows})
+})
+
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
     try {

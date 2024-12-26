@@ -6,6 +6,7 @@ import { Link, Route, Routes } from 'react-router-dom'; // Correct import
 import { useNavigate } from 'react-router-dom';
 import Assignment from './dock';
 import Anouncement from './Anouncement';
+import Profilepage from './profile-page';
 
 function Content() {
 
@@ -44,8 +45,10 @@ function Content() {
             <header id='prof__header'>
                 <h1 className='college'>North College</h1>
                 <div>
-                    <h2 id='prof__h2'>{namesetter}</h2>
-                    <img src='' alt='Profile' />
+                   <Link id='profile-click' to='/profile/user-profile'>
+                   <h2 id='prof__h2'>{namesetter}</h2>
+                   <img src='' alt='Profile' />
+                   </Link>
                 </div>
             </header>
             <div id='content'>
@@ -60,6 +63,7 @@ function Content() {
                             </div>
                         </div>
                         <Link to='/profile/anouncement' id='link'>Anouncement</Link>
+                        <Link to='/profile/user-profile' id='link'>Profile</Link>
                         <Link onClick={Logout} id='link'>Logout</Link>
                     </aside>
                     <section id='prof__section'>
@@ -68,6 +72,7 @@ function Content() {
                             <Route path='anouncement' element={<Anouncement />} />
                             <Route path='assignment/management' element={<Assignment />} />
                             <Route path='assignment/dock' element={<Dock />} />
+                            <Route path='user-profile' element={<Profilepage></Profilepage>} />
                         </Routes>
                     </section>
                 </main>

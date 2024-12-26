@@ -24,7 +24,6 @@ function Login() {
 
     setLoad(true);
 
-    // Appending loader elements
     const loader = document.createElement('div');
     loader.setAttribute('id', 'loader');
     
@@ -34,7 +33,7 @@ function Login() {
     
     const container = document.getElementsByClassName('login-container')[0]; // Access the first element in the collection
     
-    if (container) { // Check if the container exists
+    if (container) { 
         container.appendChild(loader);
         container.appendChild(loading);
     }

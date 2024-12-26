@@ -80,6 +80,13 @@ header > div {
     color: rgb(255, 255, 255);
 }
 
+#profile-click{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
 #link:active{
     background-color: rgba(0, 255, 255, 0.116);
 }

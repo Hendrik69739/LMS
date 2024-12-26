@@ -1,0 +1,66 @@
+
+.profile-page-section{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    margin: 50px;
+}
+
+.ads1{
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.ads2{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-self: center;
+
+}
+
+.biography{
+    height: 60px;
+}
+
+.save-btn{
+    background-color: silver;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 4px;
+}
+
+.cancel-btn{
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 4px;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pp-input-field, .biography{
+    padding: 10px;
+    border-radius: 3px;
+    border: none;
+    background-color: rgb(30, 31, 44);
+    color: white;
+}
+
+label{
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+
+.ppheader{
+    text-align: center;
+}

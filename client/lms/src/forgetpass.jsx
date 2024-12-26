@@ -35,7 +35,7 @@ function Forgottenpass(){
                     <button type="submit" className="recover-btn">Recover</button>
                 </form>
             </div>
-            <Link to='/login'>Login</Link>
+            <Link to='/login' id='bmg'>Sign In</Link>
         </main>
     )
 }

@@ -39,3 +39,12 @@
     padding: 0%;
     flex-direction: column;
 }
+
+#bmg{
+    background-color: rgb(0, 180, 90);
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    margin: 10px;
+    border-radius: 3px;
+}
