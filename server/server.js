@@ -301,7 +301,7 @@ app.post('/sendAnouncements', async (req, res) => {
 });
 
 app.post('/getUsers', async (req, res) => {
-    const result = await pool.query('SELECT * FROM students');
+    const result = await pool.query('SELECT * FROM students.students');
     res.json({ results: result.rows });
 });
 

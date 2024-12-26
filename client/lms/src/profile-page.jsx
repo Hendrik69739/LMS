@@ -18,8 +18,6 @@ function Profilepage(){
         setEmail(e.target.value)
     }
 
-    const surname = 'Hendrick';
-
     const [fname, setFname] = useState('')
     const handleFirstname = (e) => {
         setFname(e.target.value)
@@ -64,7 +62,7 @@ function Profilepage(){
 
     useEffect(() => {
         const data = async () => {
-            const name = await fetch('https://lms-tcr1.onrender.com/namesetter')
+            const name = await fetch('https://lms-tcr1.onrender.com/emailsetter')
             setName(name.email)
         }
 
