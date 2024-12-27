@@ -36,7 +36,6 @@ function Profilepage() {
                 });
                 const result = await response.json();
                 setName(result.email);
-                console.log(result.email);
             } catch (error) {
                 console.error('Error fetching email:', error);
             }
