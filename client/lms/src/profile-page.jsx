@@ -1,128 +1,113 @@
-import './profile-page.css'
+import './profile-page.css';
 import { useState, useEffect } from 'react';
 
-function Profilepage(){
+function Profilepage() {
+    const [email, setEmail] = useState('');
+    const [fname, setFname] = useState('');
+    const [Lname, setLname] = useState('');
+    const [sname, setSname] = useState('');
+    const [cn, setCn] = useState('');
+    const [dob, setDob] = useState('');
+    const [gender, setGender] = useState('');
+    const [bio, setBio] = useState('');
+    const [ID, setId] = useState('');
+    const [name, setName] = useState('');
 
+    const handleEmail = (e) => setEmail(e.target.value);
+    const handleFirstname = (e) => setFname(e.target.value);
+    const handleLastname = (e) => setLname(e.target.value);
+    const handleSecondname = (e) => setSname(e.target.value);
+    const handleCellnumber = (e) => setCn(e.target.value);
+    const handleDateofbirth = (e) => setDob(e.target.value);
+    const handleGender = (e) => setGender(e.target.value);
+    const handleBio = (e) => setBio(e.target.value);
+    const handleIDnumber = (e) => setId(e.target.value);
 
-
-   
-
-
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-    }
-
-    const [email, setEmail] = useState('')
-    const handleEmail = (e) => {
-        setEmail(e.target.value)
-    }
-
-    const [fname, setFname] = useState('')
-    const handleFirstname = (e) => {
-        setFname(e.target.value)
-    }
-
-    const [Lname, setLname] = useState('')
-    const handleLastname = (e) => {
-        setLname(e.target.value)
-    }
-
-    const [sname, setSname] = useState('')
-    const handleSecondname = (e) => {
-        setSname(e.target.value)
-    }
-
-    const [cn, setCn] = useState('')
-    const handleCellnumber = (e) => {
-        setCn(e.target.value)
-    }
-
-    const [dob, setDob] = useState('')
-    const handleDateofbirth = (e) => {
-        setDob(e.target.value)
-    }
-
-    const [gender, setGender] = useState('')
-    const handleGender = (e) => {
-        setGender(e.target.value)
-    }
-
-    const [bio, setBio] = useState('')
-    const handleBio = (e) => {
-        setBio(e.target.value)
-    }
-
-    const [ID, setId] = useState('')
-    const handleIDnumber = (e) => {
-        setId(e.target.value)
-    }
-
-    /*
-    const [name, setName] = useState('')
+        // Add logic to handle form submission, like sending updated data to your server
+    };
 
     useEffect(() => {
-        const data = async () => {
-            const name = await fetch('https://lms-tcr1.onrender.com/emailsetter',{
-                method: 'GET',
-                credentials : 'include'
-            })
-            setName(name.email)
-            console.log(name.email)
-        }
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://lms-tcr1.onrender.com/emailsetter', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                setName(result.email);
+                console.log(result.email);
+            } catch (error) {
+                console.error('Error fetching email:', error);
+            }
+        };
 
-        data();
-    }, [])
+        fetchData();
+    }, []);
 
     useEffect(() => {
-        const pinfo = async () => {
+        if (name) {
+            const fetchUserInfo = async () => {
+                try {
+                    const response = await fetch('https://lms-tcr1.onrender.com/user-info', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ user: name })
+                    });
+                    const data = await response.json();
+                    console.log(data);
+                    setEmail(data.email || '');
+                    setFname(data.firstname || '');
+                    setLname(data.lastname || '');
+                    setSname(data.median_name || '');
+                    setCn(data.cell_number || '');
+                    setDob(data.dob || '');
+                    setGender(data.gender || '');
+                    setBio(data.biography || '');
+                    setId(data.id_number || '');
+                } catch (error) {
+                    console.error('Error fetching user info:', error);
+                }
+            };
 
-            const results = await fetch('https://lms-tcr1.onrender.com/user-info', {
-                method : "POST",
-                credentials : 'include',
-                body : JSON.stringify({user : name})
-            })
-            
-            const data = results.json();
-            console.log(data)
-           
+            fetchUserInfo();
         }
+    }, [name]);
 
-        pinfo();
-    }, [name])
-*/
-    return(
+    return (
         <section className="profile-page-section">
-    <h2 className="ppheader">Personal Information</h2>
-    <div>
-        <form onSubmit={handleSubmit}>
-            <div className="ads1">
-                <div className="first-cut">
-                    <label>first name<input className="pp-input-field" onChange={handleFirstname} type='text' value={fname} placeholder/></label>
-                    <label>middle name<input className="pp-input-field" onChange={handleSecondname} type='text' value={sname} placeholder/></label>
-                    <label>last name<input className="pp-input-field" onChange={handleLastname} type='text' value={Lname} placeholder/></label>
-                    <label>Email<input className="pp-input-field" onChange={handleEmail} type='text' value={email} placeholder/></label>
-                    <label>Cell Number<input className="pp-input-field" onChange={handleCellnumber} type='text' value={cn} placeholder/></label>
-                </div>
-                <div className="second-cut">
-                    <label>Date of Birth<input className="pp-input-field" onChange={handleDateofbirth} type='date' value={dob} placeholder/></label>
-                    <label>Gender<select className="pp-input-field" onChange={handleGender} type='text' value={gender} placeholder>
-                        <option>--select--</option>
-                        <option value='male'>Male</option>
-                        <option value='female'>Female</option>
-                        </select></label>
-                    <label>ID Number<input type='text' onChange={handleIDnumber} className="pp-input-field" value={ID} placeholder/></label>
-                    <label>Biography<textarea className="biography" value={bio} onChange={handleBio} ></textarea></label>
-                </div>
+            <h2 className="ppheader">Personal Information</h2>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <div className="ads1">
+                        <div className="first-cut">
+                            <label>First Name<input className="pp-input-field" onChange={handleFirstname} type='text' value={fname} placeholder="First Name" /></label>
+                            <label>Middle Name<input className="pp-input-field" onChange={handleSecondname} type='text' value={sname} placeholder="Middle Name" /></label>
+                            <label>Last Name<input className="pp-input-field" onChange={handleLastname} type='text' value={Lname} placeholder="Last Name" /></label>
+                            <label>Email<input className="pp-input-field" onChange={handleEmail} type='email' value={email} placeholder="Email" /></label>
+                            <label>Cell Number<input className="pp-input-field" onChange={handleCellnumber} type='text' value={cn} placeholder="Cell Number" /></label>
+                        </div>
+                        <div className="second-cut">
+                            <label>Date of Birth<input className="pp-input-field" onChange={handleDateofbirth} type='date' value={dob} /></label>
+                            <label>Gender<select className="pp-input-field" onChange={handleGender} value={gender}>
+                                <option value="">--select--</option>
+                                <option value='male'>Male</option>
+                                <option value='female'>Female</option>
+                            </select></label>
+                            <label>ID Number<input type='text' onChange={handleIDnumber} className="pp-input-field" value={ID} placeholder="ID Number" /></label>
+                            <label>Biography<textarea className="biography" value={bio} onChange={handleBio}></textarea></label>
+                        </div>
+                    </div>
+                    <div className="ads2">
+                        <button type="submit" className="save-btn">Save</button>
+                        <button type="reset" className="cancel-btn">Cancel</button>
+                    </div>
+                </form>
             </div>
-           <div className="ads2">
-            <button type="submit" className="save-btn">Save</button>
-            <button type="reset" className="cancel-btn">Cancel</button>
-           </div>
-        </form>
-    </div>
-</section>
-    )
+        </section>
+    );
 }
 
 export default Profilepage;
