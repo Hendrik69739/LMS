@@ -137,16 +137,10 @@ app.post('/assignments', async (req, res) => {
     }
 });
 
-app.post('/user-info', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.header("Access-Control-Allow-Credentials", "true");
-    next();
-}, async (req, res) => {
+app.post('/user-info', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM students.students WHERE email = $1', [req.body.user]);
-        console.log('Query Result:', rows); 
+        console.log('Query Result:', rows);
         
         if (!Array.isArray(rows)) {
             throw new TypeError('Expected an array from the database query');
