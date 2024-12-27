@@ -58,6 +58,7 @@ function Profilepage(){
         setId(e.target.value)
     }
 
+    /*
     const [name, setName] = useState('')
 
     useEffect(() => {
@@ -89,7 +90,7 @@ function Profilepage(){
 
         pinfo();
     }, [name])
-
+*/
     return(
         <section className="profile-page-section">
     <h2 className="ppheader">Personal Information</h2>
