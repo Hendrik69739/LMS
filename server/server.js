@@ -145,8 +145,13 @@ app.post('/user-info', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM students.session');
-        console.log(rows)
+        const [rows] = await pool.query('SELECT * FROM students.students');
+        console.log('Query Result:', rows); // Debugging log to inspect the query result
+        
+        if (!Array.isArray(rows)) {
+            throw new TypeError('Expected an array from the database query');
+        }
+
         res.json({ data: rows });
     } catch (err) {
         console.error('Database query error:', err);
