@@ -25,7 +25,6 @@ function Profilepage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add logic to handle form submission, like sending updated data to your server
     };
 
     useEffect(() => {

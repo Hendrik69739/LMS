@@ -107,7 +107,6 @@ app.post('/namesetter', (req, res, next) => {
 }, async (req, res) => {
     try {
         res.json({firstname: req.session.firstname, lastname: req.session.lastname});
-
     } catch (err) {
         res.status(500).json({ why : err.message});
     }

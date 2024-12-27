@@ -30,7 +30,7 @@ function Content() {
     useEffect(() => {
         const setName = async () => {
             const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
-                method: 'GET',
+                method: 'POST',
                 credentials: 'include'
             });
 
