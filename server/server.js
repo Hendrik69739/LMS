@@ -53,14 +53,26 @@ app.use(session({
 
 app.use('/auth', auth);
 
-app.get('/check-session', (req, res) => {
+app.get('/check-session', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    next();
+}, async (req, res) => {
+    try {
         if (req.session && req.session.name) {
             res.status(200).json({ message: 'Session exists', session: req.session.name });
         } else {
             res.status(401).json({ message: 'No active session' });
         }
-
+    } catch {
+        res.send('error checking session')
+    }
 });
+
+
 
 
 
