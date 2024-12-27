@@ -67,6 +67,7 @@ function Profilepage(){
                 credentials : 'include'
             })
             setName(name.email)
+            console.log(name.email)
         }
 
         data();
