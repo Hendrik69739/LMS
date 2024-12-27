@@ -126,7 +126,6 @@ app.post('/assignments', async (req, res) => {
     }
 });
 
-
 app.post('/user-info', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -145,9 +144,6 @@ app.post('/user-info', (req, res, next) => {
         res.status(500).json({ error: 'Database query error', why : err.message });
     }
 });
-
-
-
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;

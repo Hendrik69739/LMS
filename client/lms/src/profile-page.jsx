@@ -62,7 +62,10 @@ function Profilepage(){
 
     useEffect(() => {
         const data = async () => {
-            const name = await fetch('https://lms-tcr1.onrender.com/emailsetter')
+            const name = await fetch('https://lms-tcr1.onrender.com/emailsetter',{
+                method: 'GET',
+                credentials : 'include'
+            })
             setName(name.email)
         }
 
