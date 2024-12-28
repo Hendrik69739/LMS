@@ -59,7 +59,6 @@ function Login() {
         btn.setAttribute('id', 'login-btn');
         btn.setAttribute('type', 'submit')
         btn.setAttribute('className', 'login-button');
-        btn.onsubmit = handleSubmit;
         btn.innerHTML = 'Login';
         lbtn.appendChild(btn);
         
