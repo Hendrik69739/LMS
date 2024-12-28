@@ -139,7 +139,7 @@ app.post('/assignments', async (req, res) => {
 
 app.post('/user-info', async (req, res) => {
     try {
-        const rows = await pool.query('SELECT * FROM students.students');
+        const [rows] = await pool.query('SELECT * FROM students.students');
 
         res.json({ data: rows });
     } catch (err) {
