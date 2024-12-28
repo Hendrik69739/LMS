@@ -17,23 +17,28 @@ function Login() {
     setUserPassword(e.target.value);
   };
 
-  const [looder, setLoad] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoad(true);
+    setLoader(true);
 
-    document.getElementById('login-btn').remove()
+    document.getElementById('login-btn').style.display = 'none';
 
     const load = document.createElement('div');
-    load.setAttribute('class', 'load');
-    
-    const looder = document.getElementsByClassName('login-load')[0];
+    load.className = 'load';
 
-    
-    if(looder){
-      looder.appendChild(load)
+    const loaderContainer = document.getElementsByClassName('login-load')[0];
+
+    function removeAlert() {
+      setTimeout(() => {
+        document.getElementById('alert').remove();
+      }, 5000);
+    }
+
+    if (loaderContainer) {
+      loaderContainer.appendChild(load);
     }
 
     try {
@@ -43,32 +48,32 @@ function Login() {
         body: JSON.stringify({ email: username, password: userpassword }),
         credentials: 'include', 
       });
-      
+
       const data = await response.json();
-      
+
       if (data.redirect) {
-        navigate(data.redirect);       } else {
+        navigate(data.redirect);
+      } else {
         console.log('No redirect URL found in the response.');
       }
 
       if (data.failed) {
         document.getElementsByClassName('login-load')[0].remove();
 
-        const lbtn = document.getElementById('log-btn');
+        const loginBtnContainer = document.getElementById('log-btn');
         const btn = document.createElement('button');
-        btn.setAttribute('id', 'login-btn');
-        btn.setAttribute('type', 'submit')
-        btn.setAttribute('className', 'login-button');
+        btn.id = 'login-btn';
+        btn.type = 'submit';
+        btn.className = 'login-button';
         btn.innerHTML = 'Login';
-        lbtn.appendChild(btn);
-        
+        loginBtnContainer.appendChild(btn);
+
         const toast = document.createElement('div');
         toast.innerHTML = 'Unsuccessful Login';
-        toast.setAttribute('id', 'alert');
-        
+        toast.id = 'alert';
+
         const toasted = document.getElementById('toasted');
         toasted.appendChild(toast);
-        
 
         removeAlert();
       }
@@ -76,12 +81,6 @@ function Login() {
       console.error('Error during login:', error);
     }
   };
-
-  function removeAlert() {
-    setTimeout(() => {
-      document.getElementById('alert').remove();
-    }, 5000);
-  }
 
   return (
     <div className="login-container">
@@ -93,11 +92,11 @@ function Login() {
         <form id="form1" className="login-form" onSubmit={handleSubmit}>
           <input type="email" id="email" className="login-input" placeholder="Email" onChange={handleUsername} required />
           <input type="password" id="password" className="login-input" placeholder="Password" onChange={handleUserPassword} required />
-          <div id='log-btn'><button type="submit" id='login-btn' className="login-button">Login</button></div>
-          <div className='login-load'></div>
+          <div id="log-btn"><button type="submit" id="login-btn" className="login-button">Login</button></div>
+          <div className="login-load"></div>
         </form>
         <Link to='/forgotpass'>forgot password</Link>
-        <p className="signup-text">Dont have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>
+        <p className="signup-text">Don't have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>
       </aside>
       <div id="toasted"></div>
     </div>
