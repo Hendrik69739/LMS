@@ -140,6 +140,8 @@ app.post('/assignments', async (req, res) => {
 app.post('/user-info', async (req, res) => {
     try {
         const rows = await pool.query('SELECT * FROM students.students WHERE email = $1', [req.body.user]);
+        const [results] = rows;
+        console.log(results) 
         console.log('Query Result:', rows);
         
         if (!Array.isArray(rows)) {
