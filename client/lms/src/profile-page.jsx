@@ -57,15 +57,15 @@ function Profilepage() {
                     const data = await response.json();
                     const result = data.data;
                     console.log(result);
-                    setEmail(data.data.email || '');
-                    setFname(data.data.firstname || '');
-                    setLname(data.data.lastname || '');
-                    setSname(data.data.median_name || '');
-                    setCn(data.data.cell_number || '');
-                    setDob(data.data.dob || '');
-                    setGender(data.data.gender || '');
-                    setBio(data.data.biography || '');
-                    setId(data.data.id_number || '');
+                    setEmail(result.email || '');
+                    setFname(result.firstname || '');
+                    setLname(result.lastname || '');
+                    setSname(result.median_name || '');
+                    setCn(result.cell_number || '');
+                    setDob(result.dob || '');
+                    setGender(result.gender || '');
+                    setBio(result.biography || '');
+                    setId(result.id_number || '');
                 } catch (error) {
                     console.error('Error fetching user info:', error);
                 }
