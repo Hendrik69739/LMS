@@ -47,14 +47,12 @@ function Login() {
       const data = await response.json();
       
       if (data.redirect) {
-        navigate(data.redirect); 
-      } else {
+        navigate(data.redirect);       } else {
         console.log('No redirect URL found in the response.');
       }
 
       if (data.failed) {
         document.getElementsByClassName('login-load')[0].remove();
-        document.getElementById('loading').remove();
 
         const lbtn = document.getElementById('log-btn');
         const btn = document.createElement('button');

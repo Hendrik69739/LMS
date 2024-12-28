@@ -75,7 +75,7 @@ exports.login = async (req, res) => {
 
         if (rows.length === 0) {
             console.log('Invalid credentials');
-            return res.status(401).json({ message: 'Invalid credentials', failed : "login failes" });
+            return res.status(401).json({ message: 'Invalid credentials', failed : "login failed" });
         } else {
             req.session.name = email;
             req.session.firstname = rows[0].firstname;
