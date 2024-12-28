@@ -140,13 +140,6 @@ app.post('/assignments', async (req, res) => {
 app.post('/user-info', async (req, res) => {
     try {
         const rows = await pool.query('SELECT * FROM students.students');
-        const [results] = rows;
-        console.log(results) 
-        console.log('Query Result:', rows);
-        
-        if (!Array.isArray(rows)) {
-            throw new TypeError('Expected an array from the database query');
-        }
 
         res.json({ data: rows });
     } catch (err) {
