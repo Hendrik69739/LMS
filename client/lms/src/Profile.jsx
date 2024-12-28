@@ -4,7 +4,7 @@ import Content from './content';
 import Admin from './admin';
 
 function Profile() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+   /* const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState('');
     const navigate = useNavigate();
 
@@ -32,8 +32,9 @@ function Profile() {
 
         checkSession();
     }, [navigate]);
-
+*/
     return (
+        /*
         <>
         {isAuthenticated ? (
             user === 'admin@gmail.com' ? (
@@ -45,7 +46,8 @@ function Profile() {
             <p>You are not logged in, please return to the login page.</p>
         )}
     </>
-    
+    */
+   <Content></Content>
     );
 }
 

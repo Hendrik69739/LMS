@@ -27,6 +27,12 @@ function Signup() {
         setPass(e.target.value);
     };
 
+    const [ID, setID] = useState('');
+    const handleID = (e) => {
+        setID(e.target.value);
+    };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -39,6 +45,7 @@ function Signup() {
                 lastname: lastname,
                 email: Email,
                 password: Password,
+                ID : ID
             }),
         })
         .then((data) => data.json())
@@ -60,6 +67,7 @@ function Signup() {
                     placeholder="First name"
                     onChange={handleFirstname}
                     className="form-input"
+                    required
                 />
                 <input
                     type="text"
@@ -67,6 +75,17 @@ function Signup() {
                     placeholder="Last name"
                     onChange={handleLastname}
                     className="form-input"
+                    required
+
+                />
+                 <input
+                    type="text"
+                    id="id"
+                    placeholder="ID number"
+                    onChange={handleID}
+                    className="form-input"
+                    required
+
                 />
                 <input
                     type="text"
@@ -74,6 +93,8 @@ function Signup() {
                     placeholder="Email"
                     onChange={handleEmail}
                     className="form-input"
+                    required
+
                 />
                 <input
                     type="text"
@@ -81,6 +102,8 @@ function Signup() {
                     placeholder="Password"
                     onChange={handlePassword}
                     className="form-input"
+                    required
+
                 />
                 </div>
                 <button type="submit" className="form-button">Register</button>

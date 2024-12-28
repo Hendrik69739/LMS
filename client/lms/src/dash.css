@@ -23,15 +23,12 @@
 
 
 #progress{
-    background-color: white;
     height: 200px;
     width: 370px;
     border-radius: 10px;
+    padding: 10px;
     margin: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    background-color: white;
 }
 
 #dashmain{
@@ -72,16 +69,14 @@
     border-radius: 10px;
 }
 
-.progress_bar{
-    height: 5px;
-    width: 10px;
-    background-color: aqua;
-    margin: 0px;
-    border-radius: 10px;
+.progress-bar{
+    border-radius: 100px;
+    height: 7px;
+    background-color: rgb(255, 49, 84);
+    width: 100%;
+    border: 0.5px solid grey;
 }
 
-#length_sizing{
-    background-color: rgb(98, 0, 255);
-    width: 20px;
-    height: 20px;
+#progress-section{
+    width: 100%;
 }

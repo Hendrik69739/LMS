@@ -24,18 +24,16 @@ function Login() {
 
     setLoad(true);
 
-    const loader = document.createElement('div');
-    loader.setAttribute('id', 'loader');
+    document.getElementById('login-btn').remove()
+
+    const load = document.createElement('div');
+    load.setAttribute('class', 'load');
     
-    const loading = document.createElement('div');
-    loading.setAttribute('id', 'loading');
-    loading.innerHTML = "Loading";
+    const looder = document.getElementsByClassName('login-load')[0];
+
     
-    const container = document.getElementsByClassName('login-container')[0]; // Access the first element in the collection
-    
-    if (container) { 
-        container.appendChild(loader);
-        container.appendChild(loading);
+    if(looder){
+      looder.appendChild(load)
     }
 
     try {
@@ -55,8 +53,14 @@ function Login() {
       }
 
       if (data.failed) {
-        document.getElementById('loader').remove();
+        document.getElementsByClassName('login-load')[0].remove();
         document.getElementById('loading').remove();
+
+        const lbtn = document.getElementById('log-btn');
+        const btn = document.createElement('button');
+        btn.setAttribute('id', 'load-btn');
+        btn.setAttribute('className', 'load-button');
+        lbtn.appendChild(btn);
         
         const toast = document.createElement('div');
         toast.innerHTML = 'Unsuccessful Login';
@@ -88,7 +92,8 @@ function Login() {
         <form id="form1" className="login-form" onSubmit={handleSubmit}>
           <input type="email" id="email" className="login-input" placeholder="Email" onChange={handleUsername} required />
           <input type="password" id="password" className="login-input" placeholder="Password" onChange={handleUserPassword} required />
-          <button type="submit" className="login-button">Login</button>
+          <div id='log-btn'><button type="submit" id='login-btn' className="login-button">Login</button></div>
+          <div className='login-load'></div>
         </form>
         <Link to='/forgotpass'>forgot password</Link>
         <p className="signup-text">Dont have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>

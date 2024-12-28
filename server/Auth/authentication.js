@@ -1,7 +1,7 @@
 const db = require('../database/db');
 
 exports.register = async (req, res) => {
-    const { email, password, lastname, firstname } = req.body;
+    const { email, password, lastname, firstname, ID } = req.body;
 
     try {
         const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1', [email]);
@@ -12,10 +12,10 @@ exports.register = async (req, res) => {
         }
 
         const query = `
-            INSERT INTO students.students (email, firstname, lastname, password) 
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO students.students (email, firstname, lastname, password, id_number) 
+            VALUES ($1, $2, $3, $4, $5)
         `;
-        const results = await db.query(query, [email, firstname, lastname, password]);
+        const results = await db.query(query, [email, firstname, lastname, password, ID]);
         console.log('Registration complete');
 
         if(results.rowCount = 1){

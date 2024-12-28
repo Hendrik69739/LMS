@@ -40,7 +40,7 @@ function Dashboard() {
             const data = await fetch('https://lms-tcr1.onrender.com/count', {
                 method: 'POST',
                 credentials: 'include',
-                body : JSON.stringify({email : emailsetter})
+                body: JSON.stringify({ email: emailsetter })
             });
             const response = await data.json();
             setCount(response.total_ids);
@@ -49,7 +49,7 @@ function Dashboard() {
         assignments();
     }, [emailsetter]);
 
-    const [event, setEvent] = useState([]); 
+    const [event, setEvent] = useState([]);
 
     useEffect(() => {
         const time = async () => {
@@ -82,12 +82,12 @@ function Dashboard() {
                     </div>
 
                     <div id='progress'>
-                        <div id='length_sizing'>
-                            <label>Mechanical<div className='progress_bar' id='mech_progress_bar'></div></label>
-                            <div className='progress_bar' id='math_progress_bar'></div>
-                            <div className='progress_bar' id='drawing_progress_bar'></div>
-                            <div className='progress_bar' id='sci_progress_bar'></div>
-                        </div>
+                        <section id='progress-section'>
+                            <label htmlFor="mechanical"> Mechano<div id="mechanical" className="progress-bar"></div></label>
+                            <label htmlFor="maths"> Mathematics<div id="maths" className="progress-bar"></div></label>
+                            <label htmlFor="science">Engineering Science<div id="science" className="progress-bar"></div></label>
+                            <label htmlFor="egd">EGD<div id="egd" className="progress-bar"></div></label>
+                        </section>
                     </div>
                 </main>
                 <section id='dash_section'>
