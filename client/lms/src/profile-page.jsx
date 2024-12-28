@@ -55,8 +55,9 @@ function Profilepage() {
                         body: JSON.stringify({ user: name })
                     });
                     const data = await response.json();
-                    console.log(data);
-                    setEmail(data.email || '');
+                    const result = data.data;
+                    console.log(result);
+                    setEmail(data.data.email || '');
                     setFname(data.firstname || '');
                     setLname(data.lastname || '');
                     setSname(data.median_name || '');
