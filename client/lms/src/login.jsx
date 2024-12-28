@@ -17,7 +17,7 @@ function Login() {
     setUserPassword(e.target.value);
   };
 
-  const [load, setLoad] = useState(false);
+  const [looder, setLoad] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,6 +59,7 @@ function Login() {
         const lbtn = document.getElementById('log-btn');
         const btn = document.createElement('button');
         btn.setAttribute('id', 'load-btn');
+        btn.setAttribute('type', 'submit')
         btn.setAttribute('className', 'load-button');
         lbtn.appendChild(btn);
         
@@ -69,6 +70,7 @@ function Login() {
         const toasted = document.getElementById('toasted');
         toasted.appendChild(toast);
         
+
         removeAlert();
       }
     } catch (error) {

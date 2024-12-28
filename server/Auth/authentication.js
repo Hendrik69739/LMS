@@ -18,41 +18,41 @@ exports.register = async (req, res) => {
         const results = await db.query(query, [email, firstname, lastname, password, ID]);
         console.log('Registration complete');
 
-        if(results.rowCount = 1){
+        if(results.rowCount === 1){
             const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1 AND password = $2', [email, password]);
 
-        if (rows.length === 0) {
-            console.log('Invalid credentials');
-            return res.status(401).json({ message: 'Invalid credentials' });
-        } else {
-            req.session.name = email;
-            req.session.firstname = rows[0].firstname;
-            req.session.lastname = rows[0].lastname;
+            if (rows.length === 0) {
+                console.log('Invalid credentials');
+                return res.status(401).json({ message: 'Invalid credentials' });
+            } else {
+                req.session.name = email;
+                req.session.firstname = rows[0].firstname;
+                req.session.lastname = rows[0].lastname;
 
-            console.log('Session before saving:', req.session);
+                console.log('Session before saving:', req.session);
 
-            req.session.save((err) => {
-                if (err) {
-                    console.error('Session save error:', err);
-                    return res.status(500).json({ message: 'Session save error', error: err.message });
-                }
+                req.session.save((err) => {
+                    if (err) {
+                        console.error('Session save error:', err);
+                        return res.status(500).json({ message: 'Session save error', error: err.message });
+                    }
 
-                res.cookie('user', email, {
-                    maxAge: 1000 * 60 * 60 * 24,
-                    httpOnly: false,
-                    sameSite: 'None',
-                    secure: true
+                    res.cookie('user', email, {
+                        maxAge: 1000 * 60 * 60 * 24,
+                        httpOnly: false,
+                        sameSite: 'None',
+                        secure: true
+                    });
+
+                    console.log('Session after saving:', req.session);
+                    console.log('Set-Cookie Header:', res.get('Set-Cookie'));
+
+                    return res.status(200).json({
+                        message: 'Login successful',
+                        redirect: '/profile'
+                    });
                 });
-
-                console.log('Session after saving:', req.session);
-                console.log('Set-Cookie Header:', res.get('Set-Cookie'));
-
-                return res.status(200).json({
-                    message: 'Login successful',
-                    redirect: '/profile'
-                });
-            });
-        }
+            }
         } 
 
     } catch (error) {
@@ -63,6 +63,13 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const { password, email } = req.body;
+
+    // Add CORS headers
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
     try {
         const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1 AND password = $2', [email, password]);
 
