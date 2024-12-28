@@ -34,7 +34,7 @@
 }
 
 .save-btn:active{
-    color: aqua;
+    background-color: aqua;
 }
 
 .cancel-btn{
