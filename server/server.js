@@ -161,13 +161,42 @@ app.put('/update-details', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        const {firstname, lastname, ID, email, cell_number, secondname, bio, dob, gender} = req.body;
-        const result = await pool.execute(`UPDATE students.students SET email = ${email}, firstname = ${firstname}, lastname = ${lastname}, cell_number = ${cell_number}, median_name = ${secondname}, id_number = ${ID}`);
-        console.log(res)
+        const { firstname, lastname, ID, email, cell_number, secondname, bio, dob, gender } = req.body;
+
+        if (!ID) {
+            return res.status(400).json({ error: 'Missing required ID field' });
+        }
+
+        const query = `
+            UPDATE students.students 
+            SET 
+                email = $1, 
+                firstname = $2, 
+                lastname = $3, 
+                cell_number = $4, 
+                median_name = $5, 
+                biography = $6, 
+                dob = $7, 
+                gender = $8 
+            WHERE 
+                id_number = $9
+        `;
+        const values = [email, firstname, lastname, cell_number, secondname, bio, dob, gender, ID];
+
+        const result = await pool.query(query, values);
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Student not found' });
+        }
+
+        console.log('Update Result:', result);
+        res.status(200).json({ message: 'Student updated successfully' });
     } catch (err) {
-        res.status(500).json({ why : err.message});
+        console.error('Database update error:', err);
+        res.status(500).json({ error: 'Database update error', why: err.message });
     }
 });
+
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
