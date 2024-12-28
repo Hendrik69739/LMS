@@ -47,13 +47,14 @@ function Login() {
       const data = await response.json();
       
       if (data.redirect) {
-        navigate(data.redirect);       } else {
+        navigate(data.redirect);       
+      } else {
         console.log('No redirect URL found in the response.');
       }
 
       if (data.failed) {
         document.getElementsByClassName('login-load')[0].remove();
-        document.getElementById('login-btn').style.display = 'none';
+        document.getElementById('login-btn').style.display = 'block';
 
         const toast = document.createElement('div');
         toast.innerHTML = 'Unsuccessful Login';
