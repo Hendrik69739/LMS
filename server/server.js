@@ -148,6 +148,11 @@ app.post('/user-info', async (req, res) => {
     }
 });
 
+app.put('/update-details', async (req, res) => {
+    const {firstname, lastname, ID, email, cell_number, secondname, bio, dob, gender} = req.body;
+    const result = await pool.execute(`UPDATE students.students SET email = ${email}, firstname = ${firstname}, lastname = ${lastname}, cell_number = ${cell_number}, median_name = ${secondname}, id_number = ${ID}`);
+    console.log(result)
+})
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
