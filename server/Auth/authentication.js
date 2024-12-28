@@ -64,7 +64,6 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const { password, email } = req.body;
 
-    // Add CORS headers
     res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
