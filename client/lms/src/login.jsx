@@ -56,9 +56,9 @@ function Login() {
 
         const lbtn = document.getElementById('log-btn');
         const btn = document.createElement('button');
-        btn.setAttribute('id', 'load-btn');
+        btn.setAttribute('id', 'login-btn');
         btn.setAttribute('type', 'submit')
-        btn.setAttribute('className', 'load-button');
+        btn.setAttribute('className', 'login-button');
         btn.innerHTML = 'Login';
         lbtn.appendChild(btn);
         
