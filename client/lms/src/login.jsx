@@ -24,7 +24,7 @@ function Login() {
 
     setLoad(true);
 
-    document.getElementById('login-btn').style.display = 'none';
+    document.getElementById('login-btn').remove()
 
     const load = document.createElement('div');
     load.setAttribute('class', 'load');
@@ -47,15 +47,22 @@ function Login() {
       const data = await response.json();
       
       if (data.redirect) {
-        navigate(data.redirect);       
-      } else {
+        navigate(data.redirect);       } else {
         console.log('No redirect URL found in the response.');
       }
 
       if (data.failed) {
         document.getElementsByClassName('login-load')[0].remove();
-        document.getElementById('login-btn').style.display = 'block';
 
+        const lbtn = document.getElementById('log-btn');
+        const btn = document.createElement('button');
+        btn.setAttribute('id', 'login-btn');
+        btn.setAttribute('type', 'submit')
+        btn.setAttribute('className', 'login-button');
+        btn.onsubmit = handleSubmit;
+        btn.innerHTML = 'Login';
+        lbtn.appendChild(btn);
+        
         const toast = document.createElement('div');
         toast.innerHTML = 'Unsuccessful Login';
         toast.setAttribute('id', 'alert');
