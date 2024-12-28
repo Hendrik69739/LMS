@@ -175,11 +175,10 @@ app.put('/update-details', (req, res, next) => {
                 lastname = $3, 
                 cell_number = $4, 
                 median_name = $5,  
-                gender = $8 
             WHERE 
-                email = $9
+                id_number = $6
         `;
-        const values = [email, firstname, lastname, cell_number, secondname, ID, email];
+        const values = [email, firstname, lastname, cell_number, secondname, ID];
 
         const result = await pool.query(query, values);
 
