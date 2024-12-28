@@ -24,7 +24,7 @@ function Login() {
 
     setLoad(true);
 
-    document.getElementById('login-btn').remove()
+    document.getElementById('login-btn').style.display = 'none';
 
     const load = document.createElement('div');
     load.setAttribute('class', 'load');
@@ -53,16 +53,8 @@ function Login() {
 
       if (data.failed) {
         document.getElementsByClassName('login-load')[0].remove();
+        document.getElementById('login-btn').style.display = 'none';
 
-        const lbtn = document.getElementById('log-btn');
-        const btn = document.createElement('button');
-        btn.setAttribute('id', 'login-btn');
-        btn.setAttribute('type', 'submit')
-        btn.setAttribute('className', 'login-button');
-        btn.setAttribute('onSubmit', {handleSubmit});
-        btn.innerHTML = 'Login';
-        lbtn.appendChild(btn);
-        
         const toast = document.createElement('div');
         toast.innerHTML = 'Unsuccessful Login';
         toast.setAttribute('id', 'alert');
