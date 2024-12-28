@@ -141,7 +141,7 @@ app.post('/user-info', async (req, res) => {
     try {
         const rows = await pool.query('SELECT * FROM students.students');
 
-        res.json({ data: rows });
+        res.json({ data: rows.rows });
     } catch (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query error', why: err.message });
