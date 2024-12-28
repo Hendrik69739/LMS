@@ -58,14 +58,14 @@ function Profilepage() {
                     const result = data.data;
                     console.log(result);
                     setEmail(data.data.email || '');
-                    setFname(data.firstname || '');
-                    setLname(data.lastname || '');
-                    setSname(data.median_name || '');
-                    setCn(data.cell_number || '');
-                    setDob(data.dob || '');
-                    setGender(data.gender || '');
-                    setBio(data.biography || '');
-                    setId(data.id_number || '');
+                    setFname(data.data.firstname || '');
+                    setLname(data.data.lastname || '');
+                    setSname(data.data.median_name || '');
+                    setCn(data.data.cell_number || '');
+                    setDob(data.data.dob || '');
+                    setGender(data.data.gender || '');
+                    setBio(data.data.biography || '');
+                    setId(data.data.id_number || '');
                 } catch (error) {
                     console.error('Error fetching user info:', error);
                 }
