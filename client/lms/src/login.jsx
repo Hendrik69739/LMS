@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-import './login.css'
+import LoadingSpinner from './LoadingSpinner';
+import './login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -24,15 +24,13 @@ function Login() {
 
     setLoader(true);
 
-    document.getElementById('login-btn').remove();
-    document.getElementsByClassName('login-load')[0].remove()
-
+    const loaderContainer = document.getElementsByClassName('login-load')[0];
+    while (loaderContainer.firstChild) {
+      loaderContainer.removeChild(loaderContainer.firstChild);
+    }
 
     const load = document.createElement('div');
     load.className = 'load';
-
-    const loaderContainer = document.getElementsByClassName('login-load')[0];
-
 
     if (loaderContainer) {
       loaderContainer.appendChild(load);
@@ -43,7 +41,7 @@ function Login() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: username, password: userpassword }),
-        credentials: 'include', 
+        credentials: 'include',
       });
 
       const data = await response.json();
@@ -55,7 +53,7 @@ function Login() {
       }
 
       if (data.failed) {
-        document.getElementsByClassName('load').remove();
+        setLoader(false);
 
         const loginBtnContainer = document.getElementById('log-btn');
         const btn = document.createElement('button');
@@ -72,19 +70,19 @@ function Login() {
         const toasted = document.getElementById('toasted');
         toasted.appendChild(toast);
 
-        
-    function removeAlert() {
-      setTimeout(() => {
-        document.getElementById('alert').remove();
-      }, 5000);
-    }
-
         removeAlert();
       }
     } catch (error) {
       console.error('Error during login:', error);
+      setLoader(false);
     }
   };
+
+  function removeAlert() {
+    setTimeout(() => {
+      document.getElementById('alert').remove();
+    }, 5000);
+  }
 
   return (
     <div className="login-container">
@@ -96,11 +94,14 @@ function Login() {
         <form id="form1" className="login-form" onSubmit={handleSubmit}>
           <input type="email" id="email" className="login-input" placeholder="Email" onChange={handleUsername} required />
           <input type="password" id="password" className="login-input" placeholder="Password" onChange={handleUserPassword} required />
-          <div id="log-btn"><button type="submit" id="login-btn" className="login-button">Login</button></div>
+          <div id="log-btn">
+            {!loader && <button type="submit" id="login-btn" className="login-button">Login</button>}
+            {loader && <LoadingSpinner />}
+          </div>
           <div className="login-load"></div>
         </form>
         <Link to='/forgotpass'>forgot password</Link>
-        <p className="signup-text">Don't have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>
+        <p className="signup-text">Dont have an account? <Link to="/signup" className="signup-link">Sign up</Link></p>
       </aside>
       <div id="toasted"></div>
     </div>
