@@ -25,17 +25,14 @@ function Login() {
     setLoader(true);
 
     document.getElementById('login-btn').style.display = 'none';
+    document.getElementsByClassName('login-load')[0].style.display = 'block';
+
 
     const load = document.createElement('div');
     load.className = 'load';
 
     const loaderContainer = document.getElementsByClassName('login-load')[0];
 
-    function removeAlert() {
-      setTimeout(() => {
-        document.getElementById('alert').remove();
-      }, 5000);
-    }
 
     if (loaderContainer) {
       loaderContainer.appendChild(load);
@@ -58,7 +55,7 @@ function Login() {
       }
 
       if (data.failed) {
-        document.getElementsByClassName('login-load')[0].remove();
+        document.getElementsByClassName('login-load')[0].style.display = 'none';
 
         const loginBtnContainer = document.getElementById('log-btn');
         const btn = document.createElement('button');
@@ -74,6 +71,13 @@ function Login() {
 
         const toasted = document.getElementById('toasted');
         toasted.appendChild(toast);
+
+        
+    function removeAlert() {
+      setTimeout(() => {
+        document.getElementById('alert').remove();
+      }, 5000);
+    }
 
         removeAlert();
       }
