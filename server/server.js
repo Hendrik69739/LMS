@@ -254,7 +254,7 @@ app.post('/student_submissions', async (req, res) => {
     const name = req.session.firstname + ' ' + req.session.lastname;
     const email = req.session.name;
     try {
-        const result = await pool.query('SELECT * FROM student_submissions WHERE student_name = $1', [email]);
+        const result = await pool.query('SELECT * FROM student_submissions WHERE student_email = $1', [email]);
         res.json({ results: result.rows });
     } catch (error) {
         console.error('Error fetching student submissions:', error);
