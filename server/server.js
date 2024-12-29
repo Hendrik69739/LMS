@@ -148,10 +148,6 @@ app.post('/user-info', async (req, res) => {
     }
 });
 
-app.put('/update-details', async (req, res) => {
-   
-})
-
 app.put('/update-details', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); 
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
