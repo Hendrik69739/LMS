@@ -149,7 +149,7 @@ app.post('/user-info', async (req, res) => {
 });
 
 app.put('/update-details', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); 
+    res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "PUT, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -170,7 +170,7 @@ app.put('/update-details', (req, res, next) => {
                 firstname = $2, 
                 lastname = $3, 
                 cell_number = $4, 
-                median_name = $5,  
+                median_name = $5  
             WHERE 
                 id_number = $6
         `;
@@ -189,6 +189,7 @@ app.put('/update-details', (req, res, next) => {
         res.status(500).json({ error: 'Database update error', why: err.message });
     }
 });
+
 
 
 app.delete('/deleteTask/:id', async (req, res) => {
