@@ -1,5 +1,6 @@
 import './assignments.css';
 import { useEffect, useState } from 'react';
+import 'assignments.css'
 
 function Dock() {
   const [file, setFile] = useState('');
@@ -80,24 +81,24 @@ function Dock() {
       {task.length > 0 ? (
         task.map((data) => {
           return (
-            <div id='assignments' key={data.id}>
-              <div id='task'>
-                <h2 className='subject_name'>{`${data.subject} - ${data.id}`}</h2>
-                <a id="download_btn" href={`https://lms-tcr1.onrender.com/download?id=${data.id}`} download>
-                  Download Assignment
-                </a>
-                <div>
-                  <form className='mb-5' onSubmit={(e) => handleSubmit(e, data.subject)}>
-                    <button type='submit' className='submit_btn'>
-                      Submit Assignment
-                    </button>
-                    <input type='file' onChange={handleFileChange} />
-                    <input type='text' onChange={handleTaskno} placeholder='task-number' />
-                  </form>
-                </div>
-                <p className='submission_date'>Due date:<br />{data.due_date}</p>
-              </div>
-            </div>
+            <div id='assignments' key={data.id} className="assignment-container">
+  <div id='task' className="task-container">
+    <h2 className='subject_name'>{`${data.subject} - ${data.id}`}</h2>
+    <a id="download_btn" className="download-btn" href={`https://lms-tcr1.onrender.com/download?id=${data.id}`} download>
+      Download Assignment
+    </a>
+    <div>
+      <form className='mb-5 task-form' onSubmit={(e) => handleSubmit(e, data.subject)}>
+        <button type='submit' className='submit-btn'>
+          Submit Assignment
+        </button>
+        <input type='file' onChange={handleFileChange} className='file-input' />
+        <input type='text' onChange={handleTaskno} placeholder='Task Number' className='task-number-input' />
+      </form>
+    </div>
+    <p className='submission_date'>Due date:<br />{data.due_date}</p>
+  </div>
+</div>
           );
         })
       ) : (
