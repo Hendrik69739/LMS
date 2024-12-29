@@ -66,6 +66,7 @@ header > div {
     width: 75vw; 
     height: 100%;
     overflow-y: auto;
+    padding: 30px;
 }
 
 #body {
