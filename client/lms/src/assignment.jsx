@@ -1,6 +1,5 @@
 import './assignments.css';
 import { useEffect, useState } from 'react';
-import 'assignments.css'
 
 function Dock() {
   const [file, setFile] = useState('');
