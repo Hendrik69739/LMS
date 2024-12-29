@@ -24,18 +24,6 @@ function Login() {
 
     setLoader(true);
 
-    const loaderContainer = document.getElementsByClassName('login-load')[0];
-    while (loaderContainer.firstChild) {
-      loaderContainer.removeChild(loaderContainer.firstChild);
-    }
-
-    const load = document.createElement('div');
-    load.className = 'load';
-
-    if (loaderContainer) {
-      loaderContainer.appendChild(load);
-    }
-
     try {
       const response = await fetch('https://lms-tcr1.onrender.com/auth/login', {
         method: 'POST',
@@ -54,14 +42,6 @@ function Login() {
 
       if (data.failed) {
         setLoader(false);
-
-        const loginBtnContainer = document.getElementById('log-btn');
-        const btn = document.createElement('button');
-        btn.id = 'login-btn';
-        btn.type = 'submit';
-        btn.className = 'login-button';
-        btn.innerHTML = 'Login';
-        loginBtnContainer.appendChild(btn);
 
         const toast = document.createElement('div');
         toast.innerHTML = 'Unsuccessful Login';
