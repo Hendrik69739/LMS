@@ -1,23 +1,43 @@
-#submitted_task{
-    background-color: silver;
+.ms1 {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-}
-
-.ms1{
-    padding: 10px;
-}
-
-#submitted_task > a {
-    background-color: white;
-    padding: 5px;
-    color: rgb(4, 179, 248);
-}
-
-.empty-assignments{
-    color: white;
-    display: flex;
-    align-self: center;
-    justify-self: center;
-}
+  }
+  
+  .task-subject {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 0;
+    color: #333;
+  }
+  
+  .task-time {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0;
+  }
+  
+  .task-delete {
+    color: #ff5c5c;
+    text-decoration: none;
+    font-size: 0.9em;
+    cursor: pointer;
+  }
+  
+  .task-delete:hover {
+    text-decoration: underline;
+  }
+  
+  .task-delete[disabled] {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+  

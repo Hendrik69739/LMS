@@ -104,7 +104,7 @@ app.post('/recover', (req,res) => {
         });
     };
     
-    sendEmail(req.body.email, 'Thank you for contacting us!', 'youll be contacted soon.');    
+    sendEmail(req.body.email, 'Thank you for registering', 'youll be contacted soon.');    
 })
 
 

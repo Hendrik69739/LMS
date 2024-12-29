@@ -60,12 +60,12 @@ function Assignments() {
                 task.length > 0 ? 
                     task.map((data, index) => (
                         <div key={index} className="ms1">
-                            <div id="submitted_task">
-                                <p>{data.subject}</p>
-                                <p>{data.time_submitted}</p>
-                                <a onClick={(e) => handleDelete(e, data.id)} disabled={deleting}>Delete task</a>
-                            </div>
+                        <div id="submitted_task" className="task">
+                          <p className="task-subject">{data.subject}</p>
+                          <p className="task-time">{data.time_submitted}</p>
+                          <a className="task-delete" onClick={(e) => handleDelete(e, data.id)} disabled={deleting}>Delete task</a>
                         </div>
+                      </div>                      
                     ))
                 : <div className='empty-assignments'>
           <p>No assignments submitted yet</p>
