@@ -24,8 +24,8 @@ function Login() {
 
     setLoader(true);
 
-    document.getElementById('login-btn').style.display = 'none';
-    document.getElementsByClassName('login-load')[0].style.display = 'block';
+    document.getElementById('login-btn').remove();
+    document.getElementsByClassName('login-load')[0].remove()
 
 
     const load = document.createElement('div');
