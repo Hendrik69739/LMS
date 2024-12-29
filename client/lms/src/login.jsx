@@ -55,7 +55,7 @@ function Login() {
       }
 
       if (data.failed) {
-        document.getElementsByClassName('login-load')[0].style.display = 'none';
+        document.getElementsByClassName('load').remove();
 
         const loginBtnContainer = document.getElementById('log-btn');
         const btn = document.createElement('button');
