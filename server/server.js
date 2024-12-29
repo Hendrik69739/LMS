@@ -183,7 +183,7 @@ app.put('/update-details', (req, res, next) => {
         }
 
         console.log('Update Result:', result);
-        res.status(200).json({ message: 'Student updated successfully' });
+        res.status(200).json({ message: 'Student updated successfully', successful : true });
     } catch (err) {
         console.error('Database update error:', err);
         res.status(500).json({ error: 'Database update error', why: err.message });

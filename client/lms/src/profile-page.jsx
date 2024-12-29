@@ -34,6 +34,7 @@ function Profilepage() {
             body : JSON.stringify({firstname : fname, lastname : Lname, ID : ID, email : email, cell_number : cn, secondname : sname, bio : bio, dob : dob, gender : gender})
         })
 
+
        } catch{
         console.log('error trying to update details')
        }
