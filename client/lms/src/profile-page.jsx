@@ -30,6 +30,7 @@ function Profilepage() {
         await fetch('https://lms-tcr1.onrender.com/update-details', {
             method : 'PUT',
             credentials: 'include',
+            headers : { 'Content-Type' : 'application/json'},
             body : JSON.stringify({firstname : fname, lastname : Lname, ID : ID, email : email, cell_number : cn, secondname : sname, bio : bio, dob : dob, gender : gender})
         })
 
