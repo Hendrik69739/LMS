@@ -54,6 +54,8 @@ header > div {
     width: 100%;
 }
 
+
+
 #prof__aside {
     width: 25vw;
     height: 100%;
@@ -79,6 +81,8 @@ header > div {
     text-decoration: none;
     font-size: larger;
     color: rgb(255, 255, 255);
+    display: flex;
+    align: center;
 }
 
 #profile-click{

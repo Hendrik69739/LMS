@@ -64,7 +64,7 @@ function Content() {
                         </div>
                         <Link to='/profile/anouncement' id='link'>Anouncement</Link>
                         <Link to='/profile/user-profile' id='link'>Profile</Link>
-                        <Link onClick={Logout} id='link'>Logout</Link>
+                        <Link onClick={Logout} id='link'><span className='material-icons'>logout</span>Logout</Link>
                     </aside>
                     <section id='prof__section'>
                         <Routes>
