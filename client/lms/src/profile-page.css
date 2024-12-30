@@ -26,10 +26,11 @@
 }
 
 .bmt{
-    background-color: rgba(0, 255, 0, 0.815);
+    background-color: rgba(0, 255, 0, 0.415);
     position: absolute;
     display: flex;
     justify-content: center;
+    border-radius: 10px;
     align-items: center;
     color: white;
     bottom: -20%;
