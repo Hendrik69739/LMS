@@ -26,14 +26,26 @@
 }
 
 .bmt{
-    background-color: rgba(0, 255, 0, 0.411);
+    background-color: rgba(0, 255, 0, 0.815);
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    top: 50%;
+    bottom: -20%;
     left: 50%;
+    padding: 10px 20px;
+    animation: movin 5s ease-in-out;
+}
+
+@keyframes movin {
+    20%{
+        bottom: 20%;
+    }
+    80%{
+        bottom: 20%;
+    }
+   
 }
 
 .save-btn{
