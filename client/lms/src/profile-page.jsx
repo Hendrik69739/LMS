@@ -37,16 +37,19 @@ function Profilepage() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://lms-tcr1.onrender.com/update-details', {
+             await fetch('https://lms-tcr1.onrender.com/update-details', {
                 method: 'PUT',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ firstname: fname, lastname: Lname, ID: ID, email: email, cell_number: cn, secondname: sname, bio: bio, dob: dob, gender: gender })
+            }).then(response => response.json()).then(data => {
+                if(data.successful){
+                    updated();
+                }
             })
 
-            if (response.successful) {
-                updated();
-            }
+            
+                
 
 
         } catch {
