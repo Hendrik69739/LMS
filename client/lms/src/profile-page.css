@@ -25,6 +25,17 @@
     height: 60px;
 }
 
+.bmt{
+    background-color: rgba(0, 255, 0, 0.411);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    top: 50%;
+    left: 50%;
+}
+
 .save-btn{
     background-color: silver;
     border: none;

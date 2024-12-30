@@ -23,21 +23,35 @@ function Profilepage() {
     const handleBio = (e) => setBio(e.target.value);
     const handleIDnumber = (e) => setId(e.target.value);
 
+
+
+    function updated() {
+        const scc = document.createElement('div');
+        scc.innerHTML = 'Update Successful';
+        scc.className = 'bmt';
+
+        document.getElementsByClassName('profile-page-section')[0].appendChild(scc);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-       try{
-        await fetch('https://lms-tcr1.onrender.com/update-details', {
-            method : 'PUT',
-            credentials: 'include',
-            headers : { 'Content-Type' : 'application/json'},
-            body : JSON.stringify({firstname : fname, lastname : Lname, ID : ID, email : email, cell_number : cn, secondname : sname, bio : bio, dob : dob, gender : gender})
-        })
+        try {
+            const response = await fetch('https://lms-tcr1.onrender.com/update-details', {
+                method: 'PUT',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ firstname: fname, lastname: Lname, ID: ID, email: email, cell_number: cn, secondname: sname, bio: bio, dob: dob, gender: gender })
+            })
+
+            if (response.successful) {
+                updated();
+            }
 
 
-       } catch{
-        console.log('error trying to update details')
-       }
+        } catch {
+            console.log('error trying to update details')
+        }
 
     };
 
