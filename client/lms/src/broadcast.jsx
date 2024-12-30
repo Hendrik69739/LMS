@@ -84,9 +84,9 @@ function Broadcast(){
         </div>
     </div>
     )) : <></>}
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id='vvt'>
     <textarea className="textarea-admin" onChange={handleText}></textarea>
-    <button type='submit'> submit</button>
+    <button type='submit'><span className="material-symbols-outlined">send</span></button>
     </form>
 
     </main>
