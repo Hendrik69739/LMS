@@ -37,6 +37,7 @@ sub{
 #vvt{
     position: fixed;
     bottom: 20px;
+    align-self: center;
 }
 
 #text-content{
