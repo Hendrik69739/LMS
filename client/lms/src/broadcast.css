@@ -1,6 +1,6 @@
 .anouncement{
     display: inline-flex;
-    background-color: rgb(119, 119, 119);
+    background-color: rgb(255, 0, 221);
     padding: 5px;
     margin: 0%;
     border-radius: 10px;
@@ -11,7 +11,7 @@
 .anouncement-text{
     padding: 5px;
     margin: 0px 3px;
-    color: white;
+    color: black;
     width: 90%;
     word-wrap: break-word; 
     overflow-wrap: break-word; 

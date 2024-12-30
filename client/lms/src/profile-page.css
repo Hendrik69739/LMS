@@ -41,10 +41,10 @@
 
 @keyframes movin {
     20%{
-        bottom: 20%;
+        bottom: 10%;
     }
     80%{
-        bottom: 20%;
+        bottom: 10%;
     }
    
 }

@@ -55,7 +55,7 @@ function Content() {
                 <main id='main__prof'>
                     <aside id='prof__aside'>
                         <Link to='/profile/dashboard' id='link'>Dashboard</Link>
-                        <div id='link'>
+                        <div id='link' className='icbm'>
                             <p>Assignment</p>
                             <div>
                                 <Link to='/profile/assignment/dock'>Dock</Link><br />
