@@ -41,12 +41,21 @@ function User_Profile() {
             </div>
 
             <div id="cve">
-        <div className="test-panel-header">Tests Completed</div>
-        <div className="test-content">
-            <div className="test">1</div>
-        </div>
-        <div className="add-test">+</div>
-    </div>
+                <div className="test-panel-header">Tests Completed</div>
+                <div className="test-content">
+                    <div className="test">1</div>
+                </div>
+                <div className="add-test" id="add-test">+</div>
+            </div>
+
+            <div id="test-panel">
+                <form className="test-details-form">
+                    <label htmlFor="">Test no <input type="text" id="testNo" className="space" required /></label>
+                    <label htmlFor="">Marks obtained <input type="text" id="marksO" className="space" required /></label>
+                    <label htmlFor="">Test date <input type="text" id="testDate" className="space" required /></label>
+                    <button type="submit" className="nvm">Submit</button>
+                </form>
+            </div>
         </div>
     );
 

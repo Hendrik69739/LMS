@@ -1,13 +1,16 @@
+<link rel="stylesheet" href="loader.css">
 <style>
     #cve {
         background-color: aquamarine;
-        width: 250px;
-        height: 150px;
+        width: 320px;
+        height: 200px;
         overflow-y: scroll;
         border-radius: 8px;
         position: relative;
+        margin: 5px 0px;
+        z-index: 2;
     }
-    
+
     .add-test {
         width: 35px;
         height: 35px;
@@ -18,37 +21,87 @@
         font-size: 30px;
         font-weight: bolder;
         border-radius: 100px;
-        position: sticky;
+        position: absolute;
         bottom: 5px;
-        margin-left: auto;
         right: 5px;
     }
-    
+
     #cve::-webkit-scrollbar {
         display: none;
     }
-    
+
     .test-panel-header {
         background-color: silver;
         padding: 10px 20px;
         text-align: center;
     }
-    
+
     .test-content {
         padding: 10px 5px;
     }
-    
+
     .test {
         padding: 10px;
         border-bottom: 1px solid grey;
     }
-    </style>
-    
-    <div id="cve">
-        <div class="test-panel-header">Tests Completed</div>
-        <div class="test-content">
-            <div class="test">1</div>
-        </div>
-        <div class="add-test">+</div>
+
+    .test-details-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        color: white;
+        padding: 10px;
+    }
+
+    .space {
+        margin: 0px 5px;
+        padding: 3px;
+        border-radius: 3px;
+        border: none;
+    }
+
+    .nvm{
+        background-color: rgb(0, 255, 255);
+        border: none;
+        padding: 3px;
+        border-radius: 3px;
+    }
+
+    #test-panel {
+        background-color: rgb(54, 54, 54);
+        border-radius: 10px;
+        width: fit-content;
+        overflow: hidden;
+        transform: translateY(-130%);
+        transition: transform 1s ease-in-out;
+    }
+</style>
+
+<div id="cve">
+    <div class="test-panel-header">Tests Completed</div>
+    <div class="test-content">
+        <div class="test">1</div>
     </div>
-    
+    <div class="add-test" id="add-test">+</div>
+</div>
+
+<div id="test-panel">
+    <form class="test-details-form">
+        <label for="">Test no <input type="text" id="testNo" class="space" required/></label>
+        <label for="">Marks obtained <input type="text" id="marksO" class="space" required/></label>
+        <label for="">Test date <input type="text" id="testDate" class="space" required/></label>
+        <button type="submit" class="nvm">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('add-test').addEventListener('click', () => {
+        const testPanel = document.getElementById('test-panel');
+        if (testPanel.style.transform === 'translateY(-130%)') {
+            testPanel.style.transform = 'translateY(0%)';
+            testPanel.stye.zIndex = '8';
+        } else {
+            testPanel.style.transform = 'translateY(-130%)';
+        }
+    });
+</script>
