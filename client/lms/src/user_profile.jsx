@@ -40,6 +40,7 @@ function User_Profile() {
                 )) : <p>No submitted tasks found</p>}
             </div>
 
+            <div className='superdiv'>
             <div id="cve">
                 <div className="test-panel-header">Tests Completed</div>
                 <div className="test-content">
@@ -56,6 +57,8 @@ function User_Profile() {
                     <button type="submit" className="nvm">Submit</button>
                 </form>
             </div>
+            </div>
+           
         </div>
     );
 
