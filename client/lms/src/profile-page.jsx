@@ -132,7 +132,6 @@ function Profilepage() {
                     </div>
                     <div className="ads2">
                         <button type="submit" className="save-btn">Save</button>
-                        <button type="reset" className="cancel-btn">Cancel</button>
                     </div>
                 </form>
             </div>

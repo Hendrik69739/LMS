@@ -1,26 +1,54 @@
-<link rel="stylesheet" href="loader.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=send" />
-<main>
-    <form>
-        <input type="text" />
-        <button type="submit" id="send-btn"></button>
-    </form>
-</main>
 <style>
-    span{
-        transform: rotate(0deg);
-        width: 30px;
-        height: 30px;
+    #cve {
+        background-color: aquamarine;
+        width: 250px;
+        height: 150px;
+        overflow-y: scroll;
+        border-radius: 8px;
+        position: relative;
+    }
+    
+    .add-test {
+        width: 35px;
+        height: 35px;
+        background-color: rgb(0, 183, 255);
         display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: bolder;
         border-radius: 100px;
-        transform: rotate(315deg);
+        position: sticky;
+        bottom: 5px;
+        margin-left: auto;
+        right: 5px;
     }
-
-    #send-btn{
-        border: none;
-        background-color: white;
+    
+    #cve::-webkit-scrollbar {
+        display: none;
     }
-
-
-
-</style>
+    
+    .test-panel-header {
+        background-color: silver;
+        padding: 10px 20px;
+        text-align: center;
+    }
+    
+    .test-content {
+        padding: 10px 5px;
+    }
+    
+    .test {
+        padding: 10px;
+        border-bottom: 1px solid grey;
+    }
+    </style>
+    
+    <div id="cve">
+        <div class="test-panel-header">Tests Completed</div>
+        <div class="test-content">
+            <div class="test">1</div>
+        </div>
+        <div class="add-test">+</div>
+    </div>
+    

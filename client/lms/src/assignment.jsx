@@ -75,6 +75,13 @@ function Dock() {
     fetchTask();
   }, []);
 
+
+  useEffect(() => {
+    setTimeout(() => {
+      document.getElementsByClassName('loader')[0].remove()
+    }, 3000)
+  })
+
   return (
     <>
       {task.length > 0 ? (
