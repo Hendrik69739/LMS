@@ -103,7 +103,7 @@
 #test-panel {
     background-color: rgb(54, 54, 54);
     border-radius: 10px;
-    width: fit-content;
+    width: 300px;
     overflow: hidden;
     transform: translateY(0%);
     transition: transform 1s ease-in-out;
