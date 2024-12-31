@@ -8,6 +8,11 @@
     position: relative;
 }
 
+.admin-content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .submitted_tasks::-webkit-scrollbar { display: none; }
 
 .submission_bin{
@@ -22,11 +27,12 @@
 
 #cve {
     background-color: aquamarine;
-    width: 250px;
-    height: 150px;
+    width: 300px;
+    height: 200px;
     overflow-y: scroll;
     border-radius: 8px;
     position: relative;
+    margin: 15px;
 }
 
 .add-test {

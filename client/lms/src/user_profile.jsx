@@ -26,7 +26,7 @@ function User_Profile() {
     }, [username])
 
     return (
-        <>
+        <div className='admin-content'>
             <div className="submitted_tasks">
                 <header className="submission_bin">
                     <h2>Submitted Tasks</h2>
@@ -47,7 +47,7 @@ function User_Profile() {
         </div>
         <div className="add-test">+</div>
     </div>
-        </>
+        </div>
     );
 
 }
