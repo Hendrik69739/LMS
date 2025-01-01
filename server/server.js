@@ -107,7 +107,17 @@ app.post('/recover', (req,res) => {
     sendEmail(req.body.email, 'Thank you for registering', 'youll be contacted soon.');    
 })
 
+app.put('/updateStudentProgress', async (req, res) => {
+    const { testdate, markob, testmark, testno} = req.body;
+    const email = req.session.name;
 
+    await pool.query('UPDATE students.progress SET obtained_mark = $1, student_email = $2, test_mark = $3, test_name = $4, student_name = $5', [markob, email, testmark, testno, ])
+
+})
+
+app.get('/home', (req, res) => {
+    res.send({req.session})
+})
 
 app.post('/namesetter', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com"); 
@@ -306,12 +316,6 @@ app.post('/fetchtasks', async (req, res) => {
     const result = await pool.query('SELECT * FROM students.student_submissions WHERE student_name = $1', [username]);
     res.json({ results: result.rows });
 });
-
-app.get("/home", async (req, res) => {
-    const result1 = await pool.query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_email = $1', [req.session.name]);
-    const result = result1.json();
-    res.json({results : result})
-})
 
 app.post('/count', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://xsystems.onrender.com");

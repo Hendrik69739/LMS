@@ -36,6 +36,40 @@ function User_Profile() {
 
     }
 
+    const [testno, setTestno] = useState('')
+    const handleTestno = (e) => {
+        setTestno(e.target.value)
+    }
+
+    const [testmark, setTestmark] = useState('')
+    const handleTestMark = (e) => {
+        setTestmark(e.target.value)
+    }
+
+    const [markob, setMarkob] = useState('')
+    const handleMarkOb = (e) => {
+        setMarkob(e.target.value)
+    }
+
+    const [testdate, setTestdate] = useState('')
+    const handleTestDate = (e) => {
+        setTestdate(e.target.value)
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch('https://lms-tcr1.onrender.com/updateStudentProgress', {
+            method : 'PUT',
+            headers : {'Content-Type' : 'application/json'},
+            body : JSON.stringify({ testdate : testdate, markob : markob, testmark : testmark, testno : testno}),
+            credentials : 'include'
+        }
+        )
+
+
+    }
+
     return (
         <div className='admin-content'>
             <div className="submitted_tasks">
@@ -61,10 +95,11 @@ function User_Profile() {
                 </div>
 
                 <div id="test-panel">
-                    <form className="test-details-form">
-                        <label className='bbt'>Test no <input type="text" id="testNo" className="space" required /></label>
-                        <label className='bbt'>Marks obtained <input type="text" id="marksO" className="space" required /></label>
-                        <label className='bbt'>Test date <input type="text" id="testDate" className="space" required /></label>
+                    <form className="test-details-form" onSubmit={handleSubmit}>
+                        <label className='bbt'>Test no <input type="text" onChange={handleTestno} id="testNo" className="space" required /></label>
+                        <label className='bbt'>Marks obtained <input type="text" onChange={handleMarkOb} id="marksO" className="space" required /></label>
+                        <label className='bbt'>Test mark <input type="text" id="testMark" onChange={handleTestMark} className="space" required /></label>
+                        <label className='bbt'>Test date <input type="text" id="testDate" onChange={handleTestDate} className="space" required /></label>
                         <button type="submit" className="nvm">Submit</button>
                     </form>
                 </div>
