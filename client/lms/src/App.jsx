@@ -3,6 +3,7 @@ import Login from './login';
 import Signup from './Signup';
 import Profile from './Profile';
 import Forgotpass from './forgetpass'
+import Test from './test'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile/*' element={<Profile />} /> 
         <Route path='*' element={<Navigate to='/login' />} />
+        <Route path='/test' element={<Test></Test>} />
       </Routes>
     </Router>
   );

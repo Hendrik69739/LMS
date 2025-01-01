@@ -1,4 +1,4 @@
-import './user_profile.css'
+/*import './user_profile.css'*/
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -25,6 +25,17 @@ function User_Profile() {
         fetchtasks();
     }, [username])
 
+    function slide() {
+        const testPanel = document.getElementById('test-panel');
+        if (testPanel.style.transform === 'translateY(-130%)') {
+            testPanel.style.transform = 'translateY(0%)';
+            testPanel.stye.zIndex = '8';
+        } else {
+            testPanel.style.transform = 'translateY(-130%)';
+        }
+
+    }
+
     return (
         <div className='admin-content'>
             <div className="submitted_tasks">
@@ -40,25 +51,25 @@ function User_Profile() {
                 )) : <p>No submitted tasks found</p>}
             </div>
 
-            <div className='superdiv'>
-            <div id="cve">
-                <div className="test-panel-header">Tests Completed</div>
-                <div className="test-content">
-                    <div className="test">1</div>
+            <div className='thf'>
+                <div id="cve">
+                    <div className="test-panel-header">Tests Completed</div>
+                    <div className="test-content">
+                        <div className="test">1</div>
+                    </div>
+                    <div className="add-test" onClick={slide} id="add-test">+</div>
                 </div>
-                <div className="add-test" id="add-test">+</div>
+
+                <div id="test-panel">
+                    <form className="test-details-form">
+                        <label className='bbt'>Test no <input type="text" id="testNo" className="space" required /></label>
+                        <label className='bbt'>Marks obtained <input type="text" id="marksO" className="space" required /></label>
+                        <label className='bbt'>Test date <input type="text" id="testDate" className="space" required /></label>
+                        <button type="submit" className="nvm">Submit</button>
+                    </form>
+                </div>
             </div>
 
-            <div id="test-panel">
-                <form className="test-details-form">
-                    <label htmlFor="">Test no <input type="text" id="testNo" className="space" required /></label>
-                    <label htmlFor="">Marks obtained <input type="text" id="marksO" className="space" required /></label>
-                    <label htmlFor="">Test date <input type="text" id="testDate" className="space" required /></label>
-                    <button type="submit" className="nvm">Submit</button>
-                </form>
-            </div>
-            </div>
-           
         </div>
     );
 
