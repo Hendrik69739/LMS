@@ -1,4 +1,4 @@
-/*import './user_profile.css'*/
+import './user_profile.css'
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
