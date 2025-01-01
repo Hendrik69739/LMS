@@ -27,11 +27,11 @@ function User_Profile() {
 
     function slide() {
         const testPanel = document.getElementById('test-panel');
-        if (testPanel.style.transform === 'translateY(-130%)') {
+        if (testPanel.style.transform === 'translateY(-120%)') {
             testPanel.style.transform = 'translateY(0%)';
             testPanel.stye.zIndex = '8';
         } else {
-            testPanel.style.transform = 'translateY(-130%)';
+            testPanel.style.transform = 'translateY(-120%)';
         }
 
     }
