@@ -8,7 +8,6 @@ function User_Profile() {
     const [results, setResults] = useState([])
 
     const { username } = useParams();
-    console.log(username)
 
     useEffect(() => {
         const fetchtasks = async () => {
@@ -59,16 +58,32 @@ function User_Profile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch('https://lms-tcr1.onrender.com/updateStudentProgress', {
-            method : 'PUT',
-            headers : {'Content-Type' : 'application/json'},
-            body : JSON.stringify({ testdate : testdate, markob : markob, testmark : testmark, testno : testno}),
-            credentials : 'include'
+        await fetch('https://lms-tcr1.onrender.com/updateStudentProgress', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ testdate: testdate, markob: markob, testmark: testmark, testno: testno, username: username }),
+            credentials: 'include'
         }
         )
-
-
     }
+
+    const [data, setData] = useState('')
+
+    useEffect(() => {
+        const fetchTests = async () => {
+
+            const data = await fetch('https://lms-tcr1.onrender.com/fetchtests', {
+                method : 'POST',
+                headers : { 'Content-Type': 'application/json' },
+                body : JSON.stringify({ username: username })
+        })
+
+            const response = data.json();
+            setData(response);
+
+        }
+        fetchTests;
+    }, [username])
 
     return (
         <div className='admin-content'>
@@ -88,6 +103,17 @@ function User_Profile() {
             <div className='thf'>
                 <div id="cve">
                     <div className="test-panel-header">Tests Completed</div>
+                    {data.length > 0 ? data.map((info) => (
+                        <>
+                            <div className="test-content">
+                                <div className="test">{info.subject_name}</div>
+                            </div>
+                        </>
+                    ))
+                        :
+                        <>
+                        <p>no data</p>
+                        </>}
                     <div className="test-content">
                         <div className="test">1</div>
                     </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Assignment from './admin_assignment_panel';
 import './profile.css';
-import {Route, Routes, Link, Navigate} from 'react-router-dom';
+import {Route, Routes, Link} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Broadcast from './broadcast';
 import Users from './users';

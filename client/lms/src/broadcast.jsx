@@ -19,16 +19,13 @@ function Broadcast(){
         information();
     }, [])
 
-    
     const time = new Date();
     const day = time.getDay();
     const month = time.getMonth();
     const year = time.getFullYear()
-
     const date = day + '/' + month + '/' + year;
 
     const [text, setText] = useState('')
-
     const handleText = (e) => {
         setText(e.target.value)
     }
@@ -80,15 +77,16 @@ function Broadcast(){
                 </p>
                 <sub>{data.date}</sub>
             </div>
-            <a href="#" onClick={(e) => handleDelete(e, data.id)}>delete</a>
+            <a href="#" className='broadcast-del-btn' onClick={(e) => handleDelete(e, data.id)}>delete</a>
         </div>
     </div>
     )) : <></>}
     <form onSubmit={handleSubmit} id='vvt'>
-    <textarea className="textarea-admin" onChange={handleText}></textarea>
-    <button type='submit'><span className="material-symbols-outlined">send</span></button>
-    </form>
-
+   <div className='vrc'>
+   <textarea className="textarea-admin" onChange={handleText}></textarea>
+    <button type='submit' className='textarea-submit-button'><span className="material-symbols-outlined">send</span></button>
+   </div>
+   </form>
     </main>
     )
 }

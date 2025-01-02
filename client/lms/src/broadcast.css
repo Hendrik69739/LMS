@@ -28,16 +28,48 @@ sub{
 }
 
 .textarea-admin {
-    width: 40vw;
-    left: 64%;
-    height: 60px;
+    width: 600px;
+    height: 50px;
     border-radius: 10px;
 }
 
+.textarea-admin::-webkit-scrollbar{ display : none;}
+
 #vvt{
-    position: fixed;
-    bottom: 20px;
     display: flex;
+    width: 100%;
+    flex-direction: row;
+    position: relative;
+    z-index: 3;
+}
+
+.vrc{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    top: 430px;
+    width: 100%;
+    background-color: black;
+    padding: 5px;
+}   
+
+.broadcast-del-btn{
+    color: white;
+    background-color: red;
+    width: fit-content;
+    padding: 3px;
+    border: none;
+    border-radius: 4px;
+}
+
+.textarea-submit-button{
+    height: 30px;
+    width: 30px;
+    border: none;
+    border-radius: 100px;
+    margin: 5px;
 }
 
 #text-content{

@@ -32,8 +32,6 @@ const pool = new Pool({
     options: '--search_path=students'
 });
   
-
-
 app.use(session({
     store: new pgSession({
         pool: pool,
@@ -72,11 +70,6 @@ app.get('/check-session', (req, res, next) => {
     }
 });
 
-
-
-
-
-
 app.post('/recover', (req,res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -108,15 +101,25 @@ app.post('/recover', (req,res) => {
 })
 
 app.put('/updateStudentProgress', async (req, res) => {
-    const { testdate, markob, testmark, testno} = req.body;
+    const { testdate, markob, testmark, testno, username} = req.body;
     const email = req.session.name;
+    const name = req.session.firstname + ' ' + req.session.lastname
 
-    await pool.query('UPDATE students.progress SET obtained_mark = $1, student_email = $2, test_mark = $3, test_name = $4, student_name = $5', [markob, email, testmark, testno, ])
-
+    try{
+        await pool.query('UPDATE students.progress SET obtained_mark = $1, student_email = $2, test_mark = $3, test_name = $4, student_name = $5', [markob, email, testmark, testno, username])
+        res.json({successful : true})
+    } catch{
+        res.send('query to database failed')
+    }
 })
 
-app.get('/home', (req, res) => {
-    res.send({req.session})
+app.post('/fetchtests', (req, res) => {
+    const username = req.body.username;
+    pool.query('SELECT * FROM students.progress WHERE student_name = $1', [username])
+    .then(response => response.json())
+    .then(data => {
+        res.json({data : data})
+    })
 })
 
 app.post('/namesetter', (req, res, next) => {
@@ -133,9 +136,6 @@ app.post('/namesetter', (req, res, next) => {
         res.status(500).json({ why : err.message});
     }
 });
-
-
-
 
 app.post('/assignments', async (req, res) => {
     try {
@@ -172,17 +172,7 @@ app.put('/update-details', (req, res, next) => {
             return res.status(400).json({ error: 'Missing required ID field' });
         }
 
-        const query = `
-            UPDATE students.students 
-            SET 
-                email = $1, 
-                firstname = $2, 
-                lastname = $3, 
-                cell_number = $4, 
-                median_name = $5  
-            WHERE 
-                id_number = $6
-        `;
+        const query = `UPDATE students.students SET email = $1, firstname = $2, lastname = $3, cell_number = $4, median_name = $5 WHERE id_number = $6`;
         const values = [email, firstname, lastname, cell_number, secondname, ID];
 
         const result = await pool.query(query, values);
@@ -198,8 +188,6 @@ app.put('/update-details', (req, res, next) => {
         res.status(500).json({ error: 'Database update error', why: err.message });
     }
 });
-
-
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
@@ -342,8 +330,6 @@ app.get('/emailsetter', async (req, res) => {
     res.send({email : email});
 })
 
-
-
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.status(200).json({ message: 'logged out', redirect: '/login' });
@@ -400,8 +386,6 @@ app.post('/getUsers', (req, res, next) => {
     }
 });
 
-
-
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
@@ -409,3 +393,4 @@ app.listen(process.env.PORT, (err) => {
 console.log('connection successful')
     }
 })
+/* hendricks API */

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './admin_assignment_panel.css';
 
 function UploadTask() {

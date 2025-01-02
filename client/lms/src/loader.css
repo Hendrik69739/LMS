@@ -1,0 +1,31 @@
+.n-container{
+    display: flex;
+    border: 1px solid;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.n-block{
+    border: 1px solid;
+    height: 100px;
+    width: 100px;
+    padding: 5px;
+    margin: 0px;
+    border-radius: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.n-header{
+    height: fit-content;
+}
+
+.student-count{
+    font-weight: bolder;
+    margin: 1px;
+}
+
