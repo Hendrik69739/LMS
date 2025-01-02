@@ -103,7 +103,7 @@
     border-radius: 10px;
     width: 300px;
     overflow: hidden;
-    transform: translateY(-50%);
+    transform: translateY(-80%);
     transition: transform 1s ease-in-out;
 }
 
