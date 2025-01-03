@@ -110,6 +110,7 @@ function Dock() {
       ) : (
         <div className='empty-assignments'>
          <div className='loader'/>
+         {task.length <= 0 && <p>No assignments</p>}
         </div>
       )}
     </>

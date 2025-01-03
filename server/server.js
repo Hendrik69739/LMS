@@ -42,8 +42,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true, // Secure must be true for production
-        maxAge: 1000 * 60 * 60 * 24 * 3, // 3 days
+        secure: true,
+        maxAge: 1000 * 60 * 60 * 24 * 3, 
         sameSite: 'None',
         httpOnly: true
     }
@@ -394,3 +394,4 @@ console.log('connection successful')
     }
 })
 /* hendricks API */
+

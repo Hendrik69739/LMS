@@ -18,6 +18,17 @@
     margin: 0;
     color: #333;
   }
+
+  #alert{
+    background-color: skyblue;
+    padding: 3px 5px;
+    border: none;
+    border-radius:5px;
+    animation: dfd 4s;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+  }
   
   .task-time {
     font-size: 0.9em;

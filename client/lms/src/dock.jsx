@@ -6,6 +6,11 @@ function Assignments() {
     const [loading, setLoading] = useState(true);
     const [deleting, setDeleting] = useState(false);
 
+    const profsec =  document.getElementById('prof_section');
+    const alet = document.createElement('div');
+    alet.setAttribute('id', 'alert')
+
+
     useEffect(() => {
         const fetchTask = async () => {
             setLoading(true);
@@ -19,7 +24,8 @@ function Assignments() {
                 setTask(data.results);
             } catch (error) {
                 console.error('Failed to fetch tasks:', error);
-                alert('Failed to fetch tasks: ' + error.message);
+                alet.innerHTML = 'Failed to fetch tasks';
+                profsec.appendChild(alet)
             } finally {
                 setLoading(false);
             }
@@ -40,15 +46,18 @@ function Assignments() {
 
             if (response.ok) {
                 setTask(task.filter(item => item.id !== id));
-                alert('Task deleted successfully');
+                alet.innerHTML = 'Task deleted successfully';
+                profsec.appendChild(alet)
             } else {
                 const errorText = await response.text();
                 console.error('Failed to delete task:', errorText);
-                alert('Failed to delete task: ' + errorText);
+                alet.innerHTML = 'Failed to delete task';
+                profsec.appendChild(alet)
             }
         } catch (error) {
             console.error('Error deleting task:', error);
-            alert('Error deleting task: ' + error.message);
+            alet.innerHTML = 'Error deleting task';
+                profsec.appendChild(alet)
         } finally {
             setDeleting(false);
         }

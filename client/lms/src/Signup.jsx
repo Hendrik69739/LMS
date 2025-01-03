@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import './Signup.css'
 import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from './LoadingSpinner'
 
 function Signup() {
+
+    const [loader, setLoader] = useState(false)
 
     const navigate = useNavigate();
 
@@ -35,6 +38,7 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoader(true)
 
         await fetch('https://lms-tcr1.onrender.com/auth/register', {
             method: 'POST',
@@ -106,7 +110,8 @@ function Signup() {
 
                 />
                 </div>
-                <button type="submit" className="form-button">Register</button>
+                {!loader && <button type="submit" className="form-button">Register</button>}
+            {loader && <LoadingSpinner />}
             </form>
             <p className="signup-text">Have an account? <Link to="/login" className="signup-link">Sign in</Link></p>
         </div>

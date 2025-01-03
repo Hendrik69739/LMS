@@ -25,12 +25,23 @@ exports.register = async (req, res) => {
                 console.log('Invalid credentials');
                 return res.status(401).json({ message: 'Invalid credentials' });
             } else {
+
                 req.session.name = email;
                 req.session.firstname = rows[0].firstname;
                 req.session.lastname = rows[0].lastname;
+                if(req.session.name = admin@math.com){
+                    req.session.sub = 'math';
 
-                console.log('Session before saving:', req.session);
+                }else if(req.session.name = admin@science.com){
+                    req.session.sub = 'science';
+                
+                }else if(req.session.name = admin@egd.com){
+                    req.session.sub = 'egd';
+                
+                }else if(req.session.name = admin@fitting || admin@mechano.com){
+                    req.session.sub = 'fitting-mechano';
 
+                }
                 req.session.save((err) => {
                     if (err) {
                         console.error('Session save error:', err);
@@ -43,9 +54,6 @@ exports.register = async (req, res) => {
                         sameSite: 'None',
                         secure: true
                     });
-
-                    console.log('Session after saving:', req.session);
-                    console.log('Set-Cookie Header:', res.get('Set-Cookie'));
 
                     return res.status(200).json({
                         message: 'Login successful',
@@ -79,14 +87,25 @@ exports.login = async (req, res) => {
             req.session.name = email;
             req.session.firstname = rows[0].firstname;
             req.session.lastname = rows[0].lastname;
+            if(req.session.name = admin@math.com){
+                req.session.sub = 'math';
 
-            console.log('Session before saving:', req.session);
+            }else if(req.session.name = admin@science.com){
+                req.session.sub = 'science';
+            
+            }else if(req.session.name = admin@egd.com){
+                req.session.sub = 'egd';
+            
+            }else if(req.session.name = admin@fitting || admin@mechano.com){
+                req.session.sub = 'fitting-mechano';
 
+            }
             req.session.save((err) => {
                 if (err) {
                     console.error('Session save error:', err);
                     return res.status(500).json({ message: 'Session save error', error: err.message });
                 }
+                
 
                 res.cookie('user', email, {
                     maxAge: 1000 * 60 * 60 * 24,
@@ -94,9 +113,6 @@ exports.login = async (req, res) => {
                     sameSite: 'None',
                     secure: true
                 });
-
-                console.log('Session after saving:', req.session);
-                console.log('Set-Cookie Header:', res.get('Set-Cookie'));
 
                 return res.status(200).json({
                     message: 'Login successful',
