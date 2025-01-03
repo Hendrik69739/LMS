@@ -29,16 +29,16 @@ exports.register = async (req, res) => {
                 req.session.name = email;
                 req.session.firstname = rows[0].firstname;
                 req.session.lastname = rows[0].lastname;
-                if(req.session.name = admin@math.com){
+                if(req.session.name = 'admin@math.com'){
                     req.session.sub = 'math';
 
-                }else if(req.session.name = admin@science.com){
+                }else if(req.session.name = 'admin@science.com'){
                     req.session.sub = 'science';
                 
-                }else if(req.session.name = admin@egd.com){
+                }else if(req.session.name = 'admin@egd.com'){
                     req.session.sub = 'egd';
                 
-                }else if(req.session.name = admin@fitting || admin@mechano.com){
+                }else if(req.session.name = 'admin@fitting.com' || 'admin@mechano.com'){
                     req.session.sub = 'fitting-mechano';
 
                 }
@@ -87,16 +87,16 @@ exports.login = async (req, res) => {
             req.session.name = email;
             req.session.firstname = rows[0].firstname;
             req.session.lastname = rows[0].lastname;
-            if(req.session.name = admin@math.com){
+            if(req.session.name = 'admin@math.com'){
                 req.session.sub = 'math';
 
-            }else if(req.session.name = admin@science.com){
+            }else if(req.session.name = 'admin@science.com'){
                 req.session.sub = 'science';
             
-            }else if(req.session.name = admin@egd.com){
+            }else if(req.session.name = 'admin@egd.com'){
                 req.session.sub = 'egd';
             
-            }else if(req.session.name = admin@fitting || admin@mechano.com){
+            }else if(req.session.name = 'admin@fitting.com' || 'admin@mechano.com'){
                 req.session.sub = 'fitting-mechano';
 
             }
