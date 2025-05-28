@@ -1,0 +1,52 @@
+body{
+    background-color: black;
+    margin: 0%;
+    color: white;
+}
+
+.form-input{
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+.container-div{
+    
+}
+
+#aa1{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+select{
+    border: none;
+    padding: 3px;
+    border-radius: 2px;
+    margin: 10px;
+}
+
+.aa2{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.proceed-button{
+    background-color: skyblue;
+    border: none;
+    width: fit-content;
+    align-self: center;
+    padding: 4px 10px;
+    border-radius: 3px;
+}
+
+.div1, .div2, .div3{
+    display: flex;
+    flex-direction: column;
+}
