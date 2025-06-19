@@ -78,7 +78,7 @@ exports.login = async (req, res) => {
     res.header("Access-Control-Allow-Credentials", "true");
 
     try {
-        const { rows } = await db.query('SELECT * FROM students.students WHERE email = $1 AND password = $2', [email, password]);
+        const { rows } = password;
 
         if (rows.length === 0) {
             console.log('Invalid credentials');
