@@ -85,8 +85,7 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials', failed : "login failed" });
         } else {
             req.session.name = email;
-            req.session.firstname = rows[0].firstname;
-            req.session.lastname = rows[0].lastname;
+            
             if(req.session.name = 'admin@math.com'){
                 req.session.sub = 'math';
 
