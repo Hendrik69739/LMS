@@ -164,7 +164,8 @@ app.post('/assignments', async (req, res) => {
 app.post('/user-info', async (req, res) => {
     try {
         const rows = await db.promise().query('SELECT * FROM students.students WHERE email = ?', [req.body.user]);
-        res.json({ data: rows.rows[0]});
+        console.log(rows[0]);
+        res.json({ data: rows[0]});
     } catch (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query error', why: err.message });
@@ -186,16 +187,14 @@ app.put('/update-details', (req, res, next) => {
             return res.status(400).json({ error: 'Missing required ID field' });
         }
 
-        const query = `UPDATE students.students SET email = ?, firstname = ?, lastname = ?, cell_number = ?, median_name = ? WHERE id_number = ?`;
-        const values = [email, firstname, lastname, cell_number, secondname, ID];
+        const query = `UPDATE students.students SET email = ?, firstname = ?, lastname = ?, cellphone = ? WHERE id_number = ?`;
+        const values = [email, firstname, lastname, cell_number, ID];
 
         const result = await db.promise().query(query, values);
 
         if (result.rowCount === 0) {
             return res.status(404).json({ error: 'Student not found' });
         }
-
-        console.log('Update Result:', result);
         res.status(200).json({ message: 'Student updated successfully', successful : true });
     } catch (err) {
         console.error('Database update error:', err);
@@ -370,7 +369,7 @@ app.post('/events', (req, res, next) => {
 });
 
 app.post('/anouncements', async (req, res) => {
-    const result = await db.promise().query('SELECT * FROM students.announcements');
+    const result = await db.promise().query('SELECT * FROM students.anouncements');
     res.json({ results: result[0] });
 });
 

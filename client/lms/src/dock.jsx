@@ -32,7 +32,7 @@ function Assignments() {
             }
         };
         fetchTask();
-    }, [alet, profsec]);
+    }, []);
 
     const handleDelete = async (e, id) => {
         e.preventDefault();

@@ -17,7 +17,6 @@ function Broadcast(){
         information();
     }, [])
 
-
     return(
         <main className="anouncement-main">
             {dataset.length > 0 ? 
