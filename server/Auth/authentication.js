@@ -79,16 +79,41 @@ exports.login = async (req, res) => {
     res.header("Access-Control-Allow-Credentials", "true");
 
     try {
+<<<<<<< HEAD
         const rows = await db.promise().query('SELECT * FROM students.students WHERE email = ?', [email]);
+=======
+        const { rows } = password;
+>>>>>>> 38a004ad0f5c0047b06dc03195b09cfec5b6a516
 
         const data =  rows[0];
 
         if (data[0] == null) {
             console.log('Invalid credentials');
+<<<<<<< HEAD
             return res.status(401).json({ message: 'User account not registered', failed: "login failed" });
         } 
         
             bcrypt.compare(password, data[0].password, (err, result) => {
+=======
+            return res.status(401).json({ message: 'Invalid credentials', failed : "login failed" });
+        } else {
+            req.session.name = email;
+            
+            if(req.session.name = 'admin@math.com'){
+                req.session.sub = 'math';
+
+            }else if(req.session.name = 'admin@science.com'){
+                req.session.sub = 'science';
+            
+            }else if(req.session.name = 'admin@egd.com'){
+                req.session.sub = 'egd';
+            
+            }else if(req.session.name = 'admin@fitting.com' || 'admin@mechano.com'){
+                req.session.sub = 'fitting-mechano';
+
+            }
+            req.session.save((err) => {
+>>>>>>> 38a004ad0f5c0047b06dc03195b09cfec5b6a516
                 if (err) {
                     res.json({ message: 'Incorrect Password' })
                 } else if(!result) {
