@@ -28,7 +28,7 @@ function Dock() {
     formData.append('date', day)
 
     try {
-      const response = await fetch('https://lms-tcr1.onrender.com/upload', {
+      const response = await fetch('http://localhost:3000/upload', {
         method: 'POST',
         body: formData,
         credentials: 'include'
@@ -49,8 +49,8 @@ function Dock() {
 
   useEffect(() => {
     const fetchName = async () => {
-      const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
-        method: 'GET',
+      const data = await fetch('http://localhost:3000/namesetter', {
+        method: 'POST',
         credentials: 'include'
       });
 
@@ -63,7 +63,7 @@ function Dock() {
 
   useEffect(() => {
     const fetchTask = async () => {
-      const data = await fetch('https://lms-tcr1.onrender.com/assignments', {
+      const data = await fetch('http://localhost:3000/assignments', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -84,13 +84,13 @@ function Dock() {
 
   return (
     <>
-      {task.length > 0 ? (
+      {task != null ? (
         task.map((data) => {
           return (
             <div id='assignments' key={data.id} className="assignment-container">
   <div id='task' className="task-container">
     <h2 className='subject_name'>{`${data.subject} - ${data.id}`}</h2>
-    <a id="download_btn" className="download-btn" href={`https://lms-tcr1.onrender.com/download?id=${data.id}`} download>
+    <a id="download_btn" className="download-btn" href={`http://localhost:3000/download?id=${data.id}`} download>
       Download Assignment
     </a>
     <div>
@@ -110,7 +110,7 @@ function Dock() {
       ) : (
         <div className='empty-assignments'>
          <div className='loader'/>
-         {task.length <= 0 && <p>No assignments</p>}
+         {task == null && <p>No assignments</p>}
         </div>
       )}
     </>

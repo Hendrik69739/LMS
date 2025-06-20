@@ -9,8 +9,8 @@ function Dashboard() {
 
     useEffect(() => {
         const setName = async () => {
-            const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
-                method: 'GET',
+            const data = await fetch('http://localhost:3000/namesetter', {
+                method: 'POST',
                 credentials: 'include'
             });
 
@@ -24,7 +24,7 @@ function Dashboard() {
 
     useEffect(() => {
         const setName = async () => {
-            const data = await fetch('https://lms-tcr1.onrender.com/emailsetter', {
+            const data = await fetch('http://localhost:3000/emailsetter', {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -37,7 +37,7 @@ function Dashboard() {
 
     useEffect(() => {
         const assignments = async () => {
-            const data = await fetch('https://lms-tcr1.onrender.com/count', {
+            const data = await fetch('http://localhost:3000/count', {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({ email: emailsetter })
@@ -53,7 +53,7 @@ function Dashboard() {
 
     useEffect(() => {
         const time = async () => {
-            const results = await fetch('https://lms-tcr1.onrender.com/events', {
+            const results = await fetch('http://localhost:3000/events', {
                 method: 'POST',
                 credentials: 'include'
             });

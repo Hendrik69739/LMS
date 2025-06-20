@@ -1,18 +1,15 @@
-const { Pool } = require('pg');
+const mysql = require('mysql2');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const pool = new Pool({
-    host: process.env.PG_HOST,
-    user: process.env.PG_USER,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-    database: process.env.PG_DATABASE,
-    ssl : {
-        rejectUnauthorized: false
-    },
-    options: `--search_path=students`
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
-module.exports = pool;
+
+
+module.exports = db;

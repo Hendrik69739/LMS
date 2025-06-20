@@ -25,7 +25,7 @@ function Login() {
     setLoader(true);
 
     try {
-      const response = await fetch('https://lms-tcr1.onrender.com/auth/login', {
+      const response = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: username, password: userpassword }),
@@ -44,8 +44,8 @@ function Login() {
         setLoader(false);
 
         const toast = document.createElement('div');
-        toast.innerHTML = 'Unsuccessful Login';
-        toast.id = 'alert';
+        toast.innerHTML = data.message;
+        toast.id = 'alert2';
 
         const toasted = document.getElementById('toasted');
         toasted.appendChild(toast);
@@ -60,8 +60,8 @@ function Login() {
 
   function removeAlert() {
     setTimeout(() => {
-      document.getElementById('alert').remove();
-    }, 5000);
+      document.getElementById('alert2').remove();
+    }, 6000);
   }
 
   return (

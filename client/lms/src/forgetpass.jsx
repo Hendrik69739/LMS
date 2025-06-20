@@ -13,7 +13,7 @@ function Forgottenpass(){
     const handleSubmit = async (e) => {
        e.preventDefault();
 
-       await fetch('https://lms-tcr1.onrender.com/recover', {
+       await fetch('http://localhost:3000/recover', {
         method: "POST",
         credentials : 'include',
         headers : { "Content-Type" : "application/json"},

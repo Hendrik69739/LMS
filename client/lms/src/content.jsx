@@ -13,7 +13,7 @@ function Content() {
     const navigate = useNavigate();
 
     const Logout = async () => {
-        await fetch('https://lms-tcr1.onrender.com/logout', {
+        await fetch('http://localhost:3000/logout', {
             method: 'GET',
             credentials: 'include'
         }).then(response => response.json())
@@ -29,7 +29,7 @@ function Content() {
 
     useEffect(() => {
         const setName = async () => {
-            const data = await fetch('https://lms-tcr1.onrender.com/namesetter', {
+            const data = await fetch('http://localhost:3000/namesetter', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -68,6 +68,7 @@ function Content() {
                     </aside>
                     <section id='prof__section'>
                         <Routes>
+                            <Route path='*' element={<Dashboard />} />
                             <Route path='dashboard' element={<Dashboard />} />
                             <Route path='anouncement' element={<Anouncement />} />
                             <Route path='assignment/management' element={<Assignment />} />

@@ -40,7 +40,7 @@ function Signup() {
         e.preventDefault();
         setLoader(true)
 
-        await fetch('https://lms-tcr1.onrender.com/auth/register', {
+        await fetch('http://localhost:3000/auth/register', {
             method: 'POST',
             credentials: "include",
             headers: { 'Content-Type': 'application/json' },
