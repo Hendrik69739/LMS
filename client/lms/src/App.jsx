@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './login';
 import Signup from './Signup';
 import Profile from './Profile';
-import Forgotpass from './forgetpass'
+import Forgotpass from './forgetpass';
+import Verify from './verify';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile/*' element={<Profile />} /> 
         <Route path='*' element={<Navigate to='/login' />} />
+        <Route path='/verify' element={<Verify />} />
       </Routes>
     </Router>
   );

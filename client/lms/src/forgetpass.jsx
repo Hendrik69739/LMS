@@ -13,13 +13,18 @@ function Forgottenpass(){
     const handleSubmit = async (e) => {
        e.preventDefault();
 
-       await fetch('http://localhost:3000/recover', {
+       const results = await fetch('http://localhost:3000/recover', {
         method: "POST",
         credentials : 'include',
         headers : { "Content-Type" : "application/json"},
         body: JSON.stringify({email : email})
        }
        )
+
+       const data = await results.json();
+       if(data.message){
+        window.location.href = '/verify';
+       }
     }
 
 

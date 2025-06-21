@@ -20,7 +20,6 @@ function Profilepage() {
     const handleCellnumber = (e) => setCn(e.target.value);
     const handleDateofbirth = (e) => setDob(e.target.value);
     const handleGender = (e) => setGender(e.target.value);
-    const handleBio = (e) => setBio(e.target.value);
     const handleIDnumber = (e) => setId(e.target.value);
 
 

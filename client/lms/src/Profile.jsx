@@ -40,7 +40,7 @@ function Profile() {
             user === 'admin@gmail.com' ? (
                 <Admin />
             ) : (
-                <Content />
+                <Admin />
             )
         ) : (
             <p>You are not logged in, please return to the login page.</p>

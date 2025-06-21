@@ -69,19 +69,25 @@ app.get('/check-session', (req, res, next) => {
     }
 });
 
+let mail;
+
 app.post('/recover', (req,res) => {
    
-
+    
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
     const OTP = Math.floor(100000 + Math.random() * 900000); 
     const msg = `Your one time OTP ${OTP}`;
 
-     db.query("INSERT INTO students.recovery (email, code) VALUES (?, ?)", [req.body.email, OTP], (err, result) => {
+     const result = db.query("INSERT INTO students.pswrecovery (email, code, expires_at) VALUES (?, ?, ?)", [req.body.email, OTP, expiresAt], (err, result) => {
         if(err){
             res.json({message : 'try again'});
+            return;
         }else{
             res.json({ message : 'Check your email for recovery OTP'})
         }
     })
+
+    mail = req.body.email;
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -112,6 +118,23 @@ app.post('/recover', (req,res) => {
     };
     
     sendEmail(req.body.email, 'LMS password Recovery', msg);    
+})
+
+app.post('/verify', async (req, res) => {
+
+    const { password, code} = req.body;
+
+    const hashedpassword =  await bcrypt.hash(password, 10)
+
+    db.query('SELECT * FROM students.pswrecovery WHERE email = ? AND code = ?', [mail, code], (err, result) => {
+        if(err){
+            console.log('Incorrect email and code combination');
+        }else{
+            if(result){
+                db.query('UPDATE students.students SET password = ? WHERE email = ?', [hashedpassword, mail], (err, result) => {})
+            }
+        }
+    })
 })
 
 app.put('/updateStudentProgress', async (req, res) => {
@@ -237,12 +260,12 @@ app.delete('/deleteAnouncement/:id', async (req, res) => {
 });
 
 async function deleteAnouncementById(id) {
-    await db.promise().query('DELETE FROM announcements WHERE id = ?', [id]);
+    await db.promise().query('DELETE FROM students.anouncements WHERE id = ?', [id]);
 }
 
 app.get('/download', (req, res) => {
     const id = req.query.id;
-    db.promise().query('SELECT task_pdf FROM student_tasks WHERE id = ?', [id], (error, results) => {
+    db.promise().query('SELECT task_pdf FROM students.student_tasks WHERE id = ?', [id], (error, results) => {
         if (error) {
             return res.status(500).send('Error fetching file from database');
         }
@@ -375,7 +398,7 @@ app.post('/anouncements', async (req, res) => {
 
 app.post('/sendAnouncements', async (req, res) => {
     const { text, date } = req.body;
-    const response = await db.promise().query('INSERT INTO announcements(text, date) VALUES(?, ?)', [text, date]);
+    const response = await db.promise().query('INSERT INTO students.anouncements(text, date) VALUES(?, ?)', [text, date]);
     res.status(201).json({ message: 'Announcement sent', response: response.rows });
 });
 

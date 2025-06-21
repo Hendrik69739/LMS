@@ -45,7 +45,7 @@ function UploadTask() {
     useEffect(() => {
         const tasks = async () => {
             const data = await fetch('http://localhost:3000/namesetter', {
-                method: 'GET',
+                method: 'POST',
                 credentials: 'include'
             });
             const response = await data.json();
