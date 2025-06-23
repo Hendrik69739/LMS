@@ -209,6 +209,7 @@ app.put('/update-details', (req, res, next) => {
 }, async (req, res) => {
     try {
         const { firstname, lastname, ID, email, cell_number, secondname, bio, dob, gender } = req.body;
+        console.log(req.body);
 
         if (!ID) {
             return res.status(400).json({ error: 'Missing required ID field' });

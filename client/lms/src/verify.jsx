@@ -1,6 +1,5 @@
-import React from 'react';
 import './reset.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function Reset(){
 
@@ -38,6 +37,7 @@ const handleSubmit = async (e) => {
 
     return(
         <main id='gsm0'>
+                        <h2 id='bock'>Check your email for OTP code</h2>
     <form id="gsm1" onSubmit={handleSubmit}>
         <label>
             <input className="gsm2" type="text"  placeholder="OTP Code" onChange={(e) => {setOtp(e.target.value)}}></input>

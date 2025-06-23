@@ -10,6 +10,12 @@
     color: white;
 }
 
+#bock{
+    color: whitesmoke;
+    margin: 20px;
+    text-decoration: underline;
+}
+
 .recover-btn{
    margin: 10px;
    background-color: rgb(0, 191, 255);

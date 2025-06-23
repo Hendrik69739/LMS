@@ -85,7 +85,7 @@ function Profilepage() {
                     setFname(result[0].firstname || '');
                     setLname(result[0].lastname || '');
                     setSname(result[0].median_name || '');
-                    setCn(result[0].cell_number || '');
+                    setCn(result[0].cellphone || '');
                     setDob(result[0].dob || '');
                     setGender(result[0].gender || '');
                     setBio(result[0].biography || '');
