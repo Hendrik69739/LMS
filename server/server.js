@@ -9,6 +9,7 @@ const multer = require('multer');
 const nodemailer = require('nodemailer')
 dotenv.config();
 const db = require('./database/db');
+const bcrypt = require('bcrypt');
 
 const cookieParser = require('cookie-parser');
 app.use(express.urlencoded({ extended: true }));
@@ -83,6 +84,7 @@ app.post('/recover', (req,res) => {
             res.json({message : 'try again'});
             return;
         }else{
+            res.cookie('resetEmail', req.body.email, { httpOnly: true, secure: false, maxAge: 1000 * 60 * 5 });
             res.json({ message : 'Check your email for recovery OTP'})
         }
     })
@@ -122,8 +124,8 @@ app.post('/recover', (req,res) => {
 
 app.post('/verify', async (req, res) => {
 
+    const mail = req.cookies.resetEmail;
     const { password, code} = req.body;
-
     const hashedpassword =  await bcrypt.hash(password, 10)
 
     db.query('SELECT * FROM students.pswrecovery WHERE email = ? AND code = ?', [mail, code], (err, result) => {
@@ -132,6 +134,8 @@ app.post('/verify', async (req, res) => {
         }else{
             if(result){
                 db.query('UPDATE students.students SET password = ? WHERE email = ?', [hashedpassword, mail], (err, result) => {})
+                console.log('Password updated successfully');
+                res.json({ message: 'Password updated successfully' });
             }
         }
     })

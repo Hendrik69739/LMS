@@ -4,6 +4,7 @@ import Signup from './Signup';
 import Profile from './Profile';
 import Forgotpass from './forgetpass';
 import Verify from './verify';
+import Success from './success';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path='/profile/*' element={<Profile />} /> 
         <Route path='*' element={<Navigate to='/login' />} />
         <Route path='/verify' element={<Verify />} />
+        <Route path='/success' element={<Success />} />
       </Routes>
     </Router>
   );
