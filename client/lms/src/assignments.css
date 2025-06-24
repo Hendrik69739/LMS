@@ -13,6 +13,24 @@
     padding: 10px;
 }
 
+.angle {
+  background-color: #00b129de;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: fit-content;
+  transition: opacity 2s ease-in-out;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.angle.fade-out {
+  opacity: 0;
+}
+
 .submit_btn{
     background-color: rgb(145, 145, 145);
     border: none;

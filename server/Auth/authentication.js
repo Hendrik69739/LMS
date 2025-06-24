@@ -13,7 +13,6 @@ exports.register = async (req, res) => {
 
 
         if (!rows === 0) {
-            console.log('User exists:', rows);
             return res.json({ message: 'user exists' });
         }
 
@@ -102,6 +101,7 @@ exports.login = async (req, res) => {
                     req.session.lastname = data[0].lastname;
                     if (req.session.name === 'admin@math.com') {
                         req.session.sub = 'math';
+                        console.log('Math Admin logged in');
 
                     } else if (req.session.name === 'admin@science.com') {
                         req.session.sub = 'science';
@@ -142,8 +142,3 @@ exports.login = async (req, res) => {
 };
 
 
-exports.verify = async (req, res) => {
-
-    
-
-}

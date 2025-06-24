@@ -11,8 +11,8 @@ function Profile() {
 
     useEffect(() => {
         const checkSession = async () => {
-            const response = await fetch('http://locahost:3000/check-session', {
-                method: 'GET',
+            const response = await fetch('http://localhost:3000/check-session', {
+                method: 'POST',
                 credentials: 'include'
             });
 
@@ -20,6 +20,7 @@ function Profile() {
 
             if (response.status === 200) {
                 const data = await response.json();
+                console.log(data);
                 setUser(data.session);
                 setIsAuthenticated(true);
             } else {
@@ -37,7 +38,7 @@ function Profile() {
     
         <>
       {isAuthenticated ? (
-            user === 'admin@gmail.com' ? (
+            user.includes('admin') ? (
                 <Admin />
             ) : (
                 <Content />

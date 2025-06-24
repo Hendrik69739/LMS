@@ -21,7 +21,7 @@ const handleSubmit = async (e) => {
         password = newPassword;
     }
 
-    const data = await fetch('http://locahost:3000/verify', {
+    const data = await fetch('http://localhost:3000/verify', {
         method: 'POST',
         credentials: 'include',
         headers: {'Content-Type' : 'application/json'},

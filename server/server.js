@@ -50,10 +50,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 app.use('/auth', auth);
 
-app.get('/check-session', (req, res, next) => {
+app.post('/check-session', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:5173"); 
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
 
     next();
@@ -231,22 +231,21 @@ app.put('/update-details', (req, res, next) => {
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
+        console.log(id);
+
     try {
-        await deleteTaskById(id);
+       const result = await db.promise().query('DELETE FROM students.student_tasks WHERE id = ?', [id]);
+       console.log(result)
         res.status(200).send({ message: 'Task deleted successfully' });
     } catch (error) {
         res.status(500).send({ message: 'Failed to delete task', error: error.message });
     }
 });
 
-async function deleteTaskById(id) {
-    await db.promise().query('DELETE FROM students.student_submissions WHERE id = ?', [id]);
-}
-
 app.delete('/deleteAssignment/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        await deleteTaskById(id);
+        const result = await db.promise().query('DELETE FROM students.student_submissions WHERE id = ?', [id]);
         res.status(200).send({ message: 'Task deleted successfully' });
     } catch (error) {
         res.status(500).send({ message: 'Failed to delete task', error: error.message });
@@ -267,21 +266,16 @@ async function deleteAnouncementById(id) {
     await db.promise().query('DELETE FROM students.anouncements WHERE id = ?', [id]);
 }
 
-app.get('/download', (req, res) => {
-    const id = req.query.id;
-    db.promise().query('SELECT task_pdf FROM students.student_tasks WHERE id = ?', [id], (error, results) => {
-        if (error) {
-            return res.status(500).send('Error fetching file from database');
-        }
-        if (results.rows.length === 0) {
-            return res.status(404).send('File not found');
-        }
+app.get('/download/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = await db.promise().query('SELECT task_pdf FROM students.student_tasks WHERE id = ?', [id]);
 
-        const pdfBuffer = results.rows[0].task_pdf;
+    const pdfBuffer = data[0][0].task_pdf;
+
+    console.log();
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=assignment.pdf');
         res.send(pdfBuffer);
-    });
 });
 
 const storage = multer.memoryStorage();
@@ -299,7 +293,7 @@ app.post('/student_submissions', async (req, res) => {
     }
 });
 
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/upload', upload.single('file'), async (req, res) => {
     const file = req.file;
     const names = req.body.name;
     const subject = req.body.subject;
@@ -311,15 +305,14 @@ app.post('/upload', upload.single('file'), (req, res) => {
         return res.status(400).send('No file uploaded', req.session.name);
     }
 
-    const insertSubmissionSQL = 'INSERT INTO student_submissions(submitted_pdf, student_name, subject, id, time_submitted, student_email) VALUES (?, ?, ?, ?, ?, ?)';
-    db.promise().query(insertSubmissionSQL, [file.buffer, names, subject, taskno, date, email], (err, result) => {
-        if (err) {
-            console.log(err.message);
-            return res.status(500).send('Error storing submission in database');
-        }
+    const insertSubmissionSQL = 'INSERT INTO students.student_submissions(submitted_pdf, student_name, subject, id, time_submitted, student_email) VALUES (?, ?, ?, ?, ?, ?)';
+   const data = await db.promise().query(insertSubmissionSQL, [file.buffer, names, subject, taskno, date, email]);
+   if(data[0].affectedRows > 0){
+   return res.json({ message: 'Upload Successful' });
 
-        res.send('File uploaded and stored in database');
-    });
+   }else{
+    return res.status(500).json({ message: 'Failed to upload file' });
+   };
 });
 
 app.post('/uploadTask', upload.single('file'), (req, res) => {
@@ -332,7 +325,7 @@ app.post('/uploadTask', upload.single('file'), (req, res) => {
         return res.status(400).send('No file uploaded');
     }
 
-    const sql = 'INSERT INTO student_tasks(id, due_date, task_pdf, subject) VALUES(?, ?, ?, ?)';
+    const sql = 'INSERT INTO students.student_tasks(id, due_date, task_pdf, subject) VALUES(?, ?, ?, ?)';
     db.promise().query(sql, [taskno, date2, file.buffer, subject], (err, result) => {
         if (err) throw err;
         res.send('File uploaded and stored in database');

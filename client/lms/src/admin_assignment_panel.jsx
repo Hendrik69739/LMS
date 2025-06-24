@@ -13,6 +13,21 @@ function UploadTask() {
         setFile(e.target.files[0]);
     };
 
+    const fetchTask = async () => {
+        try {
+            const data = await fetch('http://localhost:3000/assignments', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            const response = await data.json();
+            setTask(response.data);
+        } catch (error) {
+            console.error('Error fetching tasks:', error);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -23,7 +38,7 @@ function UploadTask() {
         formData.append('taskno', taskno);
 
         try {
-            const response = await fetch('http://locahost:3000/uploadTask', {
+            const response = await fetch('http://localhost:3000/uploadTask', {
                 method: 'POST',
                 body: formData,
                 credentials: 'include',
@@ -31,6 +46,7 @@ function UploadTask() {
 
             if (response.ok) {
                 alert('File uploaded successfully');
+                fetchTask();
             } else {
                 const errorText = await response.text();
                 console.error('File upload failed:', errorText);
@@ -44,7 +60,7 @@ function UploadTask() {
 
     useEffect(() => {
         const tasks = async () => {
-            const data = await fetch('http://locahost:3000/namesetter', {
+            const data = await fetch('http://localhost:3000/namesetter', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -53,44 +69,23 @@ function UploadTask() {
         };
 
         tasks();
+        fetchTask(); 
     }, []);
 
-    useEffect(() => {
-        const fetchTask = async () => {
-            const data = await fetch('http://locahost:3000/assignments', {
-                method: 'POST',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' }, 
-            });
-
-            const response = await data.json();
-            setTask(response.data);
-        };
-        fetchTask();
-    }, []);
-
-    const handleSubject = (e) => {
-        setSubject(e.target.value);
-    };
-
-    const handleTaskno = (e) => {
-        setTaskno(e.target.value);
-    };
-
-    const handleDate = (e) => {
-        setDate(e.target.value);
-    };
+    const handleSubject = (e) => setSubject(e.target.value);
+    const handleTaskno = (e) => setTaskno(e.target.value);
+    const handleDate = (e) => setDate(e.target.value);
 
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://locahost:3000/deleteTask/${id}`, {
+            const response = await fetch(`http://localhost:3000/deleteTask/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
 
             if (response.ok) {
-                setTask(task.filter(item => item.id !== id)); 
+                setTask(task.filter(item => item.id !== id));
                 alert('Task deleted successfully');
             } else {
                 const errorText = await response.text();
@@ -112,17 +107,13 @@ function UploadTask() {
                 <label>Due Date:<input type="date" placeholder="due date" onChange={handleDate} className="mb-2" /></label>
                 <button type="submit" className="upload_button">Upload Task</button>
             </form>
-            {task.length > 0 ? (
-                task.map((data, index) => (
-                    <div key={index} className="ms6">
-                        <h3>{data.subject}</h3>
-                        <p>submission date<br/>{data.due_date}</p>
-                        <a href="#" onClick={(e) => handleDelete(e, data.id)} className="delete_link">Delete Task</a>
-                    </div>
-                ))
-            ) : (
-                <></>
-            )}
+            {task.length > 0 && task.map((data, index) => (
+                <div key={index} className="ms6">
+                    <h3>{data.subject}</h3>
+                    <p>submission date<br />{data.due_date}</p>
+                    <a href="#" onClick={(e) => handleDelete(e, data.id)} className="delete_link">Delete Task</a>
+                </div>
+            ))}
         </section>
     );
 }
