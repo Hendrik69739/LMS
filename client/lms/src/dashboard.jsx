@@ -9,7 +9,7 @@ function Dashboard() {
 
     useEffect(() => {
         const setName = async () => {
-            const data = await fetch('http://localhost:3000/namesetter', {
+            const data = await fetch('http://locahost:3000/namesetter', {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -24,7 +24,7 @@ function Dashboard() {
 
     useEffect(() => {
         const setName = async () => {
-            const data = await fetch('http://localhost:3000/emailsetter', {
+            const data = await fetch('http://locahost:3000/emailsetter', {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -37,7 +37,7 @@ function Dashboard() {
 
     useEffect(() => {
         const assignments = async () => {
-            const data = await fetch('http://localhost:3000/count', {
+            const data = await fetch('http://locahost:3000/count', {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({ email: emailsetter })
@@ -53,7 +53,7 @@ function Dashboard() {
 
     useEffect(() => {
         const time = async () => {
-            const results = await fetch('http://localhost:3000/events', {
+            const results = await fetch('http://locahost:3000/events', {
                 method: 'POST',
                 credentials: 'include'
             });

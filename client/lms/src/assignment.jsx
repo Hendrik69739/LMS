@@ -28,7 +28,7 @@ function Dock() {
     formData.append('date', day)
 
     try {
-      const response = await fetch('http://localhost:3000/upload', {
+      const response = await fetch('http://locahost:3000/upload', {
         method: 'POST',
         body: formData,
         credentials: 'include'
@@ -49,7 +49,7 @@ function Dock() {
 
   useEffect(() => {
     const fetchName = async () => {
-      const data = await fetch('http://localhost:3000/namesetter', {
+      const data = await fetch('http://locahost:3000/namesetter', {
         method: 'POST',
         credentials: 'include'
       });
@@ -63,7 +63,7 @@ function Dock() {
 
   useEffect(() => {
     const fetchTask = async () => {
-      const data = await fetch('http://localhost:3000/assignments', {
+      const data = await fetch('http://locahost:3000/assignments', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -90,7 +90,7 @@ function Dock() {
             <div id='assignments' key={data.id} className="assignment-container">
   <div id='task' className="task-container">
     <h2 className='subject_name'>{`${data.subject} - ${data.id}`}</h2>
-    <a id="download_btn" className="download-btn" href={`http://localhost:3000/download?id=${data.id}`} download>
+    <a id="download_btn" className="download-btn" href={`http://locahost:3000/download?id=${data.id}`} download>
       Download Assignment
     </a>
     <div>

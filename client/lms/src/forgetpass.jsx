@@ -13,7 +13,7 @@ function Forgottenpass(){
     const handleSubmit = async (e) => {
        e.preventDefault();
 
-       const results = await fetch('http://localhost:3000/recover', {
+       const results = await fetch('http://locahost:3000/recover', {
         method: "POST",
         credentials : 'include',
         headers : { "Content-Type" : "application/json"},

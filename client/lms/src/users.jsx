@@ -8,7 +8,7 @@ function Users() {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const response = await fetch('http://localhost:3000/getUsers', {
+                const response = await fetch('http://locahost:3000/getUsers', {
                     method: 'POST',
                     credentials: 'include'
                 });

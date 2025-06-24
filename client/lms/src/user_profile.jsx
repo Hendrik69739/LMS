@@ -11,7 +11,7 @@ function User_Profile() {
 
     useEffect(() => {
         const fetchtasks = async () => {
-            const response = await fetch(`http://localhost:3000/fetchtasks`, {
+            const response = await fetch(`http://locahost:3000/fetchtasks`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -58,7 +58,7 @@ function User_Profile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetch('http://localhost:3000/updateStudentProgress', {
+        await fetch('http://locahost:3000/updateStudentProgress', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ testdate: testdate, markob: markob, testmark: testmark, testno: testno, username: username }),
@@ -72,7 +72,7 @@ function User_Profile() {
     useEffect(() => {
         const fetchTests = async () => {
 
-            const data = await fetch('http://localhost:3000/fetchtests', {
+            const data = await fetch('http://locahost:3000/fetchtests', {
                 method : 'POST',
                 headers : { 'Content-Type': 'application/json' },
                 body : JSON.stringify({ username: username })

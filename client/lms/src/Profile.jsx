@@ -11,7 +11,7 @@ function Profile() {
 
     useEffect(() => {
         const checkSession = async () => {
-            const response = await fetch('http://localhost:3000/check-session', {
+            const response = await fetch('http://locahost:3000/check-session', {
                 method: 'GET',
                 credentials: 'include'
             });

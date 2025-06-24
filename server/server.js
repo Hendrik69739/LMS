@@ -191,7 +191,6 @@ app.post('/assignments', async (req, res) => {
 app.post('/user-info', async (req, res) => {
     try {
         const rows = await db.promise().query('SELECT * FROM students.students WHERE email = ?', [req.body.user]);
-        console.log(rows[0]);
         res.json({ data: rows[0]});
     } catch (err) {
         console.error('Database query error:', err);

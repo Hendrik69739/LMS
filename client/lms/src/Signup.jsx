@@ -40,7 +40,7 @@ function Signup() {
         e.preventDefault();
         setLoader(true)
 
-        await fetch('http://localhost:3000/auth/register', {
+        await fetch('http://locahost:3000/auth/register', {
             method: 'POST',
             credentials: "include",
             headers: { 'Content-Type': 'application/json' },

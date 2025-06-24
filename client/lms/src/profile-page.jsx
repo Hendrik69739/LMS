@@ -36,7 +36,7 @@ function Profilepage() {
         e.preventDefault();
 
         try {
-             await fetch('http://localhost:3000/update-details', {
+             await fetch('http://locahost:3000/update-details', {
                 method: 'PUT',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -54,7 +54,7 @@ function Profilepage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/emailsetter', {
+                const response = await fetch('http://locahost:3000/emailsetter', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -72,7 +72,7 @@ function Profilepage() {
         if (name) {
             const fetchUserInfo = async () => {
                 try {
-                    const response = await fetch('http://localhost:3000/user-info', {
+                    const response = await fetch('http://locahost:3000/user-info', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         credentials: 'include',

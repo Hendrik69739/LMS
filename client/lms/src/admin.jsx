@@ -13,7 +13,7 @@ function Admin(){
     const navigate = useNavigate()
 
     const Logout = async () => {
-    await fetch('http://localhost:3000/logout', {
+    await fetch('http://locahost:3000/logout', {
              method: 'GET',
             credentials: 'include'
         }).then(response => response.json())
@@ -30,7 +30,7 @@ function Admin(){
 
     useEffect(() => {
         const setName = async () => {
-          const data = await fetch('http://localhost:3000/namesetter', {
+          const data = await fetch('http://locahost:3000/namesetter', {
                 method : 'POST',
                 credentials : 'include'
         })

@@ -63,7 +63,7 @@ function MoreInfo() {
 
         console.log(formData)
 
-        await fetch('http://localhost:3000/auth/accountsetup', {
+        await fetch('http://locahost:3000/auth/accountsetup', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
