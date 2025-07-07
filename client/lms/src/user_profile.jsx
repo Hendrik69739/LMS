@@ -15,7 +15,7 @@ function User_Profile() {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: username })
+                body: JSON.stringify({ id: username })
             })
 
             const data = await response.json();
@@ -26,13 +26,18 @@ function User_Profile() {
 
     function slide() {
         const testPanel = document.getElementById('test-panel');
+
         if (testPanel.style.transform === 'translateY(-120%)') {
             testPanel.style.transform = 'translateY(0%)';
-            testPanel.stye.zIndex = '8';
+            testPanel.style.opacity = '1';
+            testPanel.style.visibility = 'visible';
         } else {
             testPanel.style.transform = 'translateY(-120%)';
+            testPanel.style.opacity = '0';
+            setTimeout(() => {
+                testPanel.style.visibility = 'hidden';
+            }, 1000);
         }
-
     }
 
     const [testno, setTestno] = useState('')
@@ -43,6 +48,11 @@ function User_Profile() {
     const [testmark, setTestmark] = useState('')
     const handleTestMark = (e) => {
         setTestmark(e.target.value)
+    }
+
+    const [studentId, setStudentId] = useState('')
+    const handleStudentId = (e) => {
+        setStudentId(e.target.value);
     }
 
     const [markob, setMarkob] = useState('')
@@ -58,13 +68,33 @@ function User_Profile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetch('http://localhost:3000/updateStudentProgress', {
-            method: 'PUT',
+        const result = await fetch('http://localhost:3000/updateStudentProgress', {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ testdate: testdate, markob: markob, testmark: testmark, testno: testno, username: username }),
+            body: JSON.stringify({ testdate: testdate, markob: markob, testmark: testmark, testno: testno, studentid: studentId }),
             credentials: 'include'
         }
         )
+
+        const response = await result.json();
+        if (response.message) {
+
+            const testPanel = document.getElementById('test-panel');
+            testPanel.style.transform = 'translateY(-120%)';
+            testPanel.style.opacity = '0';
+            setTimeout(() => {
+                testPanel.style.visibility = 'hidden';
+            }, 1000);
+
+
+            
+                setTestno('');
+                setTestmark('');
+                setStudentId('');
+                setMarkob('');
+                setTestdate('');
+
+        } 
     }
 
     const [data, setData] = useState('')
@@ -73,17 +103,19 @@ function User_Profile() {
         const fetchTests = async () => {
 
             const data = await fetch('http://localhost:3000/fetchtests', {
-                method : 'POST',
-                headers : { 'Content-Type': 'application/json' },
-                body : JSON.stringify({ username: username })
-        })
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ username: username })
+            })
 
-            const response = data.json();
-            setData(response);
+            const response = await data.json();
+            setData(response.data);
 
         }
-        fetchTests;
+        fetchTests();
     }, [username])
+
 
     return (
         <div className='admin-content'>
@@ -104,19 +136,17 @@ function User_Profile() {
                 <div id="cve">
                     <div className="test-panel-header">Tests Completed</div>
                     {data.length > 0 ? data.map((info) => (
-                        <>
-                            <div className="test-content">
-                                <div className="test">{info.subject_name}</div>
+                        <div key={info.id}>
+                            <div className="test-content" >
+                                <div className="test">{info.test_no}</div>
+                                <div>{(info.obtained_mark/info.test_mark)*100+'%'}</div>
                             </div>
-                        </>
+                        </div>
                     ))
                         :
                         <>
-                        <p>no data</p>
+                            <p>no data</p>
                         </>}
-                    <div className="test-content">
-                        <div className="test">1</div>
-                    </div>
                     <div className="add-test" onClick={slide} id="add-test">+</div>
                 </div>
 
@@ -125,7 +155,8 @@ function User_Profile() {
                         <label className='bbt'>Test no <input type="text" onChange={handleTestno} id="testNo" className="space" required /></label>
                         <label className='bbt'>Marks obtained <input type="text" onChange={handleMarkOb} id="marksO" className="space" required /></label>
                         <label className='bbt'>Test mark <input type="text" id="testMark" onChange={handleTestMark} className="space" required /></label>
-                        <label className='bbt'>Test date <input type="text" id="testDate" onChange={handleTestDate} className="space" required /></label>
+                        <label className='bbt'>Student Id <input type="text" id="StudentId" onChange={handleStudentId} className="space" required /></label>
+                        <label className='bbt'>Test date <input type="date" id="testDate" onChange={handleTestDate} className="space" required /></label>
                         <button type="submit" className="nvm">Submit</button>
                     </form>
                 </div>

@@ -21,12 +21,14 @@ function Users() {
         getUsers();
     }, []);
 
+    console.log(users)
+
     return (
         <section className="user_section">
             {users.length > 0 ? users.map((data) => {
-                const name = data.firstname + ' ' + data.lastname;
+                const std_id = data.id_number;
                 return(
-                    <Link id="user" key={data.firstname} to={`profile/${name}`}>
+                    <Link id="user" key={data.firstname} to={`profile/${std_id}`}>
                     <h2>{data.firstname + ' ' + data.lastname}</h2>
                     <p>N3</p>
                 </Link>

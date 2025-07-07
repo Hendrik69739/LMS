@@ -5,7 +5,6 @@ function UploadTask() {
     const [file, setFile] = useState('');
     const [name2, setName2] = useState('');
     const [task, setTask] = useState([]);
-    const [subject, setSubject] = useState('');
     const [taskno, setTaskno] = useState('');
     const [date, setDate] = useState('');
 
@@ -33,7 +32,6 @@ function UploadTask() {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('name', name2);
-        formData.append('subject', subject);
         formData.append('date', date);
         formData.append('taskno', taskno);
 
@@ -72,7 +70,6 @@ function UploadTask() {
         fetchTask(); 
     }, []);
 
-    const handleSubject = (e) => setSubject(e.target.value);
     const handleTaskno = (e) => setTaskno(e.target.value);
     const handleDate = (e) => setDate(e.target.value);
 
@@ -101,7 +98,6 @@ function UploadTask() {
     return (
         <section id="admin_assignment_section">
             <form onSubmit={handleSubmit} className="input_fields">
-                <label>Subject:<input type="text" placeholder="task subject" onChange={handleSubject} className="mb-2" /></label>
                 <label>Task no:<input type='text' onChange={handleTaskno}></input></label>
                 <label>Task pdf:<input type="file" accept=".pdf" onChange={handleFileChange} className="mb-2" /></label>
                 <label>Due Date:<input type="date" placeholder="due date" onChange={handleDate} className="mb-2" /></label>

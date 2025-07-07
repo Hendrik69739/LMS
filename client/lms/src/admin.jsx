@@ -20,7 +20,6 @@ function Admin(){
         .then(data => {
             if(data.redirect){
                 navigate(data.redirect)
-                console.log(data)
             }
         })
        
@@ -54,9 +53,9 @@ function Admin(){
         <div id='content'>
             <main id='main__prof'>
                <aside id='prof__aside'>
-                    <Link to='/profile/admin/assignment' id='link'>Assignment</Link>
-                    <Link to='/profile/admin/anouncement' id='link'>Anouncement</Link>
-                    <Link to='/profile/admin/users' id='link'>Users</Link>
+                    <Link to='/profile/assignment' id='link'>Assignment</Link>
+                    <Link to='/profile/anouncement' id='link'>Anouncement</Link>
+                    <Link to='/profile/users' id='link'>Users</Link>
                     <Link onClick={Logout} id='link'>Logout</Link>
                 </aside>
                 <section id='prof__section'>

@@ -127,3 +127,9 @@ sub {
     color: white;
     transform: translate(40%, 150%);
 }
+
+#ivm1 {
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+}

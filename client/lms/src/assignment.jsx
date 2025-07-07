@@ -125,12 +125,6 @@ function Dock() {
                   onChange={handleFileChange}
                   className="file-input"
                 />
-                <input
-                  type="text"
-                  onChange={handleTaskno}
-                  placeholder="Task Number"
-                  className="task-number-input"
-                />
               </form>
               <p className="submission_date">
                 Due date:<br />

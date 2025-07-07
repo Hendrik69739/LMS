@@ -24,14 +24,14 @@ const option = db;
 
 const sessionStore = new MySQLStore(
     {
-        host : process.env.DB_HOST,
-        user : process.env.DB_USER,
-        password : process.env.DB_PASSWORD,
-        database : process.env.DB_DATABASE,
-        port : process.env.DB_PORT,
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        port: process.env.DB_PORT,
     }
 );
-  
+
 app.use(session({
     store: sessionStore,
     proxy: true,
@@ -40,7 +40,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 3, 
+        maxAge: 1000 * 60 * 60 * 24 * 3,
         sameSite: 'Lax',
         httpOnly: true
     }
@@ -51,7 +51,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 app.use('/auth', auth);
 
 app.post('/check-session', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173"); 
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -59,7 +59,7 @@ app.post('/check-session', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        
+
         if (req.session && req.session.name) {
             res.status(200).json({ message: 'Session exists', session: req.session.name });
         } else {
@@ -72,20 +72,20 @@ app.post('/check-session', (req, res, next) => {
 
 let mail;
 
-app.post('/recover', (req,res) => {
-   
-    
+app.post('/recover', (req, res) => {
+
+
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
-    const OTP = Math.floor(100000 + Math.random() * 900000); 
+    const OTP = Math.floor(100000 + Math.random() * 900000);
     const msg = `Your one time OTP ${OTP}`;
 
-     const result = db.query("INSERT INTO students.pswrecovery (email, code, expires_at) VALUES (?, ?, ?)", [req.body.email, OTP, expiresAt], (err, result) => {
-        if(err){
-            res.json({message : 'try again'});
+    const result = db.query("INSERT INTO students.pswrecovery (email, code, expires_at) VALUES (?, ?, ?)", [req.body.email, OTP, expiresAt], (err, result) => {
+        if (err) {
+            res.json({ message: 'try again' });
             return;
-        }else{
+        } else {
             res.cookie('resetEmail', req.body.email, { httpOnly: true, secure: false, maxAge: 1000 * 60 * 5 });
-            res.json({ message : 'Check your email for recovery OTP'})
+            res.json({ message: 'Check your email for recovery OTP' })
         }
     })
 
@@ -98,10 +98,10 @@ app.post('/recover', (req,res) => {
             pass: 'twbt rdxn fexs trgp'
         }
     });
-    
 
 
-    
+
+
     const sendEmail = (recipient, subject, message) => {
         const mailOptions = {
             from: 'retshephilengm@gmail.com',
@@ -109,7 +109,7 @@ app.post('/recover', (req,res) => {
             subject: subject,
             text: message
         };
-    
+
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.log('Error:', error);
@@ -118,22 +118,22 @@ app.post('/recover', (req,res) => {
             }
         });
     };
-    
-    sendEmail(req.body.email, 'LMS password Recovery', msg);    
+
+    sendEmail(req.body.email, 'LMS password Recovery', msg);
 })
 
 app.post('/verify', async (req, res) => {
 
     const mail = req.cookies.resetEmail;
-    const { password, code} = req.body;
-    const hashedpassword =  await bcrypt.hash(password, 10)
+    const { password, code } = req.body;
+    const hashedpassword = await bcrypt.hash(password, 10)
 
     db.query('SELECT * FROM students.pswrecovery WHERE email = ? AND code = ?', [mail, code], (err, result) => {
-        if(err){
+        if (err) {
             console.log('Incorrect email and code combination');
-        }else{
-            if(result){
-                db.query('UPDATE students.students SET password = ? WHERE email = ?', [hashedpassword, mail], (err, result) => {})
+        } else {
+            if (result) {
+                db.query('UPDATE students.students SET password = ? WHERE email = ?', [hashedpassword, mail], (err, result) => { })
                 console.log('Password updated successfully');
                 res.json({ message: 'Password updated successfully' });
             }
@@ -141,30 +141,40 @@ app.post('/verify', async (req, res) => {
     })
 })
 
-app.put('/updateStudentProgress', async (req, res) => {
-    const { testdate, markob, testmark, testno, username} = req.body;
-    const email = req.session.name;
-    const name = req.session.firstname + ' ' + req.session.lastname
+app.post('/updateStudentProgress', async (req, res) => {
+    const { testdate, markob, testmark, testno, studentid } = req.body;
 
-    try{
-        await db.promise().query('UPDATE students.progress SET obtained_mark = ?, student_email = ?, test_mark = ?, test_name = ?, student_name = ?', [markob, email, testmark, testno, username])
-        res.json({successful : true})
-    } catch{
-        res.send('query to database failed')
+    try {
+        const data = await db.promise().query('Insert into students.progress SET obtained_mark = ?, students_id = ?, test_mark = ?, test_no = ?, test_date = ?', [markob, studentid, testmark, `${req.session.sub}_` + testno, testdate])
+        res.json({message: 'Progress updated successfully'});
+    } catch {
+        res.send('query to database failed',)
     }
 })
 
-app.post('/fetchtests', (req, res) => {
+app.post('/fetchtests', async (req, res) => {
     const username = req.body.username;
-    db.promise().query('SELECT * FROM students.progress WHERE student_name = ?', [username])
-    .then(response => response.json())
-    .then(data => {
-        res.json({data : data})
-    })
+
+    let subject
+    
+
+    if(req.session.sub.includes('mathematics')) {
+        subject = 'mathematics';
+    } else if(req.session.sub.includes('science')) {
+        subject = 'science';
+    } else if(req.session.sub.includes('egd')) {
+        subject = 'egd';
+    } else if(req.session.sub.includes('english')) {
+        subject = 'english';
+    }
+    const data = await db.promise().query('SELECT * FROM students.progress WHERE students_id = ? AND test_no LIKE ?', [username, `${subject}_%`]);
+
+    res.json({data: data[0]});
+
 })
 
 app.post('/namesetter', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173"); 
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -172,16 +182,16 @@ app.post('/namesetter', (req, res, next) => {
     next();
 }, async (req, res) => {
     try {
-        res.json({firstname: req.session.firstname, lastname: req.session.lastname});
+        res.json({ firstname: req.session.firstname, lastname: req.session.lastname });
     } catch (err) {
-        res.status(500).json({ why : err.message});
+        res.status(500).json({ why: err.message });
     }
 });
 
 app.post('/assignments', async (req, res) => {
     try {
-        const result = await db.promise().query('SELECT * FROM students.student_tasks ORDER BY id DESC');
-        res.json({data: result[0]});
+        const result = await db.promise().query('SELECT * FROM students.student_tasks Where subject = ? ORDER BY id DESC', [req.session.sub]);
+        res.json({ data: result[0] });
     } catch (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query error' });
@@ -191,7 +201,7 @@ app.post('/assignments', async (req, res) => {
 app.post('/user-info', async (req, res) => {
     try {
         const rows = await db.promise().query('SELECT * FROM students.students WHERE email = ?', [req.body.user]);
-        res.json({ data: rows[0]});
+        res.json({ data: rows[0] });
     } catch (err) {
         console.error('Database query error:', err);
         res.status(500).json({ error: 'Database query error', why: err.message });
@@ -208,7 +218,6 @@ app.put('/update-details', (req, res, next) => {
 }, async (req, res) => {
     try {
         const { firstname, lastname, ID, email, cell_number, secondname, bio, dob, gender } = req.body;
-        console.log(req.body);
 
         if (!ID) {
             return res.status(400).json({ error: 'Missing required ID field' });
@@ -222,7 +231,7 @@ app.put('/update-details', (req, res, next) => {
         if (result.rowCount === 0) {
             return res.status(404).json({ error: 'Student not found' });
         }
-        res.status(200).json({ message: 'Student updated successfully', successful : true });
+        res.status(200).json({ message: 'Student updated successfully', successful: true });
     } catch (err) {
         console.error('Database update error:', err);
         res.status(500).json({ error: 'Database update error', why: err.message });
@@ -231,11 +240,9 @@ app.put('/update-details', (req, res, next) => {
 
 app.delete('/deleteTask/:id', async (req, res) => {
     const id = req.params.id;
-        console.log(id);
 
     try {
-       const result = await db.promise().query('DELETE FROM students.student_tasks WHERE id = ?', [id]);
-       console.log(result)
+        const result = await db.promise().query('DELETE FROM students.student_tasks WHERE id = ?', [id]);
         res.status(200).send({ message: 'Task deleted successfully' });
     } catch (error) {
         res.status(500).send({ message: 'Failed to delete task', error: error.message });
@@ -272,10 +279,9 @@ app.get('/download/:id', async (req, res) => {
 
     const pdfBuffer = data[0][0].task_pdf;
 
-    console.log();
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=assignment.pdf');
-        res.send(pdfBuffer);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=assignment.pdf');
+    res.send(pdfBuffer);
 });
 
 const storage = multer.memoryStorage();
@@ -305,18 +311,18 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         return res.status(400).send('No file uploaded', req.session.name);
     }
 
-    const insertSubmissionSQL = 'INSERT INTO students.student_submissions(submitted_pdf, student_name, subject, id, time_submitted, student_email) VALUES (?, ?, ?, ?, ?, ?)';
-   const data = await db.promise().query(insertSubmissionSQL, [file.buffer, names, subject, taskno, date, email]);
-   if(data[0].affectedRows > 0){
-   return res.json({ message: 'Upload Successful' });
+    const insertSubmissionSQL = 'INSERT INTO students.student_submissions(submitted_pdf, student_name, subject, student_id, time_submitted, student_email) VALUES (?, ?, ?, ?, ?, ?)';
+    const data = await db.promise().query(insertSubmissionSQL, [file.buffer, names, subject, req.session.std_id, date, email]);
+    if (data[0].affectedRows > 0) {
+        return res.json({ message: 'Upload Successful' });
 
-   }else{
-    return res.status(500).json({ message: 'Failed to upload file' });
-   };
+    } else {
+        return res.status(500).json({ message: 'Failed to upload file' });
+    };
 });
 
 app.post('/uploadTask', upload.single('file'), (req, res) => {
-    const subject = req.body.subject;
+    const subject = req.session.sub;
     const file = req.file;
     const date2 = req.body.date;
     const taskno = req.body.taskno;
@@ -333,9 +339,10 @@ app.post('/uploadTask', upload.single('file'), (req, res) => {
 });
 
 app.post('/fetchtasks', async (req, res) => {
-    const username = req.body.name;
-    const result = await db.promise().query('SELECT * FROM students.student_submissions WHERE student_name = ?', [username]);
+    const username = req.body.id;
+    const result = await db.promise().query('SELECT * FROM students.student_submissions WHERE student_id = ? AND subject = ?', [username, req.session.sub]);
     res.json({ results: result[0] });
+
 });
 
 app.post('/count', (req, res, next) => {
@@ -349,16 +356,16 @@ app.post('/count', (req, res, next) => {
     try {
         const result1 = await db.promise().query('SELECT COUNT(id) AS total_ids FROM students.student_submissions WHERE student_email = ?', [req.session.name]);
         const result2 = await db.promise().query('SELECT COUNT(id) AS total_ids FROM students.student_tasks');
-        res.json({ total_ids: result1[0].total_ids, total_id: result2[0].total_ids, email : req.body.email });
+        res.json({ total_ids: result1[0][0].total_ids, total_id: result2[0][0].total_ids, email: req.body.email });
     } catch (err) {
         console.error('Database query error:', err);
-        res.status(500).json({ error: 'Database query error', why : err.message });
+        res.status(500).json({ error: 'Database query error', why: err.message });
     }
 });
 
 app.get('/emailsetter', async (req, res) => {
     const email = req.session.name;
-    res.send({email : email});
+    res.send({ email: email });
 })
 
 app.get('/logout', (req, res) => {
@@ -371,7 +378,7 @@ const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
 const date = time.toLocaleDateString('en-US', options);
 
 app.post('/events', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173"); 
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -380,11 +387,11 @@ app.post('/events', (req, res, next) => {
 }, async (req, res) => {
     try {
         const result = await db.promise().query('SELECT * FROM students.events WHERE time >= ?', [date]);
-    
+
         res.json({ date: result[0] });
     } catch (err) {
         console.error('Database query error:', err);
-        res.status(500).json({ error: 'Database query error', why : err.message});
+        res.status(500).json({ error: 'Database query error', why: err.message });
     }
 });
 
@@ -413,14 +420,14 @@ app.post('/getUsers', (req, res, next) => {
 
     } catch (err) {
         console.error('Database query error:', err);
-        res.status(500).json({ error: 'Database query error', why : err.message });
+        res.status(500).json({ error: 'Database query error', why: err.message });
     }
 });
 
 db.connect((err) => {
-    if(err){
+    if (err) {
         console.log('db connection failed', err)
-    }else{
+    } else {
         console.log('db connection successful');
     }
 })
@@ -428,8 +435,8 @@ db.connect((err) => {
 app.listen(process.env.PORT, (err) => {
     if (err) {
         console.log('Server failed');
-    } else{
-console.log('connection successful')
+    } else {
+        console.log('Server listening at port 3K')
     }
 })
 /* hendricks API */

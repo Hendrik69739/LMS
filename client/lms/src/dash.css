@@ -29,7 +29,8 @@
     padding: 10px;
     margin: 10px;
     background-color: white;
-}
+    visibility: hidden;
+ }
 
 #dashmain{
     display: flex;

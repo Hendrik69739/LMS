@@ -31,7 +31,7 @@ function Broadcast(){
             </div>
         </div>
     </div>
-    )) : <>No anouncements yet</>}
+    )) : <p id='ivm1'>No anouncements yet</p>}
     </main>
     )
 }

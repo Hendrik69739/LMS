@@ -43,6 +43,7 @@ function Dashboard() {
                 body: JSON.stringify({ email: emailsetter })
             });
             const response = await data.json();
+            console.log(response);
             setCount(response.total_ids);
             setCount2(response.total_id);
         };
@@ -59,12 +60,13 @@ function Dashboard() {
             });
 
             const data = await results.json();
+            console.log(data);
             setEvent(data.date);
         };
         time();
     }, []);
 
-    console.log(event)
+    console.log(count, count2);
 
     return (
         <>
