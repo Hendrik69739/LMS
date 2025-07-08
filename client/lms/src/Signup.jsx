@@ -35,12 +35,17 @@ function Signup() {
         setID(e.target.value);
     };
 
+    const [coarse, setCoarse] = useState('');
+    const handleCoarse = (e) => {
+        setCoarse(e.target.value);
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoader(true)
 
-        await fetch('http://localhost:3000/auth/register', {
+       const result = await fetch('http://localhost:3000/auth/register', {
             method: 'POST',
             credentials: "include",
             headers: { 'Content-Type': 'application/json' },
@@ -49,15 +54,32 @@ function Signup() {
                 lastname: lastname,
                 email: Email,
                 password: Password,
-                ID : ID
+                ID : ID,
+                coarse : coarse
             }),
         })
-        .then((data) => data.json())
-        .then((response) => {
+        
+        const response = await result.json();
+        console.log(response)
             if (response.redirect) {
                 navigate(response.redirect)
+            }else if(response.errno == 1062){
+                console.log('user is registered')
+
+                const mil = document.getElementById('mil1')
+
+                const mil1 = document.createElement('div');
+                mil1.innerHTML = 'User already registered'
+                mil1.setAttribute('id', 'mil2')
+
+                mil.appendChild(mil1)
+
+                setTimeout(() => {
+                    const mil3 = document.getElementById('mil2')
+                    mil3.remove();
+                }, 3000)
             }
-        });
+        
     };
 
     return (
@@ -109,12 +131,22 @@ function Signup() {
                     required
 
                 />
+                <select className="form-input" onChange={handleCoarse} required>
+                    <option value="">Select Coarse</option>
+                    <option value="mech4">Mechanical N4</option>
+                    <option value="mech5">Mechanical N5</option>
+                    <option value="mech6">Mechanical N6</option>
+                    <option value="elec4">Electrical N4</option>
+                    <option value="elec5">Electrical N5</option>
+                    <option value="elec6">Electrical N6</option>
+                </select>
                 </div>
                 {!loader && <button type="submit" className="form-button">Register</button>}
             {loader && <LoadingSpinner />}
             </form>
             <p className="signup-text">Have an account? <Link to="/login" className="signup-link">Sign in</Link></p>
-        </div>
+            <div id='mil1'></div>
+         </div>
     );
 }
 

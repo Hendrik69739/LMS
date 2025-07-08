@@ -6,10 +6,10 @@ const hashedpss = async (psw) => {
 }
 
 exports.register = async (req, res) => {
-    const { email, password, lastname, firstname, ID } = req.body;
+    const { email, password, lastname, firstname, ID, coarse } = req.body;
 
     try {
-        const { rows } = await db.promise().query('SELECT * FROM students.students WHERE email = ?', [email]);
+        const { rows } = await db.promise().query('SELECT * FROM students.students WHERE id_number = ?', [ID]);
 
 
         if (!rows === 0) {
@@ -21,10 +21,10 @@ exports.register = async (req, res) => {
         const hashedpassword = await hashedpss(password);
 
         const query = `
-            INSERT INTO students.students (email, firstname, lastname, password, id_number) 
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO students.students (email, firstname, lastname, password, id_number, course) 
+            VALUES (?, ?, ?, ?, ?, ?)
         `;
-        const results = await db.promise().query(query, [email, firstname, lastname, hashedpassword, ID]);
+        const results = await db.promise().query(query, [email, firstname, lastname, hashedpassword, ID, coarse]);
         console.log('Registration complete');
 
 
@@ -63,8 +63,8 @@ exports.register = async (req, res) => {
         }
 
     } catch (error) {
-        console.error('Internal server error:', error);
-        return res.status(500).json({ message: 'internal server error', why: error.message });
+        console.error('Internal server error:', error.errno);
+        return res.status(500).json({ message: 'internal server error', why: error.message, errno : error.errno });
     }
 };
 
@@ -139,7 +139,7 @@ exports.login = async (req, res) => {
 
     } catch (error) {
         console.log('Internal server error');
-        console.error(error);
+        console.error(error.errno);
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
