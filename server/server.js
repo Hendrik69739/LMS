@@ -198,6 +198,16 @@ app.post('/assignments', async (req, res) => {
     }
 });
 
+app.post('/assignment', async (req, res) => {
+    try {
+        const result = await db.promise().query('SELECT * FROM students.student_tasks ORDER BY id DESC');
+        res.json({ data: result[0] });
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error' });
+    }
+});
+
 app.post('/user-info', async (req, res) => {
     try {
         const rows = await db.promise().query('SELECT * FROM students.students WHERE email = ?', [req.body.user]);

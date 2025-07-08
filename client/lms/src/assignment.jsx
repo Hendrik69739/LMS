@@ -40,6 +40,7 @@ function Dock() {
       angle.innerHTML = data.message;
 
       if (data.message) {
+        setFile('');
        document.getElementById('sheriff').appendChild(angle);
        setTimeout(() => {
         angle.remove();
@@ -73,7 +74,7 @@ function Dock() {
 
   useEffect(() => {
     const fetchTask = async () => {
-      const data = await fetch('http://localhost:3000/assignments', {
+      const data = await fetch('http://localhost:3000/assignment', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

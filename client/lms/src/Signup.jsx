@@ -73,6 +73,7 @@ function Signup() {
                 mil1.setAttribute('id', 'mil2')
 
                 mil.appendChild(mil1)
+                setLoader(false)
 
                 setTimeout(() => {
                     const mil3 = document.getElementById('mil2')
