@@ -139,7 +139,7 @@ function User_Profile() {
                         <div key={info.id}>
                             <div className="test-content" >
                                 <div className="test">{info.test_no}</div>
-                                <div>{(info.obtained_mark/info.test_mark)*100+'%'}</div>
+                                <div>{Math.floor((info.obtained_mark/info.test_mark)*100)+'%'}</div>
                             </div>
                         </div>
                     ))
