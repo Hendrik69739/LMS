@@ -373,6 +373,24 @@ app.post('/count', (req, res, next) => {
     }
 });
 
+app.post('/Tcount', (req, res, next) => {
+    
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+    next();
+}, async (req, res) => {
+    try {
+        const result1 = await db.promise().query('SELECT COUNT(id) AS total_ids FROM students.progress WHERE students_id = ?', [req.session.std_id]);
+        res.json({ total_ids: result1[0][0].total_ids});
+    } catch (err) {
+        console.error('Database query error:', err);
+        res.status(500).json({ error: 'Database query error', why: err.message });
+    }
+});
+
 app.get('/emailsetter', async (req, res) => {
     const email = req.session.name;
     res.send({ email: email });

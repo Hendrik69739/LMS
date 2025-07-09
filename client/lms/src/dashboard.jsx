@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 function Dashboard() {
     const [count, setCount] = useState('');
     const [count2, setCount2] = useState('');
+    const [count3, setCount3] = useState('');
+
 
     const [namesetter, setNamesetter] = useState('');
 
@@ -50,7 +52,21 @@ function Dashboard() {
         assignments();
     }, [emailsetter]);
 
+     useEffect(() => {
+        const assignments = async () => {
+            const data = await fetch('http://localhost:3000/Tcount', {
+                method: 'POST',
+                credentials: 'include',
+            });
+            const response = await data.json();
+            console.log(response);
+            setCount3(response.total_ids);
+        };
+        assignments();
+    }, [emailsetter]);
+
     const [event, setEvent] = useState([]);
+    console.log(count3)
 
     useEffect(() => {
         const time = async () => {
@@ -78,7 +94,7 @@ function Dashboard() {
                             <p>Assignments<br /> Completed</p>
                         </div>
                         <div>
-                            <h1>5</h1>
+                            <h1>{count3}/8</h1>
                             <p>Tests Completed</p>
                         </div>
                     </div>
